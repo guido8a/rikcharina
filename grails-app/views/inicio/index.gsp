@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Monitor del COVID</title>
+    <title>De la Mata a la Olla</title>
     <meta name="layout" content="main"/>
     <style type="text/css">
     @page {
