@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rikcharina.iml" filepath="$PROJECT_DIR$/.idea/modules/rikcharina.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rikcharina_integrationTest.iml" filepath="$PROJECT_DIR$/.idea/modules/rikcharina_integrationTest.iml" group="rikcharina" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rikcharina_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rikcharina_main.iml" group="rikcharina" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rikcharina_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rikcharina_test.iml" group="rikcharina" />
+    </modules>
+  </component>
+</project>

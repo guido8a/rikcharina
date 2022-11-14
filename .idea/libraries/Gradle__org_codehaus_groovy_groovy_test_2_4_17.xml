@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.codehaus.groovy:groovy-test:2.4.17">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test/2.4.17/6229c7375c66b02b96ecc548c4b6fbe2dc2922fd/groovy-test-2.4.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-test/2.4.17/44d2ef1cfda29b107aca668157458a0d87828cae/groovy-test-2.4.17-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

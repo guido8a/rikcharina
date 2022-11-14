@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.grails:grails-core:3.3.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-core/3.3.10/9751d54dba666da3f049c70c36b396c0f49a98bd/grails-core-3.3.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-core/3.3.10/9ff6052aa462b6a4a621107be64adcffbcf8a4df/grails-core-3.3.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

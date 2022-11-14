@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.grails:grails-validation:3.3.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-validation/3.3.10/1132f3d75b25d7eb46ed1adcb5b5d3faefa3ca55/grails-validation-3.3.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-validation/3.3.10/fb9e6cd4fad82f7c58929088161e480eb7c72a01/grails-validation-3.3.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
