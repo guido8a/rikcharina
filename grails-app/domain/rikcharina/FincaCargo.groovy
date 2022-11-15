@@ -1,28 +1,32 @@
 package rikcharina
 
-class TipoLote {
+class FincaCargo {
 
     static auditable = true
-    String descripcion
+
+    Finca    finca
+    Cargo    cargo
 
     static mapping = {
-        table 'tplt'
+        table 'fncg'
         cache usage: 'read-write', include: 'non-lazy'
         version false
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id          column: 'tplt__id'
-            descripcion column: 'tpltdscr'
+            id      column: 'fncg__id'
+            finca   column: 'fnca__id'
+            cargo   columm: 'crgo__id'
         }
     }
 
 
     static constraints = {
-        descripcion(blank: false, size: 0..50)
+        finca (blank: false, nullable: false)
+        cargo (blank: false, nullable: false)
     }
 
     String toString() {
-        "${this.descripcion}"
+        "${this.  cargo}"
     }
 }

@@ -12,7 +12,7 @@ class Equipo {
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id column: 'eqpo__id'
+            id          column: 'eqpo__id'
             descripcion column: 'eqpodscr'
         }
     }

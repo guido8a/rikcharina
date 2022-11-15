@@ -12,7 +12,7 @@ class Animal {
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id column: 'anml__id'
+            id          column: 'anml__id'
             descripcion column: 'anmldscr'
         }
     }

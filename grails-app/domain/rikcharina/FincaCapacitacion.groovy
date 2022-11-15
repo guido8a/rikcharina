@@ -1,35 +1,32 @@
 package rikcharina
 
-class ObrasFinca {
+class FincaCapacitacion {
 
     static auditable = true
 
     Finca    finca
-    TipoObra tipoObra
-    String   estado
+    Capacitacion  capacitacion
 
     static mapping = {
-        table 'obfn'
+        table 'fncp'
         cache usage: 'read-write', include: 'non-lazy'
         version false
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id        column: 'obfn__id'
-            finca     column: 'fnca__id'
-            tipoObra  columm: 'tpob__id'
-            estado    column: 'obfnetdo'
+            id           column: 'fncp__id'
+            finca        column: 'fnca__id'
+            capacitacion columm: 'capc__id'
         }
     }
 
 
     static constraints = {
         finca (blank: false, nullable: false)
-        tipoObra (blank: false, nullable: false)
-        estado (blank: false, nullable: false)
+        capacitacion (blank: false, nullable: false)
     }
 
     String toString() {
-        "${this.tipoObra}"
+        "${this.capacitacion}"
     }
 }

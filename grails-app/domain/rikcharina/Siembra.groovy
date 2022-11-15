@@ -12,7 +12,7 @@ class Siembra {
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id column: 'smbr__id'
+            id          column: 'smbr__id'
             descripcion column: 'smbrdscr'
         }
     }

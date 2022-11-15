@@ -20,7 +20,7 @@ class TrabajoFamiliar {
             id        column: 'trfm__id'
             finca     column: 'fnca__id'
             familia   columm: 'faml__id'
-            numero    column: 'tplt__id'
+            numero    column: 'trfmnmro'
             actividad column: 'trfmrefe'
             tipo      column: 'trfmtipo'
         }

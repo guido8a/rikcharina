@@ -12,7 +12,7 @@ class Institucion {
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
         columns {
-            id column: 'inst__id'
+            id     column: 'inst__id'
             nombre column: 'instnmbr'
         }
     }
