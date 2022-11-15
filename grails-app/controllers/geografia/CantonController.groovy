@@ -411,6 +411,18 @@ class CantonController {
                         }
                         break
                     case "cntn":
+                        hijos = Parroquia.findAllByCanton(Canton.get(id), [sort: params.sort])
+                        liId = "parr_"
+//                    println "tipo: $tipo, ${hijos.size()}"
+                        ico = ", \"icon\":\"fa fa-registered text-danger\""
+                        hijos.each { h ->
+//                        println "procesa $h"
+//                        clase = Comunidad.findByParroquia(h)? "jstree-closed hasChildren" : ""
+                            clase = ""
+                            tree += "<li id='" + liId + h.id + "' class='" + clase + "' data-jstree='{\"type\":\"${"parroquia"}\" ${ico}}'>"
+                            tree += "<a href='#' class='label_arbol'>" + h.nombre + "</a>"
+                            tree += "</li>"
+                        }
                         break
                 }
             }

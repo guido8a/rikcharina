@@ -41,14 +41,6 @@
 
 <div class="row" style="margin-bottom: 10px;">
 
-%{--    <div class="btn-toolbar toolbar">--}%
-%{--        <div class="btn-group">--}%
-%{--            <g:link controller="inicio" action="parametros" class="btn btn-info">--}%
-%{--                <i class="fa fa-arrow-left"></i> Parámetros--}%
-%{--            </g:link>--}%
-%{--        </div>--}%
-%{--    </div>--}%
-
     <div class="col-md-2">
         <div class="input-group input-group-sm">
             <g:textField name="searchArbol" class="form-control input-sm" placeholder="Buscador"/>
@@ -92,7 +84,7 @@
     <div class="col-md-4 text-right pull-right" style="font-size: 18px">
         <i class="fa fa-parking text-success"></i> Provincia
         <i class="fa fa-copyright text-primary"></i> Cantón
-%{--        <i class="fa fa-registered text-danger"></i> Parroquia--}%
+        <i class="fa fa-registered text-danger"></i> Parroquia
 %{--        <i class="fa fa-info-circle text-warning"></i> Comunidad--}%
     </div>
 </div>
