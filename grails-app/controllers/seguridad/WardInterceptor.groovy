@@ -4,11 +4,9 @@ class WardInterceptor {
 
     WardInterceptor () {
 //        matchAll().excludes(controller: 'login')
-        matchAll().excludes(controller:'login')
+        matchAll().excludes(controller:'apis')
+                .excludes(controller:'login')
                 .excludes(controller:'shield')
-                .excludes(controller:'provincia')  /** mapa **/
-                .excludes(controller:'documento')  /** documentos **/
-                .excludes(controller:'descargas')  /** documentos **/
                 .excludes(controller:'prfl')
     }
 

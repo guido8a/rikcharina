@@ -132,8 +132,8 @@ class Finca implements Auditable{
         }
     }
     static constraints = {
-        dispositivo            (blank:false, nullable: false)
-        parroquia              (blank:false, nullable: false)
+        dispositivo(blank:false, nullable: false)
+        parroquia(blank:false, nullable: false)
         comunidad              (blank:false, nullable: false)
         institucion            (blank:false, nullable: false)
         fecha                  (blank:false, nullable: false)
@@ -153,7 +153,7 @@ class Finca implements Auditable{
         jornalerosPermanentes  (blank:false, nullable: false)
         jornalerosTemporales   (blank:false, nullable: false)
         organizacion           (blank:false, nullable: false)
-        plan                        (blank:false, nullable: false)
+        plan(blank:false, nullable: false)
         terrenoPlano                (blank:false, nullable: false)
         terrenoInclinado            (blank:false, nullable: false)
         asociacionCultivos          (blank:false, nullable: false)
