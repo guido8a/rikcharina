@@ -7,13 +7,16 @@
         <style type="text/css">
         ul {padding:0.2em}
         li {padding:0.2em}
+            .tamano{
+                font-size: 16px;
+            }
         </style>
     </head>
 
     <body>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4">
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -22,33 +25,16 @@
 
                     <div class="panel-body">
                         <ul class="fa-ul">
-                            <li>
-                                <i class="fa-li far fa-bookmark text-info"></i>
-                                <g:link data-info="catalogo" class="over" controller="tema" action="list">
-                                    Temas
-                                </g:link> Tópicos sobre los cuales se recopila lecciones aprendidas en el formato
-                                problema - solución
-
-                                <div class="descripcion hidden">
-                                    <h4>Temas</h4>
-
-                                    <p>Temas sobre los cuales de ingresan en el sistema lecciones aprendidas<br/>
-
-                                       Se registran los problemas solucionados y el modo de solucionarlos</p>
-                                </div>
-                            </li>
-
-                            <li>
+                             <li>
                                 <i class="fa-li fas fa-certificate text-info"></i>
-                                <g:link data-info="categoria" class="over" controller="tipoInstitucion" action="list">
-                                    Tipos de institución
-                                </g:link> para diferenciar entre la Unidad Ejecutora de Proyecto y otras organizaciones
+                                <g:link data-info="categoria" class="over tamano" controller="institucion" action="list" >
+                                    Instituciones
+                                </g:link>
 
                                 <div class="descripcion hidden">
-                                    <h4>Tipos de institución</h4>
+                                    <h4>Instituciones</h4>
 
-                                    <p>Además del proyecto FAREPS se registran otros tipos de organizaciones
-                                    que van a participar en el proyecto como por ejemplo en Convenios.
+                                    <p> Administración de las diferentes instituciones
                                     </p>
                                 </div>
                             </li>

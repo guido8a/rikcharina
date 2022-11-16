@@ -11,6 +11,7 @@ class ManejoAnimal {
     static mapping = {
         table 'mjan'
         cache usage: 'read-write', include: 'non-lazy'
+        id column: 'mjan__id'
         version false
         id generator: 'identity'
         control sort: ['ctrlNombre': 'asc']
@@ -18,7 +19,7 @@ class ManejoAnimal {
             id        column: 'mjan__id'
             finca     column: 'fnca__id'
             animal    columm: 'anml__id'
-            numero    column: 'mjan__id'
+            numero    column: 'mjannmro'
         }
     }
 
