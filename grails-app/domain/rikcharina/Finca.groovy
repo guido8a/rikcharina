@@ -60,7 +60,8 @@ class Finca implements Auditable{
     String  lugarVenta                    
     String  fecuencia                     
     String  estaoOrganizacion             
-    String  calificacion                  
+    String  calificacion
+    int     idDispositivo
 
     static mapping = {
         table 'fnca'
@@ -125,11 +126,12 @@ class Finca implements Auditable{
             fecuencia                   column: 'fncafrec'
             estaoOrganizacion           column: 'fncaoged'
             calificacion                column: 'fncacalf'
+            idDispositivo               column: 'fncaidds'
         }
     }
     static constraints = {
-        dispositivo(blank:false, nullable: false)
-        parroquia(blank:false, nullable: false)
+        dispositivo            (blank:false, nullable: false)
+        parroquia              (blank:false, nullable: false)
         comunidad              (blank:false, nullable: false)
         institucion            (blank:false, nullable: false)
         fecha                  (blank:false, nullable: false)
@@ -143,13 +145,13 @@ class Finca implements Auditable{
         longitud               (blank:false, nullable: false)
         latitud                (blank:false, nullable: false)
         zona                   (blank:false, nullable: false)
-        foto                   (blank:false, nullable: false)
+        foto                   (blank:true, nullable: true)
         actvAgricola           (blank:false, nullable: false)
         actvPecuaria           (blank:false, nullable: false)
         jornalerosPermanentes  (blank:false, nullable: false)
         jornalerosTemporales   (blank:false, nullable: false)
         organizacion           (blank:false, nullable: false)
-        plan(blank:false, nullable: false)
+        plan                   (blank:false, nullable: false)
         terrenoPlano                (blank:false, nullable: false)
         terrenoInclinado            (blank:false, nullable: false)
         asociacionCultivos          (blank:false, nullable: false)
@@ -183,6 +185,7 @@ class Finca implements Auditable{
         fecuencia                (blank:false, nullable: false)
         estaoOrganizacion        (blank:false, nullable: false)
         calificacion             (blank:false, nullable: false)
+        idDispositivo            (blank:false, nullable: false)
     }
 
     String toString() {
