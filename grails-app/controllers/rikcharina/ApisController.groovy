@@ -128,6 +128,7 @@ class ApisController {
                 "'${data.fncainfr}', '${data.fncasant}', '${data.fncaancs}', '${data.fncabsra}', '${data.fncaauto}'," +
                 "'${data.fncavnta}', '${data.fncalgvn}', '${data.fncafrec}', '${data.fncaoged}', '${data.fncacalf}'," +
                 "'${data.fncaplan}' ) returning fnca__id"
+            
             println "Insertando datos en fnca_t: ${data.fncadspt}"
             id = cn.rows(sql.toString())[0]?.fnca__id
 
