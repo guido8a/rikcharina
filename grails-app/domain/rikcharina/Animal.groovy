@@ -1,6 +1,8 @@
 package rikcharina
 
-class Animal {
+import audita.Auditable
+
+class Animal implements Auditable{
 
     static auditable = true
     String descripcion
