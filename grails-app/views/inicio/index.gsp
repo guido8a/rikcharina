@@ -13,7 +13,7 @@
 
     .item {
         width: 260px;
-        height: 225px;
+        height: 325px;
         float: left;
         margin: 4px;
         font-family: 'open sans condensed';
@@ -24,7 +24,7 @@
     }
     .item2 {
         width: 660px;
-        height: 160px;
+        height: 260px;
         float: left;
         margin: 4px;
         font-family: 'open sans condensed';
@@ -36,13 +36,13 @@
 
     .imagen {
         width: 200px;
-        height: 140px;
+        height: 240px;
         margin: auto;
         margin-top: 10px;
     }
     .imagen2 {
         width: 180px;
-        height: 130px;
+        height: 230px;
         margin: auto;
         margin-top: 10px;
         margin-right: 40px;
@@ -100,7 +100,7 @@
         border-radius: 0.5rem;
         box-shadow: 7px 7px 30px -5px rgba(0,0,0,0.1);
         margin-bottom: 1rem;
-        width: 553px; height: 115px
+        width: 553px; height: 200px
     }
 
     .wrap:hover {
@@ -156,7 +156,7 @@
 <div class="dialog">
     <g:set var="inst" value="${utilitarios.Parametros.get(1)}"/>
 
-    <div style="text-align: center;margin-bottom: 20px"><h2 class="titl">
+    <div style="text-align: center;margin-bottom: 50px"><h2 class="titl">
         %{--            <p class="text-warning">${inst.institucion}</p>--}%
         <p class="text-warning">Sistema de la Mata a la Olla</p>
     </h2>
@@ -164,15 +164,15 @@
 
     <div class="row mbr-justify-content-center">
 
-    <a href= "${createLink(controller:'provincia', action: 'mapa')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'finca', action: 'finca')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 120px">
-                    <asset:image src="apli/proyecto.jpeg" title="Mapa de semáforos"  width="80%" height="80%"/>
+                <div style="width: 200px; height: 220px">
+                    <asset:image src="apli/proyecto.jpeg" title="Datos de fincas"  width="80%" height="80%"/>
                 </div>
-                <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Mapa</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Semáforos y Documentación Generada por la Emergencia del COVID-19</p>
+                <div style="width: 450px; height: 220px">
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Fincas</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de las fincas registradas en el sistema</p>
                 </div>
             </div>
         </div>
@@ -182,11 +182,11 @@
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
-                    <asset:image src="apli/proyecto.jpeg" title="Períodos y semáforos por cantón"  width="80%" height="80%"/>
+                    <asset:image src="apli/proyecto.jpeg" title="Reportes"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Períodos</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de nuevos períodos y semáforos</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Reportes de datos de las fincas registradas</p>
                 </div>
             </div>
         </div>
@@ -213,8 +213,8 @@
                     <asset:image src="apli/proyecto.jpeg" title="Cantones"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Cantones</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de cantones</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Cantones de la provincia Cotopaxi</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Datos de cantones y parroquias de al provincia</p>
                 </div>
             </div>
         </div>
