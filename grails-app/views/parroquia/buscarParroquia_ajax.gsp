@@ -1,16 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 08/07/20
-  Time: 13:33
---%>
-
-<%--
-  Created by IntelliJ IDEA.
-  User: fabricio
-  Date: 07/07/20
-  Time: 11:25
---%>
 
 <g:form class="form-horizontal" name="frmBuscarPartida" style="overflow-y: auto">
     <div class="col-md-12" style="margin-bottom: 10px">
@@ -19,7 +6,8 @@
             <label>Buscar:</label>
         </div>
         <div class="col-md-3">
-            <g:select name="buscarP" from="${[2: 'Parroquia', 1: 'Cantón', 0: 'Provincia']}" class="form-control" optionValue="value" optionKey="key"/>
+%{--            <g:select name="buscarP" from="${[2: 'Parroquia', 1: 'Cantón', 0: 'Provincia']}" class="form-control" optionValue="value" optionKey="key"/>--}%
+            <g:select name="buscarP" from="${[2: 'Parroquia', 1: 'Cantón']}" class="form-control" optionValue="value" optionKey="key"/>
         </div>
         <div class="col-md-4">
             <g:textField name="txtBuscar" value="${''}" class="form-control" />
@@ -52,7 +40,7 @@
 <script type="text/javascript">
 
     $(".form-control").keydown(function (ev) {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode === 13) {
             $("#btnBuscarParroquia").click();
             return false;
         }

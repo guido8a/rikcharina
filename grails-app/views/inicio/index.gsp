@@ -192,15 +192,15 @@
         </div>
     </a>
 
-    <a href= "${createLink(controller:'semaforo', action: 'arbol')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'finca', action: 'finca')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
                 <div style="width: 200px; height: 120px">
-                    <asset:image src="apli/proyecto.jpeg" title="Documentos por cantón"  width="80%" height="80%"/>
+                    <asset:image src="apli/proyecto.jpeg" title="Administración de fincas"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
-                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Documentos</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Registro de documentos y acuerdos generados</p>
+                    <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Fincas</span></h2>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Administración de Fincas</p>
                 </div>
             </div>
         </div>

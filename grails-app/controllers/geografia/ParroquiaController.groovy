@@ -183,7 +183,7 @@ class ParroquiaController {
 
         def cn = dbConnectionService.getConnection()
         sql = "select * from parr, prov, cntn where prov.prov__id = cntn.prov__id and " +
-                "cntn.cntn__id = parr.cntn__id and ${operador} ilike '%${params.texto}%' " +
+                "cntn.cntn__id = parr.cntn__id and prov.prov__id = 5 and ${operador} ilike '%${params.texto}%' " +
                 "order by provnmbr asc limit 20"
         def res = cn.rows(sql.toString())
 

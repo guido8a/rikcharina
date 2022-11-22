@@ -1,12 +1,13 @@
 package rikcharina
 
 import audita.Auditable
+import geografia.Parroquia
 
 class Finca implements Auditable{
     static auditable = true
 
-    String  dispositivo                   
-    int     parroquia                     
+    String  dispositivo
+    Parroquia parroquia
     String  comunidad                     
 //    String  institucion
     Institucion  institucion
