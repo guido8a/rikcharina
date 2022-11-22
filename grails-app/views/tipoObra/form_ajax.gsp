@@ -1,13 +1,13 @@
-<g:form class="form-horizontal" name="frmInstitucion" action="saveInstitucion_ajax">
-    <g:hiddenField name="id" value="${institutoInstance?.id}"/>
+<g:form class="form-horizontal" name="frmTipoObra" action="saveTipoObra_ajax">
+    <g:hiddenField name="id" value="${tipoObraInstance?.id}"/>
 
-    <div class="form-group ${hasErrors(bean: institutoInstance, field: 'nombre', 'error')} ">
+    <div class="form-group ${hasErrors(bean: tipoObraInstance, field: 'descripcion', 'error')} ">
         <span class="grupo">
-            <label for="nombre" class="col-md-2 control-label text-info">
-                Nombre
+            <label for="descripcion" class="col-md-2 control-label text-info">
+                Descripción
             </label>
             <span class="col-md-8">
-                <g:textField name="nombre" maxlength="50" class="form-control required" value="${institutoInstance?.nombre}"/>
+                <g:textField name="descripcion" maxlength="50" class="form-control required" value="${tipoObraInstance?.descripcion}"/>
                 <p class="help-block ui-helper-hidden"></p>
             </span>
         </span>
@@ -16,7 +16,7 @@
 </g:form>
 
 <script type="text/javascript">
-    var validator = $("#frmInstitucion").validate({
+    var validator = $("#frmTipoObra").validate({
         errorClass     : "help-block",
         errorPlacement : function (error, element) {
             if (element.parent().hasClass("input-group")) {
@@ -32,7 +32,7 @@
     });
     $(".form-control").keydown(function (ev) {
         if (ev.keyCode === 13) {
-            submitFormInstitucion();
+            submitFormTipoObra();
             return false;
         }
         return true;

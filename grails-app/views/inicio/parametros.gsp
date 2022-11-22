@@ -1,329 +1,237 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-    <head>
-        <meta name="layout" content="main">
-        <title>Parámetros</title>
 
-        <style type="text/css">
-        ul {padding:0.2em}
-        li {padding:0.2em}
-            .tamano{
-                font-size: 16px;
-            }
-        </style>
-    </head>
 
-    <body>
+<head>
+    <meta name="layout" content="main"/>
 
-        <div class="row">
-            <div class="col-md-4">
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Parámetros del Sistema</h3>
-                    </div>
+    <title>Parámetros</title>
 
-                    <div class="panel-body">
-                        <ul class="fa-ul">
-                             <li>
-                                <i class="fa-li fas fa-certificate text-info"></i>
-                                <g:link data-info="categoria" class="over tamano" controller="institucion" action="list" >
-                                    Instituciones
-                                </g:link>
+    <style type="text/css">
 
-                                <div class="descripcion hidden">
-                                    <h4>Instituciones</h4>
+    .tab-content, .left, .right {
+        height : 600px;
+    }
 
-                                    <p> Administración de las diferentes instituciones
-                                    </p>
-                                </div>
-                            </li>
+    .tab-content {
+        /*background  : #EFE4D1;*/
+        background  : #EEEEEE;
+        border      : solid 1px #DDDDDD;
+        padding-top : 10px;
+    }
 
-                            <li>
-                                <i class="fa-li fas fa-map-marker-alt text-info"></i>
-                                <g:link data-info="categoria" class="over" controller="canton" action="arbol">
-                                    Distribución geográfica
-                                </g:link> del país para referenciar las metas y los Convenios
+    .descripcion {
+        /*margin-left : 20px;*/
+        font-size : 12px;
+        border    : solid 2px cadetblue;
+        padding   : 0 10px;
+        margin    : 0 10px 0 0;
+    }
 
-                                <div class="descripcion hidden">
-                                    <h4>istribución geográfica de Ecuador</h4>
+    .info {
+        font-style : italic;
+        color      : navy;
+    }
 
-                                    <p>Permitirá referenciar geográficamente las metas del proyeto y los lugares donde
-                                        se firmen los Convenios.
-                                    </p>
-                                    <p>Cuenta con las provincias, cantones y parroquias.
-                                    </p>
-                                </div>
-                            </li>
+    .descripcion h4 {
+        color      : cadetblue;
+        text-align : center;
+    }
 
-                            <li>
-                                <i class="fa-li far fa-money-bill-alt text-info"></i>
-                                <g:link class="over" controller="presupuesto" action="arbol">
-                                    Plan de cuentas Presupuestario
-                                </g:link> o partidas presupuestarias para la asignación de gasto permanente y de inversión
+    .left {
+        width : 710px;
+        /*background : red;*/
+    }
 
-                                <div class="descripcion hidden">
-                                    <h4>Plan de cuentas Presupuestario</h4>
+    .right {
+        width       : 300px;
+        margin-left : 40px;
+        /*background  : blue;*/
+    }
 
-                                    <p>Plan de cuentas o de partidas presupuestarias conforme exista en el ESIGEF</p>
-                                </div>
-                            </li>
+    .fa-ul li {
+        margin-bottom : 10px;
+    }
 
-                            <li>
-                                <i class="fa-li fas fa-scroll text-info"></i>
-                                <g:link class="over" controller="tipoElemento" action="list">
-                                    Tipo de Elemento
-                                </g:link> del marco lógico
+    .uno {
 
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de Elemento</h4>
+        float      : left;
+        width      : 150px;
+        margin-top : 10px;
+    }
 
-                                    <p>Pueden existir varios tipos como: Fin, Propósito, Componestes y Acciones</p>
-                                </div>
-                            </li>
+    .dos {
 
-                            <li>
-                                <i class="fa-li fas fa-highlighter text-info"></i>
-                                <g:link class="over" controller="indicadorOrms" action="list">
-                                    Indicadores ORMS
-                                </g:link> que se aplican al proyecto
+        float      : left;
+        width      : 250px;
+        margin-top : 10px;
+    }
 
-                                <div class="descripcion hidden">
-                                    <h4>Indicadores ORMS</h4>
+    .fila {
+        height : 40px;
+    }
 
-                                    <p>Indicadores que figuran como parte del Proyeto y que deben figurar tanto en las metas
-                                    a cumplir del Proyecto como en la linea base y resultados de los Convenios</p>
-                                </div>
-                            </li>
+    .textoUno {
+        float : left;
+        width : 250px;
 
-                            <li>
-                                <i class="fa-li fa fa-calendar text-info"></i>
-                                <g:link class="over" controller="anio" action="list">
-                                    Año Fiscal
-                                </g:link> Año al cual corresponde el POA. Es el período contable o año fiscal
+    }
 
-                                <div class="descripcion hidden">
-                                    <h4>Año Fiscal</h4>
+    .textoDos {
+        float : left;
 
-                                    <p>Año al cual corresponde el POA, cada año debe iniciarse una nueva gestión del
-                                    proyecto, definiendo un cronograma y con ello las asignaciones para las disitntas
-                                    actividades del POA.</p>
-                                </div>
-                            </li>
+    }
 
-                            <li>
-                                <i class="fa-li far fa-folder text-info"></i>
-                                <g:link class="over" controller="grupoProcesos" action="list">
-                                    Grupo de procesos
-                                </g:link> del proyecto: Inicio, Planificación, ejecución y cierre
 
-                                <div class="descripcion hidden">
-                                    <h4>Grupo de procesos</h4>
+    .btn-sq-lg {
+        width: 150px !important;
+        height: 150px !important;
+    }
 
-                                    <p>Sirve para organizar la biblioteca del proyecto y la de los Convenios.</p>
-                                </div>
-                            </li>
+    .btn-sq {
+        width: 100px !important;
+        height: 100px !important;
+        font-size: 10px;
+    }
 
-                            <li>
-                                <i class="fa-li fa fa-suitcase text-info"></i>
-                                <g:link class="over" controller="fuente" action="list">
-                                    Fuente de financiamiento
-                                </g:link> de las actividades y componentes del Proyecto
+    .btn-sq-sm {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 10px;
+    }
 
-                                <div class="descripcion hidden">
-                                    <h4>Fuente de financiamiento</h4>
+    .btn-sq-xs {
+        width: 25px !important;
+        height: 25px !important;
+        padding:2px;
+    }
 
-                                    <p>Organismos de financiamiento que paricipan en el Poryecto.<br/>
+    </style>
 
-                                        Cada fuente participa en el financiamiento de la sactividades registradas en el
-                                        cronograma y en el Plan de Negocios Solidario.</p>
-                                </div>
-                            </li>
+</head>
 
-                            <li>
-                                <i class="fa-li fas fa-list text-info"></i>
-                                <g:link class="over" controller="mes" action="list">
-                                    Meses
-                                </g:link> para el registro del cronograma del POA de Proyecto
+<body>
 
-                                <div class="descripcion hidden">
-                                    <h4>Meses</h4>
+<div class="row">
+    <div class="col-md-6"style="text-align: center;">
 
-                                    <p>Sirve para el registro del cronograma del POA del Proyecto.</p>
-                                </div>
-                            </li>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Parámetros del Sistema</h3>
+            </div>
 
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-info"></i>
-                                <g:link class="over" controller="unidad" action="list">
-                                    Unidad de medida
-                                </g:link> para definir las Metas del Proyecto
-
-                                <div class="descripcion hidden">
-                                    <h4>Unidad de medida</h4>
-
-                                    <p>Sirve para cuantificar las Metas del Proyecto</p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="aseguradora" action="list">
-                                    Aseguradora
-                                </g:link> Lista de aseguradoras
-                                <div class="descripcion hidden">
-                                    <h4>Aseguradora</h4>
-                                    <p>Lista de aseguradoras</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="tipoCategoria" action="list">
-                                    Tipo de Categoría
-                                </g:link> Lista de tipos de categorías
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de Categoría</h4>
-                                    <p>Lista de tipos de categorías</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="estadoGarantia" action="list">
-                                    Estado de la garantía
-                                </g:link> Lista de estados de la garantía
-                                <div class="descripcion hidden">
-                                    <h4>Estado de la garantía</h4>
-                                    <p>Lista de estados de la garantía</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="tipoNecesidad" action="list">
-                                    Tipo de necesidad
-                                </g:link> Listado de Tipos de necesidad
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de necesidad</h4>
-                                    <p>Listado de Tipos de necesidad</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="tipoTaller" action="list">
-                                    Tipo de Taller
-                                </g:link> Listado de Tipos de talleres
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de Taller</h4>
-                                    <p>Listado de Tipos de talleres</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fa fa-map-marker text-warning"></i>
-                                <g:link class="over text-warning" controller="tipoProcesoComprasPublicas" action="list">
-                                    Tipo de Proceso
-                                </g:link> Listado de Tipos de proceso de comrpas públicas
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de Proceso</h4>
-                                    <p>Listado de Tipos de proceso de comrpas públicas</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fas fa-chart-line text-success"></i>
-                                <g:link class="over text-success" controller="tipoEvaluacion" action="list">
-                                    Tipo de evaluación
-                                </g:link> de los indicadores del Convenio: Linea base y Evaluaciones posteriores
-
-                                <div class="descripcion hidden">
-                                    <h4>Tipo de evaluación</h4>
-
-                                    <p>Se refiere al momento en el cual se relaiza la evaluación de los indicadores
-                                    del Convenio o del Proyecto en general para facilitar su seguimiento y determinar
-                                    su evolución, en la cuantificación de resultados obtenidos</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fa-li fas fa-box text-success"></i>
-                                <g:link class="over text-success" controller="unidadCompras" action="list">
-                                    Unidad de rikcharina públicas
-                                </g:link> para la contratación de bienes o servicios del PNS
-
-                                <div class="descripcion hidden">
-                                    <h4>Unidad de rikcharina públicas</h4>
-
-                                    <p>Sirve para el registro del bien o servicio a contratarse como
-                                    parte del Plan de Negocios Solidario</p>
-                                </div>
-                            </li>
-%{--
-                            <li>
-                                <i class="fa-li fas fa-boxes text-success"></i>
-                                <g:link class="over text-success" controller="macroActividad" action="list">
-                                    Código de rikcharina publicas
-                                </g:link> para la contratación de bienes o servicios del PNS
-
-                                <div class="descripcion hidden">
-                                    <h4>Código de rikcharina publicas</h4>
-
-                                    <p>Sirve para el registro del bien o servicio a contratarse como
-                                    parte del Plan de Negocios Solidario</p>
-                                </div>
-                            </li>
---}%
-%{--
-                            <li>
-                                <i class="fa-li far fa-calendar-alt text-success"></i>
-                                <g:link class="over text-success" controller="macroActividad" action="list">
-                                    Periodo del plan
-                                </g:link> para las actividades del PNS
-
-                                <div class="descripcion hidden">
-                                    <h4>Periodo del plan</h4>
-
-                                    <p>Sirve para el registro en detalle de las actividades del Plan de Negocios
-                                    Solidario, una vez que se tiene la fecha de inicio del Convenio.</p>
-                                </div>
-                            </li>
---}%
-                            <li>
-                                <i class="fa-li fas fa-cogs text-success"></i>
-                                <g:link class="over text-success" controller="estadoAval" action="list">
-                                    Estado del Aval y Reforma
-                                </g:link> para la emisión de Avales y Reformas al POA
-
-                                <div class="descripcion hidden">
-                                    <h4>Estado del Aval y Reforma</h4>
-
-                                    <p>Sirve para el registro del proceso de emisión de Avales y Reformas.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-5">
+                    <p>
+                        <g:link data-info="categoria" class="link btn btn-primary btn-ajax" controller="canton" action="arbol">
+                            <i class="fa fa-globe fa-5x"></i><br/>
+                            Distribución Geográfica
+                        </g:link>
+                    </p>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="panel panel-info right hidden">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"></h3>
-                    </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-5">
+                    <p>
+                        <g:link data-info="categoria" class="link btn btn-warning btn-ajax" controller="institucion" action="list" >
+                            <i class="fa fa-building fa-5x"></i><br/> Instituciones
+                        </g:link>
 
-                    <div class="panel-body">
+                        <g:link class="link btn btn-warning btn-ajax" controller="familia" action="list">
+                            <i class="fa fa-home fa-5x"></i><br/>
+                            Familias
+                        </g:link>
 
-                    </div>
+                        <g:link class="link btn btn-warning btn-ajax" controller="tipoLote" action="list">
+                            <i class="fa fa-map fa-5x"></i><br/>
+                            Tipo de Lote
+                        </g:link>
+
+                        <g:link class="link btn btn-warning btn-ajax" controller="tipoObra" action="list">
+                            <i class="fa fa-book fa-5x"></i><br/>
+                            Tipo de Obra
+                        </g:link>
+
+                    </p>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12 col-xs-5">
+                    <p>
+                        <g:link class="link btn btn-success btn-ajax" controller="planta" action="list">
+                            <i class="fa fa-tree fa-5x"></i><br/>
+                            Plantas
+                        </g:link>
+
+                        <g:link class="link btn btn-success btn-ajax" controller="animal" action="list">
+                            <i class="fa fa-paw fa-5x"></i><br/>
+                            Animales
+                        </g:link>
+
+                        <g:link class="link btn btn-success btn-ajax" controller="enfermedad" action="list">
+                            <i class="fa fa-certificate fa-5x"></i><br/>
+                            Enfermedades
+                        </g:link>
+
+                        <g:link class="link btn btn-success btn-ajax" controller="plaga" action="list">
+                            <i class="fa fa-asterisk fa-5x"></i><br/>
+                            Plagas
+                        </g:link>
+
+                        <g:link class="link btn btn-success btn-ajax" controller="siembra" action="list">
+                            <i class="fa fa-book fa-5x"></i><br/>
+                            Tipo de Siembra
+                        </g:link>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-xs-5">
+                    <p>
+                        <g:link class="link btn btn-info btn-ajax" controller="equipo" action="list">
+                            <i class="fa fa-wrench fa-5x"></i><br/>
+                            Instalaciones
+                        </g:link>
+
+                        <g:link class="link btn btn-info btn-ajax" controller="capacitacion" action="list">
+                            <i class="fa fa-calendar fa-5x"></i><br/>
+                            Capacitaciones
+                        </g:link>
+
+                        <g:link class="link btn btn-info btn-ajax" controller="cargo" action="list">
+                            <i class="fa fa-users fa-5x"></i><br/>
+                            Cargos
+                         </g:link>
+
+                    </p>
+                </div>
+            </div>
+
         </div>
+    </div>
+</div>
 
-        <script type="text/javascript">
-            $(function () {
-                $(".over").hover(function () {
-                    var $h4 = $(this).siblings(".descripcion").find("h4");
-                    var $cont = $(this).siblings(".descripcion").find("p");
-                    $(".right").removeClass("hidden").find(".panel-title").text($h4.text()).end().find(".panel-body").html($cont.html());
-                }, function () {
-                    $(".right").addClass("hidden");
-                });
-            });
-        </script>
 
-    </body>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        $(".over").hover(function () {
+            var $h4 = $(this).siblings(".descripcion").find("h4");
+            var $cont = $(this).siblings(".descripcion").find("p");
+            $(".right").removeClass("hidden").find(".panel-title").text($h4.text()).end().find(".panel-body").html($cont.html());
+        }, function () {
+            $(".right").addClass("hidden");
+        });
+    });
+
+
+
+</script>
+
+</body>
 </html>

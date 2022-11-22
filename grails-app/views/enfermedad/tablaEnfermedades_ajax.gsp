@@ -1,17 +1,17 @@
 <table class="table table-condensed table-hover table-striped table-bordered">
     <thead>
     <tr>
-        <th style="width: 30%">Nombre</th>
+        <th style="width: 30%">Descripción</th>
     </tr>
     </thead>
 </table>
 
 <div style="width: 99.7%;height: 350px; overflow-y: auto;float: right; margin-top: -20px">
-    <table id="tablaInstituciones" class="table-bordered table-condensed table-hover" style="width: 100%;">
+    <table id="tablaEnfermedad" class="table-bordered table-condensed table-hover" style="width: 100%;">
         <tbody>
-        <g:each status="i" in="${instituciones}" var="institucion" >
-            <tr style="text-align: left" data-id="${institucion?.id}">
-                <td style="width: 30%">${institucion?.nombre}</td>
+        <g:each status="i" in="${enfermedades}" var="enfermedad" >
+            <tr style="text-align: left" data-id="${enfermedad?.id}">
+                <td style="width: 30%">${enfermedad?.descripcion}</td>
             </tr>
         </g:each>
         </tbody>

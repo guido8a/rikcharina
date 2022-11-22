@@ -41,6 +41,16 @@
 
 <div class="row" style="margin-bottom: 10px;">
 
+    <div class="panel-info" style="padding: 3px; margin-top: 2px">
+        <div class="btn-toolbar toolbar">
+            <div class="btn-group">
+                <a href="#" class="btn btn-sm btn-info" id="btnRegresar" title="Volver a parámetros">
+                    <i class="fa fa-arrow-left"></i> Parámetros
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-2">
         <div class="input-group input-group-sm">
             <g:textField name="searchArbol" class="form-control input-sm" placeholder="Buscador"/>
@@ -94,10 +104,14 @@
 </div>
 
 <script type="text/javascript">
+
+    $("#btnRegresar").click(function () {
+        location.href="${createLink(controller: 'inicio', action: 'parametros')}"
+    });
+
     var searchRes = [];
     var posSearchShow = 0;
     var $treeContainer = $("#tree");
-
 
     function createEditProvincia(id) {
         var title = id ? "Editar" : "Crear";

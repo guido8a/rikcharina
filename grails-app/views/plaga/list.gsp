@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title>Instituciones</title>
+    <title>Plagas</title>
 </head>
 
 <div class="panel-info" style="padding: 3px; margin-top: 2px">
@@ -15,12 +15,12 @@
 </div>
 
 <div class="panel panel-primary col-md-6" style="margin-top: 10px; text-align: center">
-    <h3>Instituciones</h3>
+    <h3>Plagas</h3>
     <div class="panel-info" style="padding: 3px; margin-top: 2px">
         <div class="btn-toolbar toolbar">
             <div class="btn-group">
-                <a href="#" class="btn btn-sm btn-success" id="btnAgregarInstitucion">
-                    <i class="fa fa-plus"></i> Agregar institución
+                <a href="#" class="btn btn-sm btn-success" id="btnAgregarPlaga">
+                    <i class="fa fa-plus"></i> Agregar plaga
                 </a>
             </div>
         </div>
@@ -28,42 +28,42 @@
     <div class="alert-info" style="text-align: center; font-size: 14px; font-weight: bold">
         * Haga clic derecho sobre un registro para desplegar su menú de opciones
     </div>
-    <div id="tablaInstituciones"></div>
+    <div id="tablaPlaga"></div>
 </div>
 
 <script type="text/javascript">
-    cargarTablaInstituciones();
+    cargarTablaPlagas();
 
     $("#btnRegresar").click(function () {
         location.href="${createLink(controller: 'inicio', action: 'parametros')}"
     });
 
-    $("#btnAgregarInstitucion").click(function () {
-        createEditInstitucion();
+    $("#btnAgregarPlaga").click(function () {
+        createEditPlaga();
     });
 
-    function cargarTablaInstituciones(){
+    function cargarTablaPlagas(){
         $.ajax({
             type: 'POST',
-            url:'${createLink(controller: 'institucion', action: 'tablaInstituciones_ajax')}',
+            url:'${createLink(controller: 'plaga', action: 'tablaPlagas_ajax')}',
             data:{},
             success: function(msg){
-                $("#tablaInstituciones").html(msg)
+                $("#tablaPlaga").html(msg)
             }
         });
     }
 
-    function createEditInstitucion(id) {
+    function createEditPlaga(id) {
         var title = id ? "Editar" : "Crear";
         var data = id ? {id : id} : {};
         $.ajax({
             type    : "POST",
-            url     : "${createLink(controller:'institucion', action:'form_ajax')}",
+            url     : "${createLink(controller:'plaga', action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Institución",
+                    title   : title + " Plaga",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -77,7 +77,7 @@
                             label     : "<i class='fa fa-save'></i> Guardar",
                             className : "btn-success",
                             callback  : function () {
-                                return submitFormInstitucion();
+                                return submitFormPlaga();
                             } //callback
                         } //guardar
                     } //buttons
@@ -89,8 +89,8 @@
         }); //ajax
     } //createEdit
 
-    function submitFormInstitucion() {
-        var $form = $("#frmInstitucion");
+    function submitFormPlaga() {
+        var $form = $("#frmPlaga");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             var data = $form.serialize();
@@ -105,7 +105,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        cargarTablaInstituciones();
+                        cargarTablaPlagas();
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                         return false;
@@ -117,9 +117,9 @@
         }
     }
 
-    function borrarInstitucion(id){
+    function borrarPlaga(id){
         bootbox.confirm({
-            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro de eliminar esta institución? </strong>",
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro de eliminar esta plaga? </strong>",
             buttons: {
                 confirm: {
                     label: 'Borrar',
@@ -134,7 +134,7 @@
                 if(result){
                     $.ajax({
                         type:'POST',
-                        url:'${createLink(controller: 'institucion', action: 'borrarInstitucion_ajax')}',
+                        url:'${createLink(controller: 'plaga', action: 'borrarPlaga_ajax')}',
                         data:{
                             id: id
                         },
@@ -142,7 +142,7 @@
                             var parts = msg.split("_");
                             if(parts[0] === 'ok'){
                                 log(parts[1],"success");
-                                cargarTablaInstituciones();
+                                cargarTablaPlagas();
                             }else{
                                 log(parts[1],"error")
                             }
@@ -168,7 +168,7 @@
             label: '<span class="text-info">Editar</span>',
             icon: 'fa fa-edit text-info',
             action: function () {
-                createEditInstitucion(id)
+                createEditPlaga(id)
             }
         };
 
@@ -176,7 +176,7 @@
             label: '<span class="text-danger"> Borrar </span>',
             icon: "fa fa-trash text-danger",
             action: function () {
-                borrarInstitucion(id)
+                borrarPlaga(id)
             }
         };
 
