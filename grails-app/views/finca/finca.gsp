@@ -92,6 +92,11 @@
 
     <g:form class="form-horizontal" name="frmFinca" controller="finca" action="saveFinca_ajax">
         <g:hiddenField name="id" value="${finca?.id}"/>
+
+        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-top: 3px">
+            Datos de la finca
+        </div>
+
         <div class="form-group" style="margin-top: 10px">
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
@@ -128,7 +133,7 @@
                 </span>
             </span>
         </div>
-        <div class="form-group ${hasErrors(bean: finca, field: 'nombre', 'error')} ${hasErrors(bean: finca, field: 'fecha', 'error')} ${hasErrors(bean: finca, field: 'organizacion', 'error')}">
+        <div class="form-group ${hasErrors(bean: finca, field: 'nombre', 'error')} ${hasErrors(bean: finca, field: 'organizacion', 'error')}">
             <span class="grupo">
                 <label for="nombre" class="col-md-1 control-label text-info">
                     Nombre
@@ -171,56 +176,166 @@
             </span>
         </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'nombre', 'error')} ${hasErrors(bean: unidad, field: 'sigla', 'error')}">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="nombre" class="col-md-2 control-label text-info">--}%
-    %{--                    Nombre--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'propietario', 'error')} ${hasErrors(bean: finca, field: 'direccion', 'error')}">
+            <span class="grupo">
+                <label for="propietario" class="col-md-1 control-label text-info">
+                    Propietario
+                </label>
+                <span class="col-md-3">
+                    <g:textField name="propietario" maxlength="50" class="form-control required valid input-sm" value="${finca?.propietario}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="delegado" class="col-md-1 control-label text-info">
+                    Delegado
+                </label>
+                <span class="col-md-3">
+                    <g:textField name="delegado" maxlength="50" class="form-control required valid input-sm" value="${finca?.delegado}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="promotor" class="col-md-1 control-label text-info">
+                    Promotor
+                </label>
+                <span class="col-md-3">
+                    <g:textField name="promotor" maxlength="50" class="form-control required valid input-sm" value="${finca?.promotor}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-7">--}%
-    %{--                    <g:textField name="nombre" maxlength="255" class="form-control required valid input-sm"--}%
-    %{--                                 value="${unidad?.nombre}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="sigla" class="col-md-1 control-label text-info">--}%
-    %{--                    Sigla--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'direccion', 'error')}">
+        <span class="grupo">
+            <label for="direccion" class="col-md-1 control-label text-info">
+                Dirección
+            </label>
+            <span class="col-md-11">
+                <g:textField name="direccion" maxlength="50" class="form-control required valid input-sm" value="${finca?.direccion}"/>
+                <p class="help-block ui-helper-hidden"></p>
+            </span>
+        </span>
+        </div>
 
-    %{--                <div class="col-md-1">--}%
-    %{--                    <g:textField name="sigla" maxlength="7" class="form-control input-sm" value="${unidad?.sigla}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'longitud', 'error')} ${hasErrors(bean: finca, field: 'latitud', 'error')}">
+            <span class="grupo">
+                <label for="altura" class="col-md-1 control-label text-info">
+                    Altitud
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="altura" class="form-control required number valid input-sm" value="${finca?.altura}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="longitud" class="col-md-1 control-label text-info">
+                    Longitud
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="longitud" class="form-control required number valid input-sm" value="${finca?.propietario}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="latitud" class="col-md-1 control-label text-info">
+                    Latitud
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="latitud" class="form-control required number valid input-sm" value="${finca?.latitud}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="zona" class="col-md-1 control-label text-info">
+                    Zona
+                </label>
+                <span class="col-md-2">
+                    <g:select name="zona" from="${['A': 'Alta', 'M': 'Media', 'B' : 'Baja']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.zona}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'direccion', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="direccion" class="col-md-2 control-label text-info">--}%
-    %{--                    Dirección--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'actvAgricola', 'error')} ${hasErrors(bean: finca, field: 'actvPecuaria', 'error')}">
+            <span class="grupo">
+                <label for="plan" class="col-md-1 control-label text-info">
+                    Plan de manejo
+                </label>
+                <span class="col-md-2">
+                    <g:select name="plan" from="${['SI': 'SI', 'NO': 'NO']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.plan}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="actvAgricola" class="col-md-2 control-label text-info">
+                    Actividad agrícola (%)
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="actvAgricola" class="form-control required number valid input-sm" value="${finca?.actvAgricola}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="actvPecuaria" class="col-md-2 control-label text-info">
+                    Actividad pecuaria (%)
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="actvPecuaria" class="form-control required number valid input-sm" value="${finca?.actvPecuaria}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-9">--}%
-    %{--                    <g:textArea name="direccion" maxlength="127" class="form-control input-sm" style="resize: none"--}%
-    %{--                                value="${unidad?.direccion}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'jornalerosPermanentes', 'error')} ${hasErrors(bean: finca, field: 'jornalerosTemporales', 'error')}">
+            <span class="grupo">
+                <label for="jornalerosPermanentes" class="col-md-2 control-label text-info">
+                    Jornaleros permanentes
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="jornalerosPermanentes" class="form-control required digits valid input-sm" value="${finca?.jornalerosPermanentes}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="jornalerosTemporales" class="col-md-2 control-label text-info">
+                    Jornaleros temporales
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="jornalerosTemporales" class="form-control required digits valid input-sm" value="${finca?.jornalerosTemporales}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'sector', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="sector" class="col-md-2 control-label text-info">--}%
-    %{--                    Sector--}%
-    %{--                </label>--}%
+        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo de suelos
+        </div>
 
-    %{--                <div class="col-md-9">--}%
-    %{--                    <g:textField name="sector" value="${unidad?.sector}" class="form-control" maxlength="127"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'terrenoPlano', 'error')} ${hasErrors(bean: finca, field: 'terrenoInclinado', 'error')}" >
+            <span class="grupo">
+                <label for="terrenoPlano" class="col-md-2 control-label text-info">
+                    Terreno plano
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="terrenoPlano" class="form-control required number valid input-sm" value="${finca?.terrenoPlano}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="terrenoInclinado" class="col-md-2 control-label text-info">
+                    Terreno inclinado
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="terrenoInclinado" class="form-control required number valid input-sm" value="${finca?.terrenoInclinado}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
+        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo de cultivos
+        </div>
 
     %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'referencia', 'error')} ">--}%
     %{--            <span class="grupo">--}%

@@ -29,9 +29,7 @@ class Finca implements Auditable{
     int     jornalerosTemporales          
     String  organizacion                  
     String  plan                          
-    int     terrenoPlano                  
-    int     terrenoInclinado              
-    String  asociacionCultivos            
+    String  asociacionCultivos
     String  rotacionCultivos              
     String  seleccionSemillas             
     String  semillaPropia                 
@@ -94,8 +92,6 @@ class Finca implements Auditable{
             jornalerosTemporales        column: 'fncajrtm'
             organizacion                column: 'fncaorga'
             plan                        column: 'fncaplan'
-            terrenoPlano                column: 'fncatrpl'
-            terrenoInclinado            column: 'fncatrin'
             asociacionCultivos          column: 'fncaascl'
             rotacionCultivos            column: 'fncartcl'
             seleccionSemillas           column: 'fncasesm'
@@ -153,8 +149,6 @@ class Finca implements Auditable{
         jornalerosTemporales   (blank:false, nullable: false)
         organizacion           (blank:false, nullable: false)
         plan                   (blank:false, nullable: false)
-        terrenoPlano                (blank:false, nullable: false)
-        terrenoInclinado            (blank:false, nullable: false)
         asociacionCultivos          (blank:false, nullable: false)
         rotacionCultivos            (blank:false, nullable: false)
         seleccionSemillas           (blank:false, nullable: false)
