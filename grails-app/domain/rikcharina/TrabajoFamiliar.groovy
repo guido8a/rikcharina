@@ -19,9 +19,9 @@ class TrabajoFamiliar {
         columns {
             id        column: 'trfm__id'
             finca     column: 'fnca__id'
-            familia   columm: 'faml__id'
+            familia   column: 'faml__id'
             numero    column: 'trfmnmro'
-            actividad column: 'trfmrefe'
+            actividad column: 'trfmactv'
             tipo      column: 'trfmtipo'
         }
     }
