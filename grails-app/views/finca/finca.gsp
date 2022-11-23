@@ -313,24 +313,24 @@
         </div>
 
         <div class="form-group ${hasErrors(bean: finca, field: 'terrenoPlano', 'error')} ${hasErrors(bean: finca, field: 'terrenoInclinado', 'error')}" >
-            <span class="grupo">
-                <label for="terrenoPlano" class="col-md-2 control-label text-info">
-                    Terreno plano
-                </label>
-                <span class="col-md-2">
-                    <g:textField name="terrenoPlano" class="form-control required number valid input-sm" value="${finca?.terrenoPlano}"/>
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-            </span>
-            <span class="grupo">
-                <label for="terrenoInclinado" class="col-md-2 control-label text-info">
-                    Terreno inclinado
-                </label>
-                <span class="col-md-2">
-                    <g:textField name="terrenoInclinado" class="form-control required number valid input-sm" value="${finca?.terrenoInclinado}"/>
-                    <p class="help-block ui-helper-hidden"></p>
-                </span>
-            </span>
+%{--            <span class="grupo">--}%
+%{--                <label for="terrenoPlano" class="col-md-2 control-label text-info">--}%
+%{--                    Terreno plano--}%
+%{--                </label>--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <g:textField name="terrenoPlano" class="form-control required number valid input-sm" value="${finca?.terrenoPlano}"/>--}%
+%{--                    <p class="help-block ui-helper-hidden"></p>--}%
+%{--                </span>--}%
+%{--            </span>--}%
+%{--            <span class="grupo">--}%
+%{--                <label for="terrenoInclinado" class="col-md-2 control-label text-info">--}%
+%{--                    Terreno inclinado--}%
+%{--                </label>--}%
+%{--                <span class="col-md-2">--}%
+%{--                    <g:textField name="terrenoInclinado" class="form-control required number valid input-sm" value="${finca?.terrenoInclinado}"/>--}%
+%{--                    <p class="help-block ui-helper-hidden"></p>--}%
+%{--                </span>--}%
+%{--            </span>--}%
         </div>
 
         <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
