@@ -50,34 +50,34 @@
             $("#provincia").val(idProvincia);
         }
 
-        if(${tipo != '1'}){
-            comboComunidad(id)
-        }
+        %{--if(${tipo != '1'}){--}%
+        %{--    comboComunidad(id)--}%
+        %{--}--}%
         cerrarDialogoParroquia();
     });
 
-    function comboComunidad(id){
-        $.ajax({
-            type: 'POST',
-            url: '${createLink(controller: 'taller', action: 'comunidad_ajax')}',
-            data:{
-                id: id
-            },
-            success: function (msg) {
-                colocarDiv(msg)
-            }
-        })
-    }
+    %{--function comboComunidad(id){--}%
+    %{--    $.ajax({--}%
+    %{--        type: 'POST',--}%
+    %{--        url: '${createLink(controller: 'taller', action: 'comunidad_ajax')}',--}%
+    %{--        data:{--}%
+    %{--            id: id--}%
+    %{--        },--}%
+    %{--        success: function (msg) {--}%
+    %{--            colocarDiv(msg)--}%
+    %{--        }--}%
+    %{--    })--}%
+    %{--}--}%
 
-    function colocarDiv(msg){
-        var n = '';
-        if(${tipo == '3'}){
-            n = $("#divComunidadPersona").html(msg)
-        }else{
-            n = $("#divComunidad").html(msg)
-        }
+    %{--function colocarDiv(msg){--}%
+    %{--    var n = '';--}%
+    %{--    if(${tipo == '3'}){--}%
+    %{--        n = $("#divComunidadPersona").html(msg)--}%
+    %{--    }else{--}%
+    %{--        n = $("#divComunidad").html(msg)--}%
+    %{--    }--}%
 
-        return n
-    }
+    %{--    return n--}%
+    %{--}--}%
 
 </script>

@@ -2,35 +2,9 @@
 <head>
     <meta name="layout" content="main">
     <title>Fincas</title>
-
-    <style type="text/css">
-    /*.mediano {*/
-    /*    margin-top: 5px;*/
-    /*    padding-top: 9px;*/
-    /*    height: 30px;*/
-    /*    font-size: inherit;*/
-    /*    text-align: right;*/
-    /*}*/
-
-    /*.sobrepuesto {*/
-    /*    position: absolute;*/
-    /*    top: 3px;*/
-    /*    font-size: 14px;*/
-    /*}*/
-
-    /*.negrita {*/
-    /*    font-weight: bold;*/
-    /*}*/
-
-    /*.izquierda {*/
-    /*    margin-left: 4px;*/
-    /*}*/
-    </style>
-
 </head>
 
 <body>
-
 
 <div class="btn-group">
     <a href="${createLink(controller: 'finca', action: 'finca')}"
@@ -40,7 +14,7 @@
 </div>
 
 <a href="#" id="btnBuscarFinca"
-   class="btn btn-sm btn-info" title="Buscar finca">
+   class="btn btn-sm btn-info buscarFinca" title="Buscar finca">
     <i class="fas fa-list-alt"></i> Lista de fincas
 </a>
 
@@ -57,43 +31,54 @@
 
 <h3 style="text-align: center">Finca</h3>
 
-<div class="panel panel-primary col-md-12">
-    <g:if test="${finca?.id}">
-        <div class="panel-heading" style="padding: 3px; margin-top: 2px; text-align: ${unidad?.id ? 'center' : 'left'}">
+<g:if test="${finca?.id}">
+    <div class="panel panel-primary col-md-12" style="height: 85px;">
+        <div class="" style="padding: 3px; margin-top: 2px; text-align: left;">
             <a href="#" id="btnDocumentos" class="btn btn-sm btn-info" title="Consultar documentos">
-                <i class="fas fa-book-reader"></i> Biblioteca
+                <i class="fas fa-book-reader"></i> Áreas de producción
             </a>
             <a href="#" id="btnRepresentante" class="btn btn-sm btn-info" title="Representante de la organización">
-                <i class="fas fa-user"></i> Representante
+                <i class="fas fa-users-cog"></i> Trabajo familiar
             </a>
             <a href="#" id="btnBeneficiario" class="btn btn-sm btn-info" title="Socios beneficiarios">
-                <i class="fas fa-user-friends"></i> Beneficiarios
+                <i class="fas fa-clipboard"></i> Obras de conservación de suelos
             </a>
             <a href="#" id="btnDatos" class="btn btn-sm btn-info" title="Datos de la organización">
-                <i class="fa fa-scroll"></i> Datos Organización
+                <i class="fa fa-scroll"></i> Manejo de cultivos
             </a>
             <a href="#" id="btnEtnias" class="btn btn-sm btn-info" title="Etnias">
-                <i class="fa fa-user"></i> Composición Étnica
+                <i class="fa fa-certificate"></i> Manejo de enfermedades
             </a>
             <a href="#" id="btnCategoria" class="btn btn-sm btn-info" title="Categorias">
-                <i class="fas fa-paperclip"></i> Categorías
+                <i class="fas fa-asterisk"></i> Control de plagas
             </a>
             <a href="#" id="btnNecesidad" class="btn btn-sm btn-info" title="Necesidades">
-                <i class="fas fa-cart-plus"></i> Necesidades
-            </a>
-            <a href="#" id="btnTalleres" class="btn btn-sm btn-warning" title="Talleres">
-                <i class="fas fa-users-cog"></i> Talleres
-            </a>
-            <a href="#" id="btnPlanes" class="btn btn-sm btn-warning" title="Planes">
-                <i class="fas fa-briefcase"></i> Planes de negocio
+                <i class="fas fa-tree"></i> Manejo forestal
             </a>
         </div>
-    </g:if>
+        <div class="" style="padding: 3px; text-align: left;">
+            <a href="#" id="btnTalleres" class="btn btn-sm btn-warning" title="Talleres">
+                <i class="fas fa-paw"></i> Manejo de animales
+            </a>
+            <a href="#" id="btnEquipos" class="btn btn-sm btn-warning" title="Planes">
+                <i class="fas fa-wrench"></i> Manejo de equipos e instalaciones
+            </a>
+            <a href="#" id="btnCapacitacion" class="btn btn-sm btn-warning" title="Planes">
+                <i class="fas fa-calendar"></i> Capacitación
+            </a>
+            <a href="#" id="btnCargos" class="btn btn-sm btn-warning" title="Planes">
+                <i class="fas fa-users"></i> Cargos desempeñados
+            </a>
+        </div>
+    </div>
+</g:if>
+
+<div class="panel panel-primary col-md-12" style="height: 700px; overflow-y: auto; scrollbar-3dlight-color: green; margin-top: -10px">
 
     <g:form class="form-horizontal" name="frmFinca" controller="finca" action="saveFinca_ajax">
         <g:hiddenField name="id" value="${finca?.id}"/>
 
-        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-top: 3px">
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-top: 3px">
             Datos de la finca
         </div>
 
@@ -111,8 +96,8 @@
                     Parroquia
                 </label>
                 <span class="col-md-3">
-                    <g:hiddenField name="parroquia" value="${finca?.parroquia?.id}"/>
-                    <input aria-label="" name="parroquiaName" id="parroquiaTexto" type='text' class="form-control" required="" readonly="" value="${finca?.parroquia?.nombre}"/>
+                    <g:hiddenField name="parroquia" id="parroquia" value="${finca?.parroquia?.id}"/>
+                    <input aria-label="" name="parroquiaName" id="parroquiaTexto" type='text' class="form-control" readonly="" value="${finca?.parroquia?.nombre}"/>
                 </span>
             </span>
 
@@ -121,7 +106,6 @@
                     <i class="fa fa-search"></i> Buscar
                 </a>
             </span>
-
 
             <span class="grupo">
                 <label class="col-md-1 control-label text-info">
@@ -156,11 +140,11 @@
 
         <div class="form-group ${hasErrors(bean: finca, field: 'fecha', 'error')} ${hasErrors(bean: finca, field: 'institucion', 'error')}">
             <span class="grupo">
-                <label for="nombre" class="col-md-2 control-label text-info">
+                <label for="institucion" class="col-md-2 control-label text-info">
                     Institución de apoyo
                 </label>
                 <span class="col-md-4">
-                    <g:select name="legal" from="${rikcharina.Institucion.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${finca?.institucion?.id}"/>
+                    <g:select name="institucion" from="${rikcharina.Institucion.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${finca?.institucion?.id}"/>
                 </span>
             </span>
             <span class="grupo ">
@@ -169,7 +153,7 @@
                 </label>
 
                 <span class="col-md-2">
-                    <input aria-label="" name="fecha" id='datetimepicker1' type='text' class="form-control"
+                    <input aria-label="" name="fecha" id='datetimepicker1' type='text' class="form-control required"
                            value="${finca?.fecha?.format("dd-MM-yyyy")}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
@@ -207,15 +191,15 @@
         </div>
 
         <div class="form-group ${hasErrors(bean: finca, field: 'direccion', 'error')}">
-        <span class="grupo">
-            <label for="direccion" class="col-md-1 control-label text-info">
-                Dirección
-            </label>
-            <span class="col-md-11">
-                <g:textField name="direccion" maxlength="50" class="form-control required valid input-sm" value="${finca?.direccion}"/>
-                <p class="help-block ui-helper-hidden"></p>
+            <span class="grupo">
+                <label for="direccion" class="col-md-1 control-label text-info">
+                    Dirección
+                </label>
+                <span class="col-md-11">
+                    <g:textField name="direccion" maxlength="50" class="form-control required valid input-sm" value="${finca?.direccion}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
             </span>
-        </span>
         </div>
 
         <div class="form-group ${hasErrors(bean: finca, field: 'longitud', 'error')} ${hasErrors(bean: finca, field: 'latitud', 'error')}">
@@ -233,7 +217,7 @@
                     Longitud
                 </label>
                 <span class="col-md-2">
-                    <g:textField name="longitud" class="form-control required number valid input-sm" value="${finca?.propietario}"/>
+                    <g:textField name="longitud" class="form-control required number valid input-sm" value="${finca?.longitud}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -251,7 +235,7 @@
                     Zona
                 </label>
                 <span class="col-md-2">
-                    <g:select name="zona" from="${['A': 'Alta', 'M': 'Media', 'B' : 'Baja']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.zona}"/>
+                    <g:select name="zona" from="${['Alta': 'Alta', 'Media': 'Media', 'Baja' : 'Baja']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.zona}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -263,7 +247,7 @@
                     Plan de manejo
                 </label>
                 <span class="col-md-2">
-                    <g:select name="plan" from="${['SI': 'SI', 'NO': 'NO']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.plan}"/>
+                    <g:select name="plan" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.plan}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -306,280 +290,404 @@
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
+            <span class="grupo">
+                <label for="entrevista" class="col-md-1 control-label text-info">
+                    Entrevistador
+                </label>
+                <span class="col-md-3">
+                    <g:textField name="entrevista" class="form-control required valid input-sm" value="${finca?.entrevista}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
         </div>
 
-        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
             Manejo de suelos
         </div>
 
-        <div class="form-group ${hasErrors(bean: finca, field: 'terrenoPlano', 'error')} ${hasErrors(bean: finca, field: 'terrenoInclinado', 'error')}" >
-%{--            <span class="grupo">--}%
-%{--                <label for="terrenoPlano" class="col-md-2 control-label text-info">--}%
-%{--                    Terreno plano--}%
-%{--                </label>--}%
-%{--                <span class="col-md-2">--}%
-%{--                    <g:textField name="terrenoPlano" class="form-control required number valid input-sm" value="${finca?.terrenoPlano}"/>--}%
-%{--                    <p class="help-block ui-helper-hidden"></p>--}%
-%{--                </span>--}%
-%{--            </span>--}%
-%{--            <span class="grupo">--}%
-%{--                <label for="terrenoInclinado" class="col-md-2 control-label text-info">--}%
-%{--                    Terreno inclinado--}%
-%{--                </label>--}%
-%{--                <span class="col-md-2">--}%
-%{--                    <g:textField name="terrenoInclinado" class="form-control required number valid input-sm" value="${finca?.terrenoInclinado}"/>--}%
-%{--                    <p class="help-block ui-helper-hidden"></p>--}%
-%{--                </span>--}%
-%{--            </span>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'preparacionSuelo', 'error')} ${hasErrors(bean: finca, field: 'fertilizantes', 'error')}" >
+            <span class="grupo">
+                <label for="preparacionSuelo" class="col-md-2 control-label text-info">
+                    Preparación del suelo
+                </label>
+                <span class="col-md-3">
+                    <g:select name="preparacionSuelo" from="${['Manual (azadón y yunta)': 'Manual (azadón y yunta)', 'Motocultor': 'Motocultor', 'Tractor' : 'Tractor']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.preparacionSuelo}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="fertilizantes" class="col-md-2 control-label text-info">
+                    Fertilización del suelo
+                </label>
+                <span class="col-md-3">
+                    <g:select name="fertilizantes" from="${['Materia orgánica': 'Materia orgánica', 'Fertilizantes quimícos': 'Fertilizantes quimícos', 'Ninguna' : 'Ninguna']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.fertilizantes}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
         </div>
 
-        <div class="alert-warning" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+        <div class="form-group ${hasErrors(bean: finca, field: 'fertilizacionComplementaria', 'error')} ${hasErrors(bean: finca, field: 'manejoRastrojos', 'error')}" >
+            <span class="grupo">
+                <label for="fertilizacionComplementaria" class="col-md-2 control-label text-info">
+                    Fertilización complementaria
+                </label>
+                <span class="col-md-3">
+                    <g:select name="fertilizacionComplementaria" from="${['Lactofermentos': 'Lactofermentos', 'Microorganismos de montaña': 'Microorganismos de montaña', 'Ninguna' : 'Ninguna']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.fertilizacionComplementaria}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="manejoRastrojos" class="col-md-2 control-label text-info">
+                    Manejo de rastrojos
+                </label>
+                <span class="col-md-3">
+                    <g:select name="manejoRastrojos" from="${['Para compostaje': 'Para compostaje', 'Incorporación al terreno': 'Incorporación al terreno', 'Se quema o se bota' : 'Se quema o se bota']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.manejoRastrojos}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
+
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
             Manejo de cultivos
         </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'referencia', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="referencia" class="col-md-2 control-label text-info">--}%
-    %{--                    Referencia--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'asociacionCultivos', 'error')} ${hasErrors(bean: finca, field: 'rotacionCultivos', 'error')}" >
+            <span class="grupo">
+                <label for="asociacionCultivos" class="col-md-2 control-label text-info">
+                    Hace asociación de cultivos
+                </label>
+                <span class="col-md-1">
+                    <g:select name="asociacionCultivos" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.asociacionCultivos}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="rotacionCultivos" class="col-md-2 control-label text-info">
+                    Hace rotación de cultivos
+                </label>
+                <span class="col-md-1">
+                    <g:select name="rotacionCultivos" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.rotacionCultivos}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="seleccionSemillas" class="col-md-2 control-label text-info">
+                    Hace selección de semillas
+                </label>
+                <span class="col-md-1">
+                    <g:select name="seleccionSemillas" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.seleccionSemillas}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="semillaPropia" class="col-md-2 control-label text-info">
+                    Usa semillas propias
+                </label>
+                <span class="col-md-1">
+                    <g:select name="semillaPropia" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaPropia}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-9">--}%
-    %{--                    <g:textField name="referencia" maxlength="255" class="form-control input-sm"--}%
-    %{--                                 value="${unidad?.referencia}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'semillaComprada', 'error')} ${hasErrors(bean: finca, field: 'rotacionCultivos', 'error')}" >
+            <span class="grupo">
+                <label for="semillaComprada" class="col-md-2 control-label text-info">
+                    Usa semillas compradas
+                </label>
+                <span class="col-md-1">
+                    <g:select name="semillaComprada" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaComprada}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="semillaIntercambio" class="col-md-2 control-label text-info">
+                    Usa semillas de intercambio
+                </label>
+                <span class="col-md-1">
+                    <g:select name="semillaIntercambio" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaIntercambio}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="calendarizacion" class="col-md-2 control-label text-info">
+                    Realiza calendarización de cultivos
+                </label>
+                <span class="col-md-1">
+                    <g:select name="calendarizacion" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.calendarizacion}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="invernadero" class="col-md-2 control-label text-info">
+                    Área de invernadero (m2)
+                </label>
+                <span class="col-md-1">
+                    <g:textField name="invernadero" class="form-control required number valid input-sm" value="${finca?.invernadero}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'objetivo', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="objetivo" class="col-md-2 control-label text-info">--}%
-    %{--                    Objetivo--}%
-    %{--                </label>--}%
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo del agua
+        </div>
 
-    %{--                <div class="col-md-9">--}%
-    %{--                    <g:textField name="objetivo" maxlength="255" class="form-control input-sm"--}%
-    %{--                                 value="${unidad?.objetivo}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'aguaRiego', 'error')} ${hasErrors(bean: finca, field: 'juntaAgua', 'error')}" >
+            <span class="grupo">
+                <label for="aguaRiego" class="col-md-2 control-label text-info">
+                    Tiene agua de riego
+                </label>
+                <span class="col-md-1">
+                    <g:select name="aguaRiego" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.aguaRiego}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="juntaAgua" class="col-md-2 control-label text-info">
+                    Pertenece a una junta de riego
+                </label>
+                <span class="col-md-1">
+                    <g:select name="juntaAgua" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.juntaAgua}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="aguaFuente" class="col-md-1 control-label text-info">
+                    Fuente de agua
+                </label>
+                <span class="col-md-2">
+                    <g:select name="aguaFuente" from="${['Vertiente': 'Vertiente', 'Quebrada': 'Quebrada', 'Río' : 'Río', 'Uso doméstico' : 'Uso doméstico', 'Cosecha de agua' : 'Cosecha de agua' , 'Pozo' : 'Pozo'] }" class="form-control" optionKey="key"  optionValue="value" value="${finca?.aguaFuente}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="aguaInfraestructura" class="col-md-1 control-label text-info">
+                    Infraestructura de riego
+                </label>
+                <span class="col-md-2">
+                    <g:select name="aguaInfraestructura" from="${['Aspersión': 'Aspersión', 'Goteo': 'Goteo', 'Surcos' : 'Surcos']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.aguaInfraestructura}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'telefono', 'error')} ${hasErrors(bean: unidad, field: 'mail', 'error')}">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="telefono" class="col-md-2 control-label text-info">--}%
-    %{--                    Teléfono--}%
-    %{--                </label>--}%
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo forestal
+        </div>
 
-    %{--                <div class="col-md-3">--}%
-    %{--                    <g:textField name="telefono" maxlength="63" class="form-control digits input-sm"--}%
-    %{--                                 value="${unidad?.telefono}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="mail" class="col-md-2 control-label text-info">--}%
-    %{--                    Mail--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'forestal', 'error')} ${hasErrors(bean: finca, field: 'monte', 'error')}" >
+            <span class="grupo">
+                <label for="forestal" class="col-md-2 control-label text-info">
+                    Tiene especies forestales
+                </label>
+                <span class="col-md-1">
+                    <g:select name="forestal" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.forestal}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="monte" class="col-md-2 control-label text-info">
+                    Tiene páramo o monte
+                </label>
+                <span class="col-md-1">
+                    <g:select name="monte" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.monte}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-4">--}%
-    %{--                    <g:textField name="mail" maxlength="63" class="form-control email input-sm"--}%
-    %{--                                 value="${unidad?.mail}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo de animales
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'zona', 'error')} ${hasErrors(bean: unidad, field: 'orden', 'error')}">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="numero" class="col-md-2 control-label text-info">--}%
-    %{--                    Zona--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'pasto', 'error')} ${hasErrors(bean: finca, field: 'pastoAbono', 'error')}" >
+            <span class="grupo">
+                <label for="pasto" class="col-md-2 control-label text-info">
+                    Tiene la finca pasto
+                </label>
+                <span class="col-md-1">
+                    <g:select name="pasto" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.pasto}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="pastoAbono" class="col-md-2 control-label text-info">
+                    Abona los pastos y poteros con
+                </label>
+                <span class="col-md-2">
+                    <g:select name="pastoAbono" from="${['Abono orgánico': 'Abono orgánico', 'Abono químico': 'Abono químico']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.pastoAbono}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="manejoPasto" class="col-md-2 control-label text-info">
+                    Manejo de pastos
+                </label>
+                <span class="col-md-2">
+                    <g:select name="manejoPasto" from="${['Resiembra de pastos naturales': 'Resiembra de pastos naturales', 'Dispersión de heces': 'Dispersión de heces', 'Enmiendas' : 'Enmiendas', 'Ninguna' : 'Ninguna']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.manejoPasto}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-1">--}%
-    %{--                    <g:textField name="numero" maxlength="10" class="form-control digits input-sm"--}%
-    %{--                                 value="${unidad?.zona ?: ''}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--            <span class="col-md-1"></span>--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="legal" class="col-md-3 control-label text-info">--}%
-    %{--                    Legalmente conformada--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'instalaciones', 'error')} ${hasErrors(bean: finca, field: 'sanitario', 'error')}" >
+            <span class="grupo">
+                <label for="instalaciones" class="col-md-2 control-label text-info">
+                    La finca dispone de adecuaciones
+                </label>
+                <span class="col-md-1">
+                    <g:select name="instalaciones" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.instalaciones}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="sanitario" class="col-md-3 control-label text-info">
+                    Realiza desparasitación de sus animales con produtos naturales (manejo sanitario)
+                </label>
+                <span class="col-md-1">
+                    <g:select name="sanitario" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.sanitario}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="ancestrales" class="col-md-3 control-label text-info">
+                    Usa prácticas ancestrales para curar, prevenir enfermedades de animales (manejo sanitario)
+                </label>
+                <span class="col-md-1">
+                    <g:select name="ancestrales" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.ancestrales}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-1">--}%
-    %{--                    <g:select name="legal" from="${[1: 'SI', 0: 'NO']}" class="form-control" optionKey="key"--}%
-    %{--                              optionValue="value" value="${unidad?.legal}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Manejo de ambiente y producción
+        </div>
 
-    %{--        </div>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'basura', 'error')} ${hasErrors(bean: finca, field: 'autoconsumo', 'error')}" >
+            <span class="grupo">
+                <label for="basura" class="col-md-2 control-label text-info">
+                    Que hace con los plásticos, vidrios, cauchos y latas
+                </label>
+                <span class="col-md-2">
+                    <g:select name="basura" from="${['Recicla': 'Recicla', 'Quema': 'Quema', 'Envia en la basura' : 'Envía en la basura' ]}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.basura}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="autoconsumo" class="col-md-3 control-label text-info">
+                    Destino de la producción (Autoconsumo %)
+                </label>
+                <span class="col-md-1">
+                    <g:textField name="autoconsumo" class="form-control required digits valid input-sm" value="${finca?.autoconsumo}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="venta" class="col-md-3 control-label text-info">
+                    Destino de la producción (Venta %)
+                </label>
+                <span class="col-md-1">
+                    <g:textField name="venta" class="form-control required digits valid input-sm" value="${finca?.venta}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'observaciones', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="observaciones" class="col-md-2 control-label text-info">--}%
-    %{--                    Observaciones--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'lugarVenta', 'error')} ${hasErrors(bean: finca, field: 'fecuencia', 'error')}" >
+            <span class="grupo">
+                <label for="lugarVenta" class="col-md-2 control-label text-info">
+                    Donde vende
+                </label>
+                <span class="col-md-2">
+                    <g:select name="lugarVenta" from="${['Comunidad': 'Comunidad', 'Mercado parroquial': 'Mercado parroquial', 'Mercado cantonal': 'Mercado cantonal', 'Otros lugares' : 'Otros lugares' ]}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.lugarVenta}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="fecuencia" class="col-md-2 control-label text-info">
+                    Cada que tiempo vende
+                </label>
+                <span class="col-md-2">
+                    <g:select name="fecuencia" from="${['Semanal': 'Semanal', 'Quincenal': 'Quincenal', 'Mensual': 'Mensual', 'Temporal' : 'Temporal', 'Diario' :  'Diario' ]}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.fecuencia}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+        </div>
 
-    %{--                <div class="col-md-9">--}%
-    %{--                    <g:textArea name="observaciones" maxlength="127" class="form-control input-sm" style="resize: none"--}%
-    %{--                                value="${unidad?.observaciones}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        <div class="alert-success" style="text-align: center; font-size: 14px; font-weight: bold; margin-bottom: 5px">
+            Participación / Criterio del promotor
+        </div>
 
-    %{--        <div class="form-group ${hasErrors(bean: unidad, field: 'legal', 'error')}${hasErrors(bean: unidad, field: 'anio', 'error')} ">--}%
-    %{--            <span class="grupo">--}%
-    %{--                <label for="anio" class="col-md-2 control-label text-info">--}%
-    %{--                    Número de Años--}%
-    %{--                </label>--}%
+        <div class="form-group ${hasErrors(bean: finca, field: 'estaoOrganizacion', 'error')} ${hasErrors(bean: finca, field: 'calificacion', 'error')}" >
+            <span class="grupo">
+                <label for="estaoOrganizacion" class="col-md-2 control-label text-info">
+                    Es miembro activo de una organización
+                </label>
+                <span class="col-md-1">
+                    <g:select name="estaoOrganizacion" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.estaoOrganizacion}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo">
+                <label for="calificacion" class="col-md-2 control-label text-info">
+                    La finca se considera
+                </label>
+                <span class="col-md-2">
+                    <g:select name="calificacion" from="${['A' : 'Agroecológica', 'P': 'En Proceso', 'I': 'Inicio' , 'T' : 'En transición']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.calificacion}"/>
+                    <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
 
-    %{--                <div class="col-md-1">--}%
-    %{--                    <g:textField name="anio" maxlength="2" class="form-control digits input-sm" readonly=""--}%
-    %{--                                 value="${anios}"/>--}%
-    %{--                    <p class="help-block ui-helper-hidden"></p>--}%
-    %{--                </div>--}%
-    %{--            </span>--}%
-    %{--        </div>--}%
+        </div>
+
     </g:form>
 
 </div>
 
 <script type="text/javascript">
 
-    %{--$("#btnRepresentante").click(function () {--}%
-    %{--    var dialog = cargarLoader("Cargando...");--}%
-    %{--    $.ajax({--}%
-    %{--        type: 'POST',--}%
-    %{--        url: '${createLink(controller: 'unidadEjecutora', action: 'representante_ajax')}',--}%
-    %{--        data:{--}%
-    %{--            id: '${unidad?.id}'--}%
-    %{--        },--}%
-    %{--        success:function (msg) {--}%
-    %{--            dialog.modal('hide');--}%
-    %{--            var ad = bootbox.dialog({--}%
-    %{--                id    : "dlgBuscarRepresentante",--}%
-    %{--                title : "Representante Legal de: ${unidad.nombre}",--}%
-    %{--                class : "modal-lg",--}%
-    %{--                closeButton: false,--}%
-    %{--                message : msg,--}%
-    %{--                buttons : {--}%
-    %{--                    cancelar : {--}%
-    %{--                        label     : "Cancelar",--}%
-    %{--                        className : "btn-primary",--}%
-    %{--                        callback  : function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
-
-    %{--$("#btnTalleres").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'taller', action: 'listTaller')}?id=" + '${unidad?.id}'--}%
-    %{--});--}%
-
-    %{--$("#btnPlanes").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'planesNegocio', action: 'planes')}/?unej=" + '${unidad?.id}'--}%
-    %{--});--}%
-
-    %{--$("#btnBeneficiario").click(function (){--}%
-    %{--    location.href="${createLink(controller: 'unidadEjecutora', action: 'beneficiarios')}/" + '${unidad?.id}'--}%
-    %{--});--}%
-
     $('#datetimepicker1').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
         daysOfWeekDisabled: [0, 6],
-        // inline: true,
         sideBySide: true,
-        // showClose: true,
         icons: {
-            // close: 'closeText'
         }
     });
 
-    %{--$("#btnEliminarOrganizacion").click(function () {--}%
-    %{--    bootbox.confirm("<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i> ¿Está seguro de querer eliminar esta organización?", function (res) {--}%
-    %{--        if(res){--}%
-    %{--            $.ajax({--}%
-    %{--                type: 'POST',--}%
-    %{--                url: '${createLink(controller: 'unidadEjecutora', action: 'borrarUnidad_ajax')}',--}%
-    %{--                data:{--}%
-    %{--                    id: '${unidad?.id}'--}%
-    %{--                },--}%
-    %{--                success: function (msg) {--}%
-    %{--                    var parts = msg.split("_");--}%
-    %{--                    if(parts[0] == 'ok'){--}%
-    %{--                        log("Unidad borrada correctamente","success");--}%
-    %{--                        setTimeout(function () {--}%
-    %{--                            location.href="${createLink(controller: 'unidadEjecutora', action: 'organizacion')}"--}%
-    %{--                        }, 1000);--}%
-    %{--                    }else{--}%
-    %{--                        if(parts[0] == 'res'){--}%
-    %{--                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" + parts[1])--}%
-    %{--                        }else{--}%
-    %{--                            log("Error al borrar la unidad","error")--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            });--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
-
-    %{--$("#btnDocumentos").click(function () {--}%
-    %{--    location.href="${createLink(controller: 'documento', action: 'listConvenio')}?id=" + '${unidad?.id}'--}%
-    %{--});--}%
-
-    %{--$("#btnDatos").click(function () {--}%
-    %{--    location.href = "${createLink(controller: 'datosOrganizacion', action: 'datos')}/" + '${unidad?.id}'--}%
-    %{--});--}%
-
-    %{--$("#btnPlanNegocio").click(function () {--}%
-    %{--    location.href = "${createLink(controller: 'plan', action: 'planesConvenio')}/" + '${unidad?.id}'--}%
-    %{--});--}%
-
-    %{--$("#btnAdministradorCon").click(function () {--}%
-    %{--    var dialog = cargarLoader("Cargando...");--}%
-    %{--    $.ajax({--}%
-    %{--        type: 'POST',--}%
-    %{--        url: '${createLink(controller: 'administradorConvenio', action: 'administrador_ajax')}',--}%
-    %{--        data: {--}%
-    %{--            id: '${unidad?.id}'--}%
-    %{--        },--}%
-    %{--        success: function (msg) {--}%
-    %{--            dialog.modal('hide');--}%
-    %{--            var ad = bootbox.dialog({--}%
-    %{--                id: "dlgBuscarAdministradorCon",--}%
-    %{--                title: "Asignar administrador",--}%
-    %{--                class: "modal-lg",--}%
-    %{--                closeButton: false,--}%
-    %{--                message: msg,--}%
-    %{--                buttons: {--}%
-    %{--                    cancelar: {--}%
-    %{--                        label: "Cancelar",--}%
-    %{--                        className: "btn-primary",--}%
-    %{--                        callback: function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
-
-
-    $("#btnGuardar").click(function () {
-        submitFormUnidad();
+    $("#btnEliminarFinca").click(function () {
+        bootbox.confirm("<i class='fa fa-exclamation-triangle fa-3x pull-left text-danger text-shadow'></i> ¿Está seguro de querer eliminar esta finca?", function (res) {
+            if(res){
+                $.ajax({
+                    type: 'POST',
+                    url: '${createLink(controller: 'finca', action: 'borrarFinca_ajax')}',
+                    data:{
+                        id: '${finca?.id}'
+                    },
+                    success: function (msg) {
+                        var parts = msg.split("_");
+                        if(parts[0] === 'ok'){
+                            log(parts[1],"success");
+                            setTimeout(function () {
+                                location.href="${createLink(controller: 'finca', action: 'finca')}"
+                            }, 1000);
+                        }else{
+                            bootbox.alert("<i class='fa fa-exclamation-triangle fa-3x pull-left text-warning text-shadow'></i>" + parts[1])
+                        }
+                    }
+                });
+            }
+        });
     });
 
-    function submitFormUnidad() {
-        var $form = $("#frmSaveUnidad");
+    $("#btnGuardar").click(function () {
+        submitFormFinca();
+    });
+
+    function submitFormFinca() {
+        var $form = $("#frmFinca");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             var data = $form.serialize();
@@ -595,7 +703,7 @@
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
                         setTimeout(function () {
-                            location.href="${createLink(controller: 'unidadEjecutora', action: 'organizacion')}/" + parts[2]
+                            location.href="${createLink(controller: 'finca', action: 'finca')}/" + parts[2]
                         }, 1000);
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
@@ -609,32 +717,34 @@
         return false;
     }
 
-    %{--$("#btnBuscarConvenio").click(function () {--}%
-    %{--    var dialog = cargarLoader("Cargando...");--}%
-    %{--    $.ajax({--}%
-    %{--        type: 'POST',--}%
-    %{--        url: '${createLink(controller: 'unidadEjecutora', action: 'buscarOrga_ajax')}',--}%
-    %{--        data: {},--}%
-    %{--        success: function (msg) {--}%
-    %{--            dialog.modal('hide');--}%
-    %{--            var b = bootbox.dialog({--}%
-    %{--                id: "dlgBuscarConvenio",--}%
-    %{--                title: "Buscar Organizaciones",--}%
-    %{--                class: "modal-lg",--}%
-    %{--                closeButton: false,--}%
-    %{--                message: msg,--}%
-    %{--                buttons: {--}%
-    %{--                    cancelar: {--}%
-    %{--                        label: "Cancelar",--}%
-    %{--                        className: "btn-primary",--}%
-    %{--                        callback: function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--});--}%
+    $(".buscarFinca").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'finca', action: 'buscarFinca_ajax')}',
+            data: {  },
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgBuscarFinca",
+                    title: "Buscar Finca",
+                    class: "modal-lg",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $(".buscarFinca").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
 
     var bp;
 
@@ -674,128 +784,20 @@
         bp.modal("hide");
     }
 
-    $('#fechaInicio').datetimepicker({
-        locale: 'es',
-        format: 'DD-MM-YYYY',
-        daysOfWeekDisabled: [0, 6],
-        sideBySide: true,
-        showClose: true
+    var validator = $("#frmFinca").validate({
+        errorClass     : "help-block",
+        errorPlacement : function (error, element) {
+            if (element.parent().hasClass("input-group")) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+            element.parents(".grupo").addClass('has-error');
+        },
+        success        : function (label) {
+            label.parents(".grupo").removeClass('has-error');
+        }
     });
-
-    $('#fechaFin').datetimepicker({
-        locale: 'es',
-        format: 'DD-MM-YYYY',
-        daysOfWeekDisabled: [0, 6],
-        sideBySide: true,
-        showClose: true
-    });
-
-    %{--$("#btnEtnias").click(function () {--}%
-    %{--    $.ajax({--}%
-    %{--        type: "POST",--}%
-    %{--        url: "${createLink(controller: 'personaOrganizacion',action:'resumenEtnias_ajax')}",--}%
-    %{--        data: {--}%
-    %{--            unidad: '${unidad?.id}'--}%
-    %{--        },--}%
-    %{--        success: function (msg) {--}%
-    %{--            var b = bootbox.dialog({--}%
-    %{--                id: "dlgEtnias",--}%
-    %{--                title: "Etnias de la organización",--}%
-    %{--                // class : "modal-lg",--}%
-    %{--                message: msg,--}%
-    %{--                buttons: {--}%
-    %{--                    cancelar: {--}%
-    %{--                        label: "Salir",--}%
-    %{--                        className: "btn-primary",--}%
-    %{--                        callback: function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--            setTimeout(function () {--}%
-    %{--                b.find(".form-control").first().focus()--}%
-    %{--            }, 500);--}%
-    %{--        } //success--}%
-    %{--    }); //ajax--}%
-    %{--});--}%
-
-    %{--$("#btnCategoria").click(function () {--}%
-    %{--    $.ajax({--}%
-    %{--        type: "POST",--}%
-    %{--        url: "${createLink(controller: 'categoria',action:'formCategoria_ajax')}",--}%
-    %{--        data: {--}%
-    %{--            unidad: '${unidad?.id}'--}%
-    %{--        },--}%
-    %{--        success: function (msg) {--}%
-    %{--            var b = bootbox.dialog({--}%
-    %{--                id: "dlgCategorias",--}%
-    %{--                title: "Categorías de la organización",--}%
-    %{--                // class : "modal-lg",--}%
-    %{--                message: msg,--}%
-    %{--                buttons: {--}%
-    %{--                    cancelar: {--}%
-    %{--                        label: "Salir",--}%
-    %{--                        className: "btn-primary",--}%
-    %{--                        callback: function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--            setTimeout(function () {--}%
-    %{--                b.find(".form-control").first().focus()--}%
-    %{--            }, 500);--}%
-    %{--        } //success--}%
-    %{--    }); //ajax--}%
-    %{--});--}%
-
-    %{--$("#btnNecesidad").click(function () {--}%
-    %{--    $.ajax({--}%
-    %{--        type: "POST",--}%
-    %{--        url: "${createLink(controller: 'necesidad',action:'formNecesidad_ajax')}",--}%
-    %{--        data: {--}%
-    %{--            unidad: '${unidad?.id}'--}%
-    %{--        },--}%
-    %{--        success: function (msg) {--}%
-    %{--            var b = bootbox.dialog({--}%
-    %{--                id: "dlgNecesidades",--}%
-    %{--                title: "Tipos de necesidades de la organización",--}%
-    %{--                // class : "modal-lg",--}%
-    %{--                message: msg,--}%
-    %{--                buttons: {--}%
-    %{--                    cancelar: {--}%
-    %{--                        label: "Salir",--}%
-    %{--                        className: "btn-primary",--}%
-    %{--                        callback: function () {--}%
-    %{--                        }--}%
-    %{--                    }--}%
-    %{--                }--}%
-    %{--            }); //dialog--}%
-    %{--            setTimeout(function () {--}%
-    %{--                b.find(".form-control").first().focus()--}%
-    %{--            }, 500);--}%
-    %{--        } //success--}%
-    %{--    }); //ajax--}%
-    %{--});--}%
-
-    %{--$('#btnCedula').click(function () {--}%
-    %{--    var cdla = $("#ruc").val();--}%
-    %{--    $.ajax({--}%
-    %{--        type    : "POST",--}%
-    %{--        url     : '${createLink(action:'ruc_ajax')}',--}%
-    %{--        data    : {cdla: cdla},--}%
-    %{--        success : function (msg) {--}%
-    %{--            var parts = msg.split("*");--}%
-    %{--            if (parts[0] === "SUCCESS") {--}%
-    %{--                $("#nombre").val(parts[1]);--}%
-    %{--                $("#direccion").val(parts[2]);--}%
-    %{--                $("#objetivo").val(parts[3])--}%
-    %{--            } else {--}%
-    %{--                log('No se ha encontrado el RUC', "error");--}%
-    %{--            }--}%
-    %{--        }--}%
-    %{--    });--}%
-    %{--    return false;--}%
-    %{--});--}%
 
 </script>
 </body>
