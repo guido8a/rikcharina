@@ -1,237 +1,222 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
+    <head>
+        <meta name="layout" content="main">
+        <title>Parámetros</title>
 
+        <style type="text/css">
+        ul {padding:0.2em}
+        li {padding:0.2em}
+            .tamano{
+                font-size: 16px;
+            }
+        </style>
+    </head>
 
-<head>
-    <meta name="layout" content="main"/>
+    <body>
 
+        <div class="row">
+            <div class="col-md-4">
 
-    <title>Parámetros</title>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Parámetros del Sistema</h3>
+                    </div>
 
-    <style type="text/css">
+                    <div class="panel-body">
+                        <ul class="fa-ul">
+                             <li>
+                                <g:link data-info="categoria" class="over tamano" controller="institucion" action="list" >
+                                    <i class="fa-li fas fa-certificate text-info"></i> Instituciones
+                                </g:link>
 
-    .tab-content, .left, .right {
-        height : 600px;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Instituciones</h4>
 
-    .tab-content {
-        /*background  : #EFE4D1;*/
-        background  : #EEEEEE;
-        border      : solid 1px #DDDDDD;
-        padding-top : 10px;
-    }
+                                    <p> Administración de las diferentes instituciones
+                                    </p>
+                                </div>
+                            </li>
 
-    .descripcion {
-        /*margin-left : 20px;*/
-        font-size : 12px;
-        border    : solid 2px cadetblue;
-        padding   : 0 10px;
-        margin    : 0 10px 0 0;
-    }
+                            <li>
+                                <g:link data-info="categoria" class="over tamano" controller="canton" action="arbol">
+                                    <i class="fa-li fas fa-map-marker-alt text-info"></i>
+                                    Distribución Geográfica
+                                </g:link>
 
-    .info {
-        font-style : italic;
-        color      : navy;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Distribución geográfica de Ecuador</h4>
 
-    .descripcion h4 {
-        color      : cadetblue;
-        text-align : center;
-    }
+                                    <p>Permitirá referenciar geográficamente las metas del proyeto y los lugares donde
+                                        se firmen los Convenios.
+                                    </p>
+                                    <p>Cuenta con las provincias, cantones y parroquias.
+                                    </p>
+                                </div>
+                            </li>
 
-    .left {
-        width : 710px;
-        /*background : red;*/
-    }
+                            <li>
+                                <g:link class="over tamano" controller="tipoLote" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Tipo de Lote
+                                </g:link>
 
-    .right {
-        width       : 300px;
-        margin-left : 40px;
-        /*background  : blue;*/
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Tipo de Lote</h4>
 
-    .fa-ul li {
-        margin-bottom : 10px;
-    }
+                                    <p>Administracion del tipo de lote</p>
+                                </div>
+                            </li>
 
-    .uno {
+                            <li>
+                                <g:link class="over tamano" controller="familia" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Familias
+                                </g:link>
 
-        float      : left;
-        width      : 150px;
-        margin-top : 10px;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Familias</h4>
 
-    .dos {
+                                    <p>Administracion de los tipos de integrantes que constan en una familia</p>
+                                </div>
+                            </li>
 
-        float      : left;
-        width      : 250px;
-        margin-top : 10px;
-    }
+                            <li>
+                                <g:link class="over tamano" controller="tipoObra" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Tipo de Obra
+                                </g:link>
 
-    .fila {
-        height : 40px;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Tipo de Obra</h4>
 
-    .textoUno {
-        float : left;
-        width : 250px;
+                                    <p>Administracion del tipo de obra</p>
+                                </div>
+                            </li>
 
-    }
+                            <li>
+                                <g:link class="over tamano" controller="planta" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Plantas
+                                </g:link>
 
-    .textoDos {
-        float : left;
+                                <div class="descripcion hidden">
+                                    <h4>Tipo de Plantas</h4>
 
-    }
+                                    <p>Administracion de tipos de plantas</p>
+                                </div>
+                            </li>
 
+                            <li>
+                                <g:link class="over tamano" controller="enfermedad" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Enfermedades
+                                </g:link>
 
-    .btn-sq-lg {
-        width: 150px !important;
-        height: 150px !important;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Enfermedades</h4>
 
-    .btn-sq {
-        width: 100px !important;
-        height: 100px !important;
-        font-size: 10px;
-    }
+                                    <p>Administracion de enfermedades</p>
+                                </div>
+                            </li>
 
-    .btn-sq-sm {
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 10px;
-    }
+                            <li>
+                                <g:link class="over tamano" controller="plaga" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Plagas
+                                </g:link>
 
-    .btn-sq-xs {
-        width: 25px !important;
-        height: 25px !important;
-        padding:2px;
-    }
+                                <div class="descripcion hidden">
+                                    <h4>Plagas</h4>
 
-    </style>
+                                    <p>Administracion de plagas</p>
+                                </div>
+                            </li>
 
-</head>
+                            <li>
+                                <g:link class="over tamano" controller="siembra" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Tipo de Siembra
+                                </g:link>
 
-<body>
+                                <div class="descripcion hidden">
+                                    <h4>Tipo de Siembra</h4>
 
-<div class="row">
-    <div class="col-md-6"style="text-align: center;">
+                                    <p>Administracion de tipo de siembra</p>
+                                </div>
+                            </li>
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Parámetros del Sistema</h3>
-            </div>
+                            <li>
+                                <g:link class="over tamano" controller="animal" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Animales
+                                </g:link>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-5">
-                    <p>
-                        <g:link data-info="categoria" class="link btn btn-primary btn-ajax" controller="canton" action="arbol">
-                            <i class="fa fa-globe fa-5x"></i><br/>
-                            Distribución Geográfica
-                        </g:link>
-                    </p>
+                                <div class="descripcion hidden">
+                                    <h4>Animales</h4>
+
+                                    <p>Administracion de animales</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <g:link class="over tamano" controller="equipo" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Instalaciones
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Instalaciones</h4>
+
+                                    <p>Administración de instalaciones</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <g:link class="over tamano" controller="capacitacion" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Capacitaciones
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Capacitaciones</h4>
+
+                                    <p>Administración de capacitaciones</p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <g:link class="over tamano" controller="cargo" action="list">
+                                    <i class="fa-li fas fa-scroll text-info "></i>
+                                    Cargos
+                                </g:link>
+
+                                <div class="descripcion hidden">
+                                    <h4>Cargos</h4>
+
+                                    <p>Administración de cargos</p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-5">
-                    <p>
-                        <g:link data-info="categoria" class="link btn btn-warning btn-ajax" controller="institucion" action="list" >
-                            <i class="fa fa-building fa-5x"></i><br/> Instituciones
-                        </g:link>
-
-                        <g:link class="link btn btn-warning btn-ajax" controller="familia" action="list">
-                            <i class="fa fa-home fa-5x"></i><br/>
-                            Familias
-                        </g:link>
-
-                        <g:link class="link btn btn-warning btn-ajax" controller="tipoLote" action="list">
-                            <i class="fa fa-map fa-5x"></i><br/>
-                            Tipo de Lote
-                        </g:link>
-
-                        <g:link class="link btn btn-warning btn-ajax" controller="tipoObra" action="list">
-                            <i class="fa fa-book fa-5x"></i><br/>
-                            Tipo de Obra
-                        </g:link>
-
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 col-xs-5">
-                    <p>
-                        <g:link class="link btn btn-success btn-ajax" controller="planta" action="list">
-                            <i class="fa fa-tree fa-5x"></i><br/>
-                            Plantas
-                        </g:link>
-
-                        <g:link class="link btn btn-success btn-ajax" controller="animal" action="list">
-                            <i class="fa fa-paw fa-5x"></i><br/>
-                            Animales
-                        </g:link>
-
-                        <g:link class="link btn btn-success btn-ajax" controller="enfermedad" action="list">
-                            <i class="fa fa-certificate fa-5x"></i><br/>
-                            Enfermedades
-                        </g:link>
-
-                        <g:link class="link btn btn-success btn-ajax" controller="plaga" action="list">
-                            <i class="fa fa-asterisk fa-5x"></i><br/>
-                            Plagas
-                        </g:link>
-
-                        <g:link class="link btn btn-success btn-ajax" controller="siembra" action="list">
-                            <i class="fa fa-book fa-5x"></i><br/>
-                            Tipo de Siembra
-                        </g:link>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 col-xs-5">
-                    <p>
-                        <g:link class="link btn btn-info btn-ajax" controller="equipo" action="list">
-                            <i class="fa fa-wrench fa-5x"></i><br/>
-                            Instalaciones
-                        </g:link>
-
-                        <g:link class="link btn btn-info btn-ajax" controller="capacitacion" action="list">
-                            <i class="fa fa-calendar fa-5x"></i><br/>
-                            Capacitaciones
-                        </g:link>
-
-                        <g:link class="link btn btn-info btn-ajax" controller="cargo" action="list">
-                            <i class="fa fa-users fa-5x"></i><br/>
-                            Cargos
-                         </g:link>
-
-                    </p>
-                </div>
-            </div>
 
         </div>
-    </div>
-</div>
 
+        <script type="text/javascript">
+            $(function () {
+                $(".over").hover(function () {
+                    var $h4 = $(this).siblings(".descripcion").find("h4");
+                    var $cont = $(this).siblings(".descripcion").find("p");
+                    $(".right").removeClass("hidden").find(".panel-title").text($h4.text()).end().find(".panel-body").html($cont.html());
+                }, function () {
+                    $(".right").addClass("hidden");
+                });
+            });
+        </script>
 
-
-<script type="text/javascript">
-
-
-    $(function () {
-        $(".over").hover(function () {
-            var $h4 = $(this).siblings(".descripcion").find("h4");
-            var $cont = $(this).siblings(".descripcion").find("p");
-            $(".right").removeClass("hidden").find(".panel-title").text($h4.text()).end().find(".panel-body").html($cont.html());
-        }, function () {
-            $(".right").addClass("hidden");
-        });
-    });
-
-
-
-</script>
-
-</body>
+    </body>
 </html>
