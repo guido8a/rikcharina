@@ -34,40 +34,42 @@
 <g:if test="${finca?.id}">
     <div class="panel panel-primary col-md-12" style="height: 85px;">
         <div class="" style="padding: 3px; margin-top: 2px; text-align: left;">
-            <a href="#" id="btnDocumentos" class="btn btn-sm btn-info" title="Consultar documentos">
+            <a href="#" id="btnAreas" class="btn btn-sm btn-info" title="Áreas de producción">
                 <i class="fas fa-book-reader"></i> Áreas de producción
             </a>
-            <a href="#" id="btnRepresentante" class="btn btn-sm btn-info" title="Representante de la organización">
+            <a href="#" id="btnTrabajo" class="btn btn-sm btn-info" title="Trabajo familiar">
                 <i class="fas fa-users-cog"></i> Trabajo familiar
             </a>
-            <a href="#" id="btnBeneficiario" class="btn btn-sm btn-info" title="Socios beneficiarios">
-                <i class="fas fa-clipboard"></i> Obras de conservación de suelos
-            </a>
-            <a href="#" id="btnDatos" class="btn btn-sm btn-info" title="Datos de la organización">
+            <a href="#" id="btnDatos" class="btn btn-sm btn-info" title="Manejo de cultivos">
                 <i class="fa fa-scroll"></i> Manejo de cultivos
             </a>
-            <a href="#" id="btnEtnias" class="btn btn-sm btn-info" title="Etnias">
+            <a href="#" id="btnEtnias" class="btn btn-sm btn-info" title="Manejo de enfermedades">
                 <i class="fa fa-certificate"></i> Manejo de enfermedades
             </a>
-            <a href="#" id="btnCategoria" class="btn btn-sm btn-info" title="Categorias">
+            <a href="#" id="btnCategoria" class="btn btn-sm btn-info" title="Control de plagas">
                 <i class="fas fa-asterisk"></i> Control de plagas
             </a>
-            <a href="#" id="btnNecesidad" class="btn btn-sm btn-info" title="Necesidades">
+            <a href="#" id="btnNecesidad" class="btn btn-sm btn-info" title="Manejo forestal">
                 <i class="fas fa-tree"></i> Manejo forestal
             </a>
-        </div>
-        <div class="" style="padding: 3px; text-align: left;">
-            <a href="#" id="btnTalleres" class="btn btn-sm btn-warning" title="Talleres">
+            <a href="#" id="btnTalleres" class="btn btn-sm btn-info" title="Manejo de animales">
                 <i class="fas fa-paw"></i> Manejo de animales
             </a>
-            <a href="#" id="btnEquipos" class="btn btn-sm btn-warning" title="Planes">
+            <a href="#" id="btnCargos" class="btn btn-sm btn-info" title="Cargos desempeñados">
+                <i class="fas fa-users"></i> Cargos desempeñados
+            </a>
+
+        </div>
+        <div class="" style="padding: 3px; text-align: left;">
+            <a href="#" id="btnBeneficiario" class="btn btn-sm btn-info" title=" Obras de conservación de suelos">
+                <i class="fas fa-clipboard"></i> Obras de conservación de suelos
+            </a>
+            <a href="#" id="btnEquipos" class="btn btn-sm btn-info" title="Manejo de equipos e instalaciones">
                 <i class="fas fa-wrench"></i> Manejo de equipos e instalaciones
             </a>
-            <a href="#" id="btnCapacitacion" class="btn btn-sm btn-warning" title="Planes">
+
+            <a href="#" id="btnCapacitacion" class="btn btn-sm btn-info" title="Capacitación">
                 <i class="fas fa-calendar"></i> Capacitación
-            </a>
-            <a href="#" id="btnCargos" class="btn btn-sm btn-warning" title="Planes">
-                <i class="fas fa-users"></i> Cargos desempeñados
             </a>
         </div>
     </div>
@@ -648,6 +650,65 @@
 
 <script type="text/javascript">
 
+    var bp;
+
+    $("#btnAreas").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'areaProduccion', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormArea",
+                    title: "Área de producción",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnAreas").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnTrabajo").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'trabajoFamiliar', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormTrabajo",
+                    title: "Trabajo familiar",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnTrabajo").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+
     $('#datetimepicker1').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
@@ -746,7 +807,7 @@
         });
     });
 
-    var bp;
+
 
     $(".buscarParroquia").click(function () {
         var dialog = cargarLoader("Cargando...");
