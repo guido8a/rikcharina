@@ -203,7 +203,17 @@
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="panel panel-info right hidden">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"></h3>
+                    </div>
 
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript">
