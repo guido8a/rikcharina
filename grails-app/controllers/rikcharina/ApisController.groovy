@@ -226,8 +226,7 @@ class ApisController {
                         id = cn.rows(sql.toString())[0]?.arpr__id
                         println "id de arpr: $id"
                         if (id > 0) {
-                            sql = """update arpr set
-                                tplt__id = ${dd.id_tipo},
+                            sql = """update arpr set tplt__id = ${id_tipo},
                                 arprrefe = '${dd.arprrefe}',
                                 arprarea = '${dd.arprarea}',
                                 arprusag = '${dd.arprusag}',
@@ -273,25 +272,25 @@ class ApisController {
 
                     sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
-                    sql = "select tplt__id from tplt where tpltdscr ilike '%${dd.trfmtplt}%'"
-                    id_tipo = cn.rows(sql.toString())[0]?.tplt__id
+                    sql = "select faml__id from faml where famldscr ilike '%${dd.trfmfaml}%'"
+                    id_tipo = cn.rows(sql.toString())[0]?.faml__id
 
                     println "borrando trfm del dispositivo: ${dspt}"
                     cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
 
                     println "existe finca: $existe_fnca, Existe trfm: ${existe}"
                     if (!existe) {
-                        sql = """insert into trfm_t(trfm__id, fnca__id, tplt__id, trfmrefe,
-                            trfmarea, trfmusag, trfmuspc, trfmpndt)
-                            values (${dd.trfm__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.trfmrefe}',
-                            ${dd.trfmarea}, ${dd.trfmusag}, ${dd.trfmuspc}, ${dd.trfmpndt})"""
+                        sql = """insert into trfm_t(trfm__id, fnca__id, faml__id, trfmactv,
+                            trfmnmro, trfmtipo)
+                            values (${dd.trfm__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.trfmactv}',
+                            ${dd.trfmnmro}, '${dd.trfmtipo}')"""
 
                         println "inserta registro en trfm_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into trfm(trfmidds, fnca__id, tplt__id, trfmrefe,
-                            trfmarea, trfmusag, trfmuspc, trfmpndt) select trfm__id, ${id_fnca}, tplt__id, trfmrefe,
-                            trfmarea, trfmusag, trfmuspc, trfmpndt from trfm_t where trfm__id = ${dd.trfm__id}"""
+                        sql = """insert into trfm(trfmidds, fnca__id, faml__id, trfmactv,
+                            trfmnmro, trfmtipo) select trfm__id, ${id_fnca}, faml__id, trfmactv,
+                            trfmnmro, trfmtipo from trfm_t where trfm__id = ${dd.trfm__id}"""
                         println "inserta registro en trfm: $sql"
 
                         cn.execute(sql.toString())
@@ -302,13 +301,10 @@ class ApisController {
                         id = cn.rows(sql.toString())[0]?.trfm__id
                         println "id de trfm: $id"
                         if (id > 0) {
-                            sql = """update trfm set
-                                tplt__id = ${dd.id_tipo},
-                                trfmrefe = '${dd.trfmrefe}',
-                                trfmarea = '${dd.trfmarea}',
-                                trfmusag = '${dd.trfmusag}',
-                                trfmuspc = '${dd.trfmuspc}',
-                                trfmpndt = '${dd.trfmpndt}'
+                            sql = """update trfm set faml__id = ${id_tipo},
+                                trfmactv = '${dd.trfmactv}',
+                                trfmnmro = '${dd.trfmnmro}',
+                                trfmtipo = '${dd.trfmtipo}'
                                 where trfm__id = ${id}"""
                             cn.execute(sql.toString())
                         }
