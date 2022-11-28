@@ -35,7 +35,7 @@
     <div class="panel panel-primary col-md-12" style="height: 85px;">
         <div class="" style="padding: 3px; margin-top: 2px; text-align: left;">
             <a href="#" id="btnAreas" class="btn btn-sm btn-info" title="Áreas de producción">
-                <i class="fas fa-book-reader"></i> Áreas de producción
+                <i class="fa fa-table"></i> Áreas de producción
             </a>
             <a href="#" id="btnTrabajo" class="btn btn-sm btn-info" title="Trabajo familiar">
                 <i class="fas fa-users-cog"></i> Trabajo familiar

@@ -167,7 +167,7 @@
     <a href= "${createLink(controller:'finca', action: 'finca')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 220px">
+                <div style="width: 200px; height: 120px">
                     <asset:image src="apli/proyecto.jpeg" title="Datos de fincas"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 220px">
