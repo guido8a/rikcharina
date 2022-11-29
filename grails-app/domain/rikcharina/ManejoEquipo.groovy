@@ -1,12 +1,11 @@
 package rikcharina
 
-class ManejoEquipos {
+class ManejoEquipo {
 
     static auditable = true
 
     Finca    finca
     Equipo   equipo
-    int      area
 
     static mapping = {
         table 'mjeq'
