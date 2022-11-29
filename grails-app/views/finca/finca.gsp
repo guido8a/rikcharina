@@ -46,7 +46,7 @@
             <a href="#" id="btnEnfermedad" class="btn btn-sm btn-info" title="Manejo de enfermedades">
                 <i class="fa fa-certificate"></i> Manejo de enfermedades
             </a>
-            <a href="#" id="btnCategoria" class="btn btn-sm btn-info" title="Control de plagas">
+            <a href="#" id="btnPlaga" class="btn btn-sm btn-info" title="Control de plagas">
                 <i class="fas fa-asterisk"></i> Control de plagas
             </a>
             <a href="#" id="btnNecesidad" class="btn btn-sm btn-info" title="Manejo forestal">
@@ -756,6 +756,34 @@
                             className: "btn-primary",
                             callback: function () {
                                 $("#btnEnfermedad").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnPlaga").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'manejoPlagas', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormPlagas",
+                    title: "Manejo de Plagas",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnPlaga").removeAttr('disabled');
                             }
                         }
                     }

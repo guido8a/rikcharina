@@ -6,7 +6,6 @@ class Forestal {
 
     Finca    finca
     Siembra  siembra
-    int      area
 
     static mapping = {
         table 'frst'
@@ -17,7 +16,7 @@ class Forestal {
         columns {
             id        column: 'frst__id'
             finca     column: 'fnca__id'
-            siembra     column: 'plnt__id'
+            siembra     column: 'smbr__id'
         }
     }
 
