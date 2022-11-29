@@ -17,7 +17,7 @@ class ManejoPlagas {
         columns {
             id        column: 'mjpg__id'
             finca     column: 'fnca__id'
-            plaga     columm: 'plga__id'
+            plaga     column: 'plga__id'
         }
     }
 

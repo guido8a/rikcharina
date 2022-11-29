@@ -18,7 +18,7 @@ class ManejoAnimal {
         columns {
             id        column: 'mjan__id'
             finca     column: 'fnca__id'
-            animal    columm: 'anml__id'
+            animal    column: 'anml__id'
             numero    column: 'mjannmro'
         }
     }

@@ -16,7 +16,7 @@ class FincaCargo {
         columns {
             id      column: 'fncg__id'
             finca   column: 'fnca__id'
-            cargo   columm: 'crgo__id'
+            cargo   column: 'crgo__id'
         }
     }
 

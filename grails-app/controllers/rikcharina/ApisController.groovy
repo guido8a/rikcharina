@@ -267,18 +267,95 @@ class ApisController {
                 println "existe finca: $existe_fnca"
 
                 if (existe_fnca) {
-                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
-                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
-
-                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
-                    existe = cn.rows(sql.toString())[0]?.cnta
-                    sql = "select faml__id from faml where famldscr ilike '%${dd.trfmfaml}%'"
-                    id_tipo = cn.rows(sql.toString())[0]?.faml__id
-
                     println "borrando trfm del dispositivo: ${dspt}"
                     cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
 
+                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
+
+                    sql = "select faml__id from faml where famldscr ilike '%${dd.trfmfaml}%'"
+                    id_tipo = cn.rows(sql.toString())[0]?.faml__id
+
+                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
+                    existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe trfm: ${existe}"
+                    
+                    if (!existe) {
+                        sql = """insert into trfm_t(trfm__id, fnca__id, faml__id, trfmactv,
+                            trfmnmro, trfmtipo)
+                            values (${dd.trfm__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.trfmactv}',
+                            ${dd.trfmnmro}, '${dd.trfmtipo}')"""
+
+                        println "inserta registro en trfm_t: $sql"
+                        cn.execute(sql.toString())
+
+                        sql = """insert into trfm(trfmidds, fnca__id, faml__id, trfmactv,
+                            trfmnmro, trfmtipo) select trfm__id, ${id_fnca}, faml__id, trfmactv,
+                            trfmnmro, trfmtipo from trfm_t where trfm__id = ${dd.trfm__id}"""
+                        println "inserta registro en trfm: $sql"
+
+                        cn.execute(sql.toString())
+                    } else {
+
+                        /* para cada trfmidds se lo actualiza en caso de existir o se lo inserta */
+                        sql = "select trfm__id from trfm where fnca__id = ${id_fnca} and trfmidds = ${dd.trfm__id}"
+                        id = cn.rows(sql.toString())[0]?.trfm__id
+                        println "id de trfm: $id"
+                        if (id > 0) {
+                            sql = """update trfm set faml__id = ${id_tipo},
+                                trfmactv = '${dd.trfmactv}',
+                                trfmnmro = '${dd.trfmnmro}',
+                                trfmtipo = '${dd.trfmtipo}'
+                                where trfm__id = ${id}"""
+                            cn.execute(sql.toString())
+                        }
+                    }
+                } else {
+                    println "Error ********* no hay la finca"
+                }
+            }
+        }
+
+//        def retorna =  [Token: token, ok: true, data: data]
+        def retorna = [Token: token, ok: true, id: id]
+        render retorna as JSON
+    }
+
+    def trfm() {
+        def cn = dbConnectionService.getConnection()
+        println "++trfm params: $params --hd: ${request.getHeader('token')}"
+        println "data --> ${request.JSON}"
+        def token = request.getHeader('token')
+        def dspt = request.getHeader('dspt')
+        def data = request.JSON
+        def sql = ""
+        def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+
+        println "....Inicia copia, dispositivo: $dspt, token: $token"
+
+        if (data.size() > 0) {
+            data.each { dd ->
+                sql = "select count(*) cnta from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                println "sql: $sql"
+                def existe_fnca = cn.rows(sql.toString())[0]?.cnta
+                println "existe finca: $existe_fnca"
+
+                if (existe_fnca) {
+                    println "borrando trfm del dispositivo: ${dspt}"
+                    cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+
+                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
+
+                    sql = "select faml__id from faml where famldscr ilike '%${dd.trfmfaml}%'"
+                    id_tipo = cn.rows(sql.toString())[0]?.faml__id
+
+                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
+                    existe = cn.rows(sql.toString())[0]?.cnta
+                    println "existe finca: $existe_fnca, Existe trfm: ${existe}"
+
                     if (!existe) {
                         sql = """insert into trfm_t(trfm__id, fnca__id, faml__id, trfmactv,
                             trfmnmro, trfmtipo)

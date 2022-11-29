@@ -17,7 +17,7 @@ class Forestal {
         columns {
             id        column: 'frst__id'
             finca     column: 'fnca__id'
-            siembra     columm: 'plnt__id'
+            siembra     column: 'plnt__id'
         }
     }
 

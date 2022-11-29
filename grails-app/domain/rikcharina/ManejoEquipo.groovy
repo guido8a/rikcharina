@@ -17,7 +17,7 @@ class ManejoEquipos {
         columns {
             id        column: 'mjeq__id'
             finca     column: 'fnca__id'
-            equipo    columm: 'eqpo__id'
+            equipo    column: 'eqpo__id'
         }
     }
 

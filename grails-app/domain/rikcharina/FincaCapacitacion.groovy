@@ -16,7 +16,7 @@ class FincaCapacitacion {
         columns {
             id           column: 'fncp__id'
             finca        column: 'fnca__id'
-            capacitacion columm: 'capc__id'
+            capacitacion column: 'capc__id'
         }
     }
 

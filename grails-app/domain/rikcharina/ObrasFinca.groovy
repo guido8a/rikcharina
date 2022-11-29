@@ -17,7 +17,7 @@ class ObrasFinca {
         columns {
             id        column: 'obfn__id'
             finca     column: 'fnca__id'
-            tipoObra  columm: 'tpob__id'
+            tipoObra  column: 'tpob__id'
             estado    column: 'obfnetdo'
         }
     }
