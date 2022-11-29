@@ -2,8 +2,8 @@
     <div class="panel-info" style="padding: 3px; margin-top: 2px">
         <div class="btn-toolbar toolbar">
             <div class="btn-group">
-                <a href="#" class="btn btn-sm btn-success" id="btnAgregarEnfermedad">
-                    <i class="fa fa-plus"></i> Agregar manejo de enfermedad
+                <a href="#" class="btn btn-sm btn-success" id="btnAgregarPlaga">
+                    <i class="fa fa-plus"></i> Agregar manejo de plaga
                 </a>
             </div>
         </div>
@@ -11,38 +11,38 @@
     <div class="alert-info" style="text-align: center; font-size: 14px; font-weight: bold">
         * Haga clic derecho sobre un registro para desplegar su menú de opciones
     </div>
-    <div id="tablaEnfermedad"></div>
+    <div id="tablaPlaga"></div>
 </div>
 
 <script type="text/javascript">
-    cargarTablaEnfermedad();
+    cargarTablaPlaga();
 
-    $("#btnAgregarEnfermedad").click(function () {
-        createEditEnfermedad();
+    $("#btnAgregarPlaga").click(function () {
+        createEditPlaga();
     });
 
-    function cargarTablaEnfermedad(){
+    function cargarTablaPlaga(){
         $.ajax({
             type: 'POST',
-            url:'${createLink(controller: 'manejoEnfermedades', action: 'tablaManejoEnfermedades_ajax')}',
+            url:'${createLink(controller: 'manejoPlagas', action: 'tablaManejoPlagas_ajax')}',
             data:{finca: '${finca}'},
             success: function(msg){
-                $("#tablaEnfermedad").html(msg)
+                $("#tablaPlaga").html(msg)
             }
         });
     }
 
-    function createEditEnfermedad(id) {
+    function createEditPlaga(id) {
         var title = id ? "Editar" : "Crear";
         var data = id ? {id : id} : {};
         $.ajax({
             type    : "POST",
-            url     : "${createLink(controller:'manejoEnfermedades', action:'form_ajax')}",
+            url     : "${createLink(controller:'manejoPlagas', action:'form_ajax')}",
             data    : data,
             success : function (msg) {
                 var b = bootbox.dialog({
                     id      : "dlgCreateEdit",
-                    title   : title + " Manejo de enfermedad",
+                    title   : title + " Manejo de plagas",
                     message : msg,
                     buttons : {
                         cancelar : {
@@ -56,7 +56,7 @@
                             label     : "<i class='fa fa-save'></i> Guardar",
                             className : "btn-success",
                             callback  : function () {
-                                return submitFormEnfermedad();
+                                return submitFormPlaga();
                             } //callback
                         } //guardar
                     } //buttons
@@ -68,8 +68,8 @@
         }); //ajax
     } //createEdit
 
-    function submitFormEnfermedad() {
-        var $form = $("#frmEnfermedad");
+    function submitFormPlaga() {
+        var $form = $("#frmPlaga");
         var $btn = $("#dlgCreateEdit").find("#btnSave");
         if ($form.valid()) {
             var data = $form.serialize();
@@ -84,7 +84,7 @@
                     var parts = msg.split("_");
                     if(parts[0] === 'ok'){
                         log(parts[1], "success");
-                        cargarTablaEnfermedad();
+                        cargarTablaPlaga();
                     }else{
                         bootbox.alert('<i class="fa fa-exclamation-triangle text-danger fa-3x"></i> ' + '<strong style="font-size: 14px">' + parts[1] + '</strong>');
                         return false;
@@ -96,9 +96,9 @@
         }
     }
 
-    function borrarManejoEnfermedad(id){
+    function borrarManejoPlaga(id){
         bootbox.confirm({
-            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro de eliminar este manejo de enfermedad? </strong>",
+            message: "<i class='fa fa-3x fa-exclamation-triangle text-danger'></i> <strong style='font-size: 14px'>  Está seguro de eliminar este manejo de la plaga? </strong>",
             buttons: {
                 confirm: {
                     label: 'Borrar',
@@ -113,7 +113,7 @@
                 if(result){
                     $.ajax({
                         type:'POST',
-                        url:'${createLink(controller: 'manejoEnfermedades', action: 'borrarManejoEnfermedad_ajax')}',
+                        url:'${createLink(controller: 'manejoPlagas', action: 'borrarManejoPlaga_ajax')}',
                         data:{
                             id: id
                         },
@@ -121,7 +121,7 @@
                             var parts = msg.split("_");
                             if(parts[0] === 'ok'){
                                 log(parts[1],"success");
-                                cargarTablaEnfermedad();
+                                cargarTablaPlaga();
                             }else{
                                 log(parts[1],"error")
                             }
@@ -147,7 +147,7 @@
             label: '<span class="text-info">Editar</span>',
             icon: 'fa fa-edit text-info',
             action: function () {
-                createEditEnfermedad(id)
+                createEditPlaga(id)
             }
         };
 
@@ -155,7 +155,7 @@
             label: '<span class="text-danger"> Borrar </span>',
             icon: "fa fa-trash text-danger",
             action: function () {
-                borrarManejoEnfermedad(id)
+                borrarManejoPlaga(id)
             }
         };
 

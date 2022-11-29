@@ -43,7 +43,7 @@
             <a href="#" id="btnCultivo" class="btn btn-sm btn-info" title="Manejo de cultivos">
                 <i class="fa fa-scroll"></i> Manejo de cultivos
             </a>
-            <a href="#" id="btnEtnias" class="btn btn-sm btn-info" title="Manejo de enfermedades">
+            <a href="#" id="btnEnfermedad" class="btn btn-sm btn-info" title="Manejo de enfermedades">
                 <i class="fa fa-certificate"></i> Manejo de enfermedades
             </a>
             <a href="#" id="btnCategoria" class="btn btn-sm btn-info" title="Control de plagas">
@@ -728,6 +728,34 @@
                             className: "btn-primary",
                             callback: function () {
                                 $("#btnCultivo").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnEnfermedad").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'manejoEnfermedades', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormEnfermedades",
+                    title: "Manejo enfermedades",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnEnfermedad").removeAttr('disabled');
                             }
                         }
                     }

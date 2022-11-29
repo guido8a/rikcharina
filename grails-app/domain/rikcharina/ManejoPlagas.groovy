@@ -6,7 +6,6 @@ class ManejoPlagas {
 
     Finca    finca
     Plaga  plaga
-    int      area
 
     static mapping = {
         table 'mjpg'
