@@ -17,8 +17,8 @@ class Cultivos {
         columns {
             id        column: 'cltv__id'
             finca     column: 'fnca__id'
-            planta   column: 'plnt__id'
-            area    column: 'cltvarea'
+            planta    column: 'plnt__id'
+            area      column: 'cltvarea'
         }
     }
 
