@@ -322,9 +322,9 @@ class ApisController {
         render retorna as JSON
     }
 
-    def trfm() {
+    def obfn() {
         def cn = dbConnectionService.getConnection()
-        println "++trfm params: $params --hd: ${request.getHeader('token')}"
+        println "++obfn params: $params --hd: ${request.getHeader('token')}"
         println "data --> ${request.JSON}"
         def token = request.getHeader('token')
         def dspt = request.getHeader('dspt')
@@ -342,47 +342,47 @@ class ApisController {
                 println "existe finca: $existe_fnca"
 
                 if (existe_fnca) {
-                    println "borrando trfm del dispositivo: ${dspt}"
-                    cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    println "borrando obfn del dispositivo: ${dspt}"
+                    cn.execute("delete from obfn_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
 
-                    sql = "select faml__id from faml where famldscr ilike '%${dd.trfmfaml}%'"
+                    sql = "select faml__id from faml where famldscr ilike '%${dd.obfnfaml}%'"
                     id_tipo = cn.rows(sql.toString())[0]?.faml__id
 
-                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from obfn where obfnidds = ${dd.obfn__id} and fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
-                    println "existe finca: $existe_fnca, Existe trfm: ${existe}"
+                    println "existe finca: $existe_fnca, Existe obfn: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into trfm_t(trfm__id, fnca__id, faml__id, trfmactv,
-                            trfmnmro, trfmtipo)
-                            values (${dd.trfm__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.trfmactv}',
-                            ${dd.trfmnmro}, '${dd.trfmtipo}')"""
+                        sql = """insert into obfn_t(obfn__id, fnca__id, faml__id, obfnactv,
+                            obfnnmro, obfntipo)
+                            values (${dd.obfn__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.obfnactv}',
+                            ${dd.obfnnmro}, '${dd.obfntipo}')"""
 
-                        println "inserta registro en trfm_t: $sql"
+                        println "inserta registro en obfn_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into trfm(trfmidds, fnca__id, faml__id, trfmactv,
-                            trfmnmro, trfmtipo) select trfm__id, ${id_fnca}, faml__id, trfmactv,
-                            trfmnmro, trfmtipo from trfm_t where trfm__id = ${dd.trfm__id}"""
-                        println "inserta registro en trfm: $sql"
+                        sql = """insert into obfn(obfnidds, fnca__id, faml__id, obfnactv,
+                            obfnnmro, obfntipo) select obfn__id, ${id_fnca}, faml__id, obfnactv,
+                            obfnnmro, obfntipo from obfn_t where obfn__id = ${dd.obfn__id}"""
+                        println "inserta registro en obfn: $sql"
 
                         cn.execute(sql.toString())
                     } else {
 
-                        /* para cada trfmidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select trfm__id from trfm where fnca__id = ${id_fnca} and trfmidds = ${dd.trfm__id}"
-                        id = cn.rows(sql.toString())[0]?.trfm__id
-                        println "id de trfm: $id"
+                        /* para cada obfnidds se lo actualiza en caso de existir o se lo inserta */
+                        sql = "select obfn__id from obfn where fnca__id = ${id_fnca} and obfnidds = ${dd.obfn__id}"
+                        id = cn.rows(sql.toString())[0]?.obfn__id
+                        println "id de obfn: $id"
                         if (id > 0) {
-                            sql = """update trfm set faml__id = ${id_tipo},
-                                trfmactv = '${dd.trfmactv}',
-                                trfmnmro = '${dd.trfmnmro}',
-                                trfmtipo = '${dd.trfmtipo}'
-                                where trfm__id = ${id}"""
+                            sql = """update obfn set faml__id = ${id_tipo},
+                                obfnactv = '${dd.obfnactv}',
+                                obfnnmro = '${dd.obfnnmro}',
+                                obfntipo = '${dd.obfntipo}'
+                                where obfn__id = ${id}"""
                             cn.execute(sql.toString())
                         }
                     }
