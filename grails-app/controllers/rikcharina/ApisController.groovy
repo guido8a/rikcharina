@@ -815,5 +815,145 @@ def mjeq() {
         render retorna as JSON
     }
 
+def fncp() {
+        def cn = dbConnectionService.getConnection()
+        println "++fncp params: $params --hd: ${request.getHeader('token')}"
+        println "data --> ${request.JSON}"
+        def token = request.getHeader('token')
+        def dspt = request.getHeader('dspt')
+        def data = request.JSON
+        def sql = ""
+        def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+
+        println "....Inicia copia, dispositivo: $dspt, token: $token"
+
+        if (data.size() > 0) {
+            data.each { dd ->
+                sql = "select count(*) cnta from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                println "sql: $sql"
+                def existe_fnca = cn.rows(sql.toString())[0]?.cnta
+                println "existe finca: $existe_fnca"
+
+                if (existe_fnca) {
+                    println "borrando fncp del dispositivo: ${dspt}"
+                    cn.execute("delete from fncp_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+
+                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
+
+                    sql = "select capc__id from capc where capcdscr ilike '${dd.fncptipo}'"
+                    id_tipo = cn.rows(sql.toString())[0]?.capc__id
+
+                    sql = "select count(*) cnta from fncp where fncpidds = ${dd.fncp__id} and fnca__id = '${id_fnca}'"
+                    existe = cn.rows(sql.toString())[0]?.cnta
+                    println "existe finca: $existe_fnca, Existe fncp: ${existe}"
+
+                    if (!existe) {
+                        sql = """insert into fncp_t(fncp__id, fnca__id, capc__id)
+                            values (${dd.fncp__id}, ${dd.fnca__id}, ${id_tipo})"""
+
+                        println "inserta registro en fncp_t: $sql"
+                        cn.execute(sql.toString())
+
+                        sql = """insert into fncp(fncpidds, fnca__id, capc__id) 
+                            select fncp__id, ${id_fnca}, capc__id
+                            from fncp_t where fncp__id = ${dd.fncp__id}"""
+                        println "inserta registro en fncp: $sql"
+
+                        cn.execute(sql.toString())
+                    } else {
+
+                        /* para cada fncpidds se lo actualiza en caso de existir o se lo inserta */
+                        sql = "select fncp__id from fncp where fnca__id = ${id_fnca} and fncpidds = ${dd.fncp__id}"
+                        id = cn.rows(sql.toString())[0]?.fncp__id
+                        println "id de fncp: $id"
+                        if (id > 0) {
+                            sql = """update fncp set capc__id = ${id_tipo}
+                                where fncp__id = ${id}"""
+                            cn.execute(sql.toString())
+                        }
+                    }
+                } else {
+                    println "Error ********* no hay la finca"
+                }
+            }
+        }
+
+//        def retorna =  [Token: token, ok: true, data: data]
+        def retorna = [Token: token, ok: true, id: id]
+        render retorna as JSON
+    }
+
+def fncg() {
+        def cn = dbConnectionService.getConnection()
+        println "++fncg params: $params --hd: ${request.getHeader('token')}"
+        println "data --> ${request.JSON}"
+        def token = request.getHeader('token')
+        def dspt = request.getHeader('dspt')
+        def data = request.JSON
+        def sql = ""
+        def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+
+        println "....Inicia copia, dispositivo: $dspt, token: $token"
+
+        if (data.size() > 0) {
+            data.each { dd ->
+                sql = "select count(*) cnta from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                println "sql: $sql"
+                def existe_fnca = cn.rows(sql.toString())[0]?.cnta
+                println "existe finca: $existe_fnca"
+
+                if (existe_fnca) {
+                    println "borrando fncg del dispositivo: ${dspt}"
+                    cn.execute("delete from fncg_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+
+                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
+
+                    sql = "select crgo__id from crgo where crgodscr ilike '${dd.fncgtipo}'"
+                    id_tipo = cn.rows(sql.toString())[0]?.crgo__id
+
+                    sql = "select count(*) cnta from fncg where fncgidds = ${dd.fncg__id} and fnca__id = '${id_fnca}'"
+                    existe = cn.rows(sql.toString())[0]?.cnta
+                    println "existe finca: $existe_fnca, Existe fncg: ${existe}"
+
+                    if (!existe) {
+                        sql = """insert into fncg_t(fncg__id, fnca__id, crgo__id)
+                            values (${dd.fncg__id}, ${dd.fnca__id}, ${id_tipo})"""
+
+                        println "inserta registro en fncg_t: $sql"
+                        cn.execute(sql.toString())
+
+                        sql = """insert into fncg(fncgidds, fnca__id, crgo__id) 
+                            select fncg__id, ${id_fnca}, crgo__id
+                            from fncg_t where fncg__id = ${dd.fncg__id}"""
+                        println "inserta registro en fncg: $sql"
+
+                        cn.execute(sql.toString())
+                    } else {
+
+                        /* para cada fncgidds se lo actualiza en caso de existir o se lo inserta */
+                        sql = "select fncg__id from fncg where fnca__id = ${id_fnca} and fncgidds = ${dd.fncg__id}"
+                        id = cn.rows(sql.toString())[0]?.fncg__id
+                        println "id de fncg: $id"
+                        if (id > 0) {
+                            sql = """update fncg set crgo__id = ${id_tipo}
+                                where fncg__id = ${id}"""
+                            cn.execute(sql.toString())
+                        }
+                    }
+                } else {
+                    println "Error ********* no hay la finca"
+                }
+            }
+        }
+
+//        def retorna =  [Token: token, ok: true, data: data]
+        def retorna = [Token: token, ok: true, id: id]
+        render retorna as JSON
+    }
+
 
 }
