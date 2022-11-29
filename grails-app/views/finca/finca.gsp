@@ -40,7 +40,7 @@
             <a href="#" id="btnTrabajo" class="btn btn-sm btn-info" title="Trabajo familiar">
                 <i class="fas fa-users-cog"></i> Trabajo familiar
             </a>
-            <a href="#" id="btnDatos" class="btn btn-sm btn-info" title="Manejo de cultivos">
+            <a href="#" id="btnCultivo" class="btn btn-sm btn-info" title="Manejo de cultivos">
                 <i class="fa fa-scroll"></i> Manejo de cultivos
             </a>
             <a href="#" id="btnEtnias" class="btn btn-sm btn-info" title="Manejo de enfermedades">
@@ -708,7 +708,38 @@
         });
     });
 
+    $("#btnCultivo").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'cultivos', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormCultivo",
+                    title: "Cultivos",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnCultivo").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
 
+
+
+
+    /////////////////
     $('#datetimepicker1').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',

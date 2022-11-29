@@ -16,7 +16,7 @@ class ManejoEnfermedades {
         columns {
             id         column: 'mjen__id'
             finca      column: 'fnca__id'
-            enfermedad columm: 'enfr__id'
+            enfermedad column: 'enfr__id'
         }
     }
 
