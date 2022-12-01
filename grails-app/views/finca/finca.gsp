@@ -49,22 +49,22 @@
             <a href="#" id="btnPlaga" class="btn btn-sm btn-info" title="Control de plagas">
                 <i class="fas fa-asterisk"></i> Control de plagas
             </a>
-            <a href="#" id="btnNecesidad" class="btn btn-sm btn-info" title="Manejo forestal">
+            <a href="#" id="btnForestal" class="btn btn-sm btn-info" title="Manejo forestal">
                 <i class="fas fa-tree"></i> Manejo forestal
             </a>
-            <a href="#" id="btnTalleres" class="btn btn-sm btn-info" title="Manejo de animales">
+            <a href="#" id="btnAnimal" class="btn btn-sm btn-info" title="Manejo de animales">
                 <i class="fas fa-paw"></i> Manejo de animales
             </a>
-            <a href="#" id="btnCargos" class="btn btn-sm btn-info" title="Cargos desempeñados">
+            <a href="#" id="btnCargo" class="btn btn-sm btn-info" title="Cargos desempeñados">
                 <i class="fas fa-users"></i> Cargos desempeñados
             </a>
 
         </div>
         <div class="" style="padding: 3px; text-align: left;">
-            <a href="#" id="btnBeneficiario" class="btn btn-sm btn-info" title=" Obras de conservación de suelos">
+            <a href="#" id="btnObra" class="btn btn-sm btn-info" title=" Obras de conservación de suelos">
                 <i class="fas fa-clipboard"></i> Obras de conservación de suelos
             </a>
-            <a href="#" id="btnEquipos" class="btn btn-sm btn-info" title="Manejo de equipos e instalaciones">
+            <a href="#" id="btnEquipo" class="btn btn-sm btn-info" title="Manejo de equipos e instalaciones">
                 <i class="fas fa-wrench"></i> Manejo de equipos e instalaciones
             </a>
 
@@ -792,10 +792,184 @@
         });
     });
 
+    $("#btnForestal").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'forestal', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormForestal",
+                    title: "Manejo de Siembras",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnForestal").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnAnimal").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'manejoAnimal', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormAnimal",
+                    title: "Manejo de Animales",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnAnimal").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnCargo").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'fincaCargo', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormCargo",
+                    title: "Cargos desempeñados",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnCargo").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+
+    $("#btnObra").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'obrasFinca', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormObra",
+                    title: "Obras de la Finca",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnObra").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnEquipo").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'manejoEquipo', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormEquipo",
+                    title: "Infraestructura",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnEquipo").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+    $("#btnCapacitacion").click(function () {
+        var dialog = cargarLoader("Cargando...");
+        $(this).attr('disabled', 'disabled');
+        $.ajax({
+            type: 'POST',
+            url: '${createLink(controller: 'fincaCapacitacion', action: 'list')}',
+            data: { finca: '${finca.id}'},
+            success: function (msg) {
+                dialog.modal('hide');
+                bp = bootbox.dialog({
+                    id: "dlgFormCapacitacion",
+                    title: "Cursos de capacitación",
+                    closeButton: false,
+                    message: msg,
+                    buttons: {
+                        cancelar: {
+                            label: "Cancelar",
+                            className: "btn-primary",
+                            callback: function () {
+                                $("#btnCapacitacion").removeAttr('disabled');
+                            }
+                        }
+                    }
+                }); //dialog
+            }
+        });
+    });
+
+
+
+
+
 
 
 
     /////////////////
+
     $('#datetimepicker1').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
