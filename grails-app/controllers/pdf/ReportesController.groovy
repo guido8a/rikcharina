@@ -26,7 +26,19 @@ import org.apache.poi.xssf.usermodel.XSSFSimpleShape
 
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*
-import rikcharina.Finca;
+import rikcharina.AreaProduccion
+import rikcharina.Cargo
+import rikcharina.Cultivos
+import rikcharina.Finca
+import rikcharina.FincaCapacitacion
+import rikcharina.FincaCargo
+import rikcharina.Forestal
+import rikcharina.ManejoAnimal
+import rikcharina.ManejoEnfermedades
+import rikcharina.ManejoEquipo
+import rikcharina.ManejoPlagas
+import rikcharina.ObrasFinca
+import rikcharina.TrabajoFamiliar;
 
 
 class ReportesController {
@@ -295,6 +307,300 @@ class ReportesController {
             label = new Label(54, fila, (f?.calificacion ? f?.calificacion : ''), times16Normal); sheet.addCell(label);
             fila++
         }
+
+        //areas de produccion
+
+        sheet2.setColumnView(0,30)
+        sheet2.setColumnView(1,30)
+        sheet2.setColumnView(2,30)
+        sheet2.setColumnView(3,30)
+        sheet2.setColumnView(4,30)
+        sheet2.setColumnView(5,30)
+        sheet2.setColumnView(6,30)
+
+        def labelArea
+        def numberArea
+        def filaArea = 4
+
+        labelArea = new Label(0, 1, "ÁREAS DE PRODUCCIÓN", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(0, 2, "", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(1, 3, "TIPO DE LOTE", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(2, 3, "REFERENCIA", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(3, 3, "ÁREA (%)", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(4, 3, "USO AGRÍCOLA (%)", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(5, 3, "USO PECUARIO (%)", times16format); sheet2.addCell(labelArea);
+        labelArea = new Label(6, 3, "PENDIENTE (%)", times16format); sheet2.addCell(labelArea);
+
+        fincas.each { f2->
+            def areas = AreaProduccion.findAllByFinca(f2)
+
+            areas.each {a->
+                labelArea = new Label(0, filaArea, (a?.finca?.nombre ? a?.finca?.nombre : ''), times16Normal); sheet2.addCell(labelArea);
+                labelArea = new Label(1, filaArea, (a?.tipoLote?.descripcion ? a?.tipoLote?.descripcion : ''), times16Normal); sheet2.addCell(labelArea);
+                labelArea = new Label(2, filaArea, (a?.referencia ? a?.referencia : ''), times16Normal); sheet2.addCell(labelArea);
+                numberArea = new jxl.write.Number(3, filaArea, a?.area ? a?.area : 0); sheet2.addCell(numberArea);
+                numberArea = new jxl.write.Number(4, filaArea, a?.usoAgricola ? a?.usoAgricola : 0); sheet2.addCell(numberArea);
+                numberArea = new jxl.write.Number(5, filaArea, a?.usoPecuario ? a?.usoPecuario : 0); sheet2.addCell(numberArea);
+                numberArea = new jxl.write.Number(6, filaArea, a?.pendiente ? a?.pendiente : 0); sheet2.addCell(numberArea);
+                filaArea++
+            }
+        }
+
+        //trabajo familiar
+
+        sheet3.setColumnView(0,30)
+        sheet3.setColumnView(1,30)
+        sheet3.setColumnView(2,30)
+        sheet3.setColumnView(3,30)
+        sheet3.setColumnView(4,30)
+        sheet3.setColumnView(5,30)
+        sheet3.setColumnView(6,30)
+
+        def label3
+        def number3
+        def fila3 = 4
+
+        label3 = new Label(0, 1, "TRABAJO FAMILIAR", times16format); sheet3.addCell(label3);
+        label3 = new Label(0, 2, "", times16format); sheet3.addCell(label3);
+        label3 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet3.addCell(label3);
+        label3 = new Label(1, 3, "FAMILIAR", times16format); sheet3.addCell(label3);
+        label3 = new Label(2, 3, "NÚMERO", times16format); sheet3.addCell(label3);
+        label3 = new Label(3, 3, "ACTIVIDAD", times16format); sheet3.addCell(label3);
+        label3 = new Label(4, 3, "TIPO", times16format); sheet3.addCell(label3);
+
+        fincas.each { f3->
+            def trabajos = TrabajoFamiliar.findAllByFinca(f3)
+
+            trabajos.each {t->
+                label3 = new Label(0, fila3, (t?.finca?.nombre ? t?.finca?.nombre : ''), times16Normal); sheet3.addCell(label3);
+                label3 = new Label(1, fila3, (t?.familia?.descripcion ? t?.familia?.descripcion : ''), times16Normal); sheet3.addCell(label3);
+                number3 = new jxl.write.Number(2, fila3, t?.numero ? t?.numero : 0); sheet3.addCell(number3);
+                label3 = new Label(3, fila3, (t?.actividad ? t?.actividad : ''), times16Normal); sheet3.addCell(label3);
+                label3 = new Label(4, fila3, (t?.tipo ? t?.tipo : ''), times16Normal); sheet3.addCell(label3);
+                fila3++
+            }
+        }
+
+        //manejo de cultivos
+
+        sheet4.setColumnView(0,30)
+        sheet4.setColumnView(1,30)
+        sheet4.setColumnView(2,30)
+
+
+        def label4
+        def number4
+        def fila4 = 4
+
+        label4 = new Label(0, 1, "MANEJO DE CULTIVOS", times16format); sheet4.addCell(label4);
+        label4 = new Label(0, 2, "", times16format); sheet4.addCell(label4);
+        label4 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet4.addCell(label4);
+        label4 = new Label(1, 3, "CULTIVO", times16format); sheet4.addCell(label4);
+        label4 = new Label(2, 3, "ÁREA (M2)", times16format); sheet4.addCell(label4);
+
+        fincas.each { f3->
+            def cultivos = Cultivos.findAllByFinca(f3)
+
+            cultivos.each {c->
+                label4 = new Label(0, fila4, (c?.finca?.nombre ? c?.finca?.nombre : ''), times16Normal); sheet4.addCell(label4);
+                label4 = new Label(1, fila4, (c?.planta?.descripcion ? c?.planta?.descripcion  : ''), times16Normal); sheet4.addCell(label4);
+                number4 = new jxl.write.Number(2, fila4, c?.area ? c?.area : 0); sheet4.addCell(number4);
+                fila4++
+            }
+        }
+
+        //MANEJO DE ENFERMEDADES
+
+        sheet5.setColumnView(0,30)
+        sheet5.setColumnView(1,30)
+
+        def label5
+        def fila5 = 4
+
+        label5 = new Label(0, 1, "MANEJO DE CULTIVOS", times16format); sheet5.addCell(label5);
+        label5 = new Label(0, 2, "", times16format); sheet5.addCell(label5);
+        label5 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet5.addCell(label5);
+        label5 = new Label(1, 3, "ENFERMEDAD", times16format); sheet5.addCell(label5);
+
+        fincas.each { f5->
+            def enfermedades = ManejoEnfermedades.findAllByFinca(f5)
+
+            enfermedades.each {e->
+                label5 = new Label(0, fila5, (e?.finca?.nombre ? e?.finca?.nombre : ''), times16Normal); sheet5.addCell(label5);
+                label5 = new Label(1, fila5, (e?.enfermedad?.descripcion ? e?.enfermedad?.descripcion  : ''), times16Normal); sheet5.addCell(label5);
+                fila5++
+            }
+        }
+
+        //CONTROL DE PLAGAS
+
+        sheet6.setColumnView(0,30)
+        sheet6.setColumnView(1,30)
+
+        def label6
+        def fila6 = 4
+
+        label6 = new Label(0, 1, "MANEJO DE PLAGAS", times16format); sheet6.addCell(label6);
+        label6 = new Label(0, 2, "", times16format); sheet6.addCell(label6);
+        label6 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet6.addCell(label6);
+        label6 = new Label(1, 3, "PLAGA", times16format); sheet6.addCell(label6);
+
+        fincas.each { f6->
+            def plagas = ManejoPlagas.findAllByFinca(f6)
+
+            plagas.each {e->
+                label6 = new Label(0, fila6, (e?.finca?.nombre ? e?.finca?.nombre : ''), times16Normal); sheet6.addCell(label6);
+                label6 = new Label(1, fila6, (e?.plaga?.descripcion ? e?.plaga?.descripcion  : ''), times16Normal); sheet6.addCell(label6);
+                fila6++
+            }
+        }
+
+        //MANEJO FORESTAL
+
+        sheet7.setColumnView(0,30)
+        sheet7.setColumnView(1,30)
+
+        def label7
+        def fila7 = 4
+
+        label7 = new Label(0, 1, "MANEJO FORESTAL", times16format); sheet7.addCell(label7);
+        label7 = new Label(0, 2, "", times16format); sheet7.addCell(label7);
+        label7 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet7.addCell(label7);
+        label7 = new Label(1, 3, "SIEMBRA", times16format); sheet7.addCell(label7);
+
+        fincas.each { f7->
+            def siembras = Forestal.findAllByFinca(f7)
+
+            siembras.each {s->
+                label7 = new Label(0, fila7, (s?.finca?.nombre ? s?.finca?.nombre : ''), times16Normal); sheet7.addCell(label7);
+                label7 = new Label(1, fila7, (s?.siembra?.descripcion ? s?.siembra?.descripcion : ''), times16Normal); sheet7.addCell(label7);
+                fila7++
+            }
+        }
+
+        //MANEJO DE ANIMALES
+
+        sheet8.setColumnView(0,30)
+        sheet8.setColumnView(1,30)
+        sheet8.setColumnView(2,30)
+
+        def label8
+        def number8
+        def fila8 = 4
+
+        label8 = new Label(0, 1, "MANEJO DE ANIMALES", times16format); sheet8.addCell(label8);
+        label8 = new Label(0, 2, "", times16format); sheet8.addCell(label8);
+        label8 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet8.addCell(label8);
+        label8 = new Label(1, 3, "ANIMAL", times16format); sheet8.addCell(label8);
+        label8 = new Label(2, 3, "CANTIDAD", times16format); sheet8.addCell(label8);
+
+        fincas.each { f8->
+            def animales = ManejoAnimal.findAllByFinca(f8)
+
+            animales.each {c->
+                label8 = new Label(0, fila8, (c?.finca?.nombre ? c?.finca?.nombre : ''), times16Normal); sheet8.addCell(label8);
+                label8 = new Label(1, fila8, (c?.animal?.descripcion ? c?.animal?.descripcion  : ''), times16Normal); sheet8.addCell(label8);
+                number8 = new jxl.write.Number(2, fila8, c?.numero ? c?.numero : 0); sheet8.addCell(number8);
+                fila8++
+            }
+        }
+
+        //CARGOS
+
+        sheet9.setColumnView(0,30)
+        sheet9.setColumnView(1,30)
+
+        def label9
+        def fila9 = 4
+
+        label9 = new Label(0, 1, "CARGOS", times16format); sheet9.addCell(label9);
+        label9 = new Label(0, 2, "", times16format); sheet9.addCell(label9);
+        label9 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet9.addCell(label9);
+        label9 = new Label(1, 3, "CARGO", times16format); sheet9.addCell(label9);
+
+        fincas.each { f7->
+            def cargos = FincaCargo.findAllByFinca(f7)
+
+            cargos.each {s->
+                label9 = new Label(0, fila9, (s?.finca?.nombre ? s?.finca?.nombre : ''), times16Normal); sheet9.addCell(label9);
+                label9 = new Label(1, fila9, (s?.cargo?.descripcion ? s?.cargo?.descripcion : ''), times16Normal); sheet9.addCell(label9);
+                fila9++
+            }
+        }
+
+        //OBRAS DE LA FINCA
+
+        sheet10.setColumnView(0,30)
+        sheet10.setColumnView(1,30)
+        sheet10.setColumnView(2,30)
+
+        def label10
+        def fila10 = 4
+
+        label10 = new Label(0, 1, "OBRAS DE LA FINCA", times16format); sheet10.addCell(label10);
+        label10 = new Label(0, 2, "", times16format); sheet10.addCell(label10);
+        label10 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet10.addCell(label10);
+        label10 = new Label(1, 3, "OBRA", times16format); sheet10.addCell(label10);
+        label10 = new Label(2, 3, "ESTADO", times16format); sheet10.addCell(label10);
+
+        fincas.each { f7->
+            def obras = ObrasFinca.findAllByFinca(f7)
+
+            obras.each {s->
+                label10 = new Label(0, fila10, (s?.finca?.nombre ? s?.finca?.nombre : ''), times16Normal); sheet10.addCell(label10);
+                label10 = new Label(1, fila10, (s?.tipoObra?.descripcion ? s?.tipoObra?.descripcion : ''), times16Normal); sheet10.addCell(label10);
+                label10 = new Label(2, fila10, (s?.estado ? (s?.estado == 'I' ? 'Iniciado' : (s?.estado == 'A' ? 'Avanzado' : 'Terminado')) : ''), times16Normal); sheet10.addCell(label10);
+                fila10++
+            }
+        }
+
+        //INFRAESTRUCTURA
+
+        sheet11.setColumnView(0,30)
+        sheet11.setColumnView(1,30)
+
+        def label11
+        def fila11 = 4
+
+        label11 = new Label(0, 1, "INFRAESTRUCTURA", times16format); sheet11.addCell(label11);
+        label11 = new Label(0, 2, "", times16format); sheet11.addCell(label11);
+        label11 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet11.addCell(label11);
+        label11 = new Label(1, 3, "INFRAESTRUCTURA", times16format); sheet11.addCell(label11);
+
+        fincas.each { f7->
+            def equipos = ManejoEquipo.findAllByFinca(f7)
+
+            equipos.each {s->
+                label11 = new Label(0, fila11, (s?.finca?.nombre ? s?.finca?.nombre : ''), times16Normal); sheet11.addCell(label11);
+                label11 = new Label(1, fila11, (s?.equipo?.descripcion ? s?.equipo?.descripcion : ''), times16Normal); sheet11.addCell(label11);
+                fila11++
+            }
+        }
+
+        //CAPACITACION
+
+        sheet12.setColumnView(0,30)
+        sheet12.setColumnView(1,30)
+
+        def label12
+        def fila12 = 4
+
+        label12 = new Label(0, 1, "CAPACITACIÓN", times16format); sheet12.addCell(label12);
+        label12 = new Label(0, 2, "", times16format); sheet12.addCell(label12);
+        label12 = new Label(0, 3, "NOMBRE DE LA FINCA", times16format); sheet12.addCell(label12);
+        label12 = new Label(1, 3, "CURSOS DE CAPACITACIÓN", times16format); sheet12.addCell(label12);
+
+        fincas.each { f7->
+            def capacitaciones = FincaCapacitacion.findAllByFinca(f7)
+
+            capacitaciones.each {s->
+                label12 = new Label(0, fila12, (s?.finca?.nombre ? s?.finca?.nombre : ''), times16Normal); sheet12.addCell(label12);
+                label12 = new Label(1, fila12, (s?.capacitacion?.descripcion ? s?.capacitacion?.descripcion : ''), times16Normal); sheet12.addCell(label12);
+                fila12++
+            }
+        }
+
         workbook.write();
         workbook.close();
         def output = response.getOutputStream()
