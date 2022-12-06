@@ -121,6 +121,11 @@
                         <i class="fa fa-traffic-light fa-4x text-success"></i>
                         <br/> Reporte
                     </a>
+
+                    <a href="#" id="btnFincaExcel" class="btn btn-info btn-ajax example_c item" texto="fnca">
+                        <i class="fa fa-file-excel fa-4x text-success"></i>
+                        <br/> Fincas
+                    </a>
 %{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
 %{--                        <i class="fa fa-users fa-4x text-success"></i>--}%
 %{--                        <br/> Socios--}%
@@ -202,6 +207,11 @@
     <p>Listado de cantones con su respectivo semáforo</p>
 </div>
 
+<div id="fnca" style="display:none">
+    <h3>Reporte Excel de fincas</h3><br>
+    <p>Listado de todas las fincas</p>
+</div>
+
 
 <script type="text/javascript">
 
@@ -209,6 +219,9 @@
         location.href="${createLink(controller: 'reportes', action: 'semaforoExcel')}"
     });
 
+    $("#btnFincaExcel").click(function () {
+        location.href="${createLink(controller: 'reportes', action: 'reporteFincaExcel')}"
+    })
 
     function prepare() {
         $(".fa-ul li span").each(function () {

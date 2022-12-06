@@ -652,6 +652,7 @@
 
     var bp;
 
+
     $("#btnAreas").click(function () {
         var dialog = cargarLoader("Cargando...");
         $(this).attr('disabled', 'disabled');
