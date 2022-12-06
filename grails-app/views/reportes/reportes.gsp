@@ -117,14 +117,10 @@
         <div class="row">
             <div class="col-md-12 col-xs-5">
                 <p>
-                    <a href="#" id="btnReporteSemaforo" class="btn btn-info btn-ajax example_c item" texto="trnp">
-                        <i class="fa fa-traffic-light fa-4x text-success"></i>
-                        <br/> Reporte
-                    </a>
 
                     <a href="#" id="btnFincaExcel" class="btn btn-info btn-ajax example_c item" texto="fnca">
                         <i class="fa fa-file-excel fa-4x text-success"></i>
-                        <br/> Fincas
+                        <br/> Datos de Fincas
                     </a>
 %{--                    <a href="#" id="btnSocios" class="btn btn-info btn-ajax example_c item" texto="dire">--}%
 %{--                        <i class="fa fa-users fa-4x text-success"></i>--}%
@@ -214,10 +210,6 @@
 
 
 <script type="text/javascript">
-
-    $("#btnReporteSemaforo").click(function () {
-        location.href="${createLink(controller: 'reportes', action: 'semaforoExcel')}"
-    });
 
     $("#btnFincaExcel").click(function () {
         location.href="${createLink(controller: 'reportes', action: 'reporteFincaExcel')}"

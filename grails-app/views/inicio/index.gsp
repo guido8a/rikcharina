@@ -13,7 +13,7 @@
 
     .item {
         width: 260px;
-        height: 325px;
+        height: 225px;
         float: left;
         margin: 4px;
         font-family: 'open sans condensed';
@@ -24,7 +24,7 @@
     }
     .item2 {
         width: 660px;
-        height: 260px;
+        height: 160px;
         float: left;
         margin: 4px;
         font-family: 'open sans condensed';
@@ -36,13 +36,13 @@
 
     .imagen {
         width: 200px;
-        height: 240px;
+        height: 140px;
         margin: auto;
         margin-top: 10px;
     }
     .imagen2 {
-        width: 180px;
-        height: 230px;
+        width: 200px;
+        height: 140px;
         margin: auto;
         margin-top: 10px;
         margin-right: 40px;
@@ -100,7 +100,7 @@
         border-radius: 0.5rem;
         box-shadow: 7px 7px 30px -5px rgba(0,0,0,0.1);
         margin-bottom: 1rem;
-        width: 553px; height: 200px
+        width: 553px; height: 130px
     }
 
     .wrap:hover {
@@ -167,7 +167,7 @@
     <a href= "${createLink(controller:'finca', action: 'finca')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 120px">
+                <div style="width: 200px; height: 140px">
                     <asset:image src="apli/proyecto.jpeg" title="Datos de fincas"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 220px">
@@ -178,15 +178,17 @@
         </div>
     </a>
 
-    <a href= "${createLink(controller:'periodo', action: 'list')}" style="text-decoration: none">
+    <a href= "${createLink(controller:'reportes', action: 'reporteFincaExcel')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 120px">
+                <div style="width: 200px; height: 140px">
                     <asset:image src="apli/proyecto.jpeg" title="Reportes"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
                     <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5"><span>Reportes</span></h2>
-                    <p class="mbr-fonts-style text1 mbr-text display-6">Reportes de datos de las fincas registradas</p>
+                    <p class="mbr-fonts-style text1 mbr-text display-6">Reportes de datos de las fincas registradas en el
+                        sistema, migración de datos a una hoja de cálculo.<br>
+                    Datos por fincas de toda la ficha</p>
                 </div>
             </div>
         </div>
@@ -195,7 +197,7 @@
     <a href= "${createLink(controller:'inicio', action: 'parametros')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 120px">
+                <div style="width: 200px; height: 140px">
                     <asset:image src="apli/proyecto.jpeg" title="Administración de fincas"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
@@ -209,7 +211,7 @@
     <a href= "${createLink(controller:'canton', action: 'arbol')}" style="text-decoration: none">
         <div class="col-lg-6 mbr-col-md-10">
             <div class="wrap">
-                <div style="width: 200px; height: 120px">
+                <div style="width: 200px; height: 140px">
                     <asset:image src="apli/proyecto.jpeg" title="Cantones"  width="80%" height="80%"/>
                 </div>
                 <div style="width: 450px; height: 120px">
