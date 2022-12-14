@@ -281,7 +281,8 @@ class ReportesController {
             label = new Label(29, fila, (f?.semillaComprada ? f?.semillaComprada : ''), times16Normal); sheet.addCell(label);
             label = new Label(30, fila, (f?.semillaIntercambio ? f?.semillaIntercambio : ''), times16Normal); sheet.addCell(label);
             label = new Label(31, fila, (f?.calendarizacion ? f?.calendarizacion : ''), times16Normal); sheet.addCell(label);
-            label = new Label(32, fila, (f?.invernadero ? f?.invernadero : ''), times16Normal); sheet.addCell(label);
+//            label = new Label(32, fila, (f?.invernadero ? f?.invernadero : ''), times16Normal); sheet.addCell(label);
+            number = new jxl.write.Number(32, fila, f?.invernadero ? f?.invernadero : 0); sheet.addCell(number);
             label = new Label(33, fila, (f?.preparacionSuelo ? f?.preparacionSuelo : ''), times16Normal); sheet.addCell(label);
             label = new Label(34, fila, (f?.fertilizantes ? f?.fertilizantes : ''), times16Normal); sheet.addCell(label);
             label = new Label(35, fila, (f?.fertilizacionComplementaria ? f?.fertilizacionComplementaria : ''), times16Normal); sheet.addCell(label);

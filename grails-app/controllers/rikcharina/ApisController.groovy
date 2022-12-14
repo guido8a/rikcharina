@@ -195,34 +195,38 @@ class ApisController {
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
-                    sql = "select count(*) cnta from arpr where arpridds = ${dd.arpr__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from arpr where arpridds = ${dd.arpr__id} and arprdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     sql = "select tplt__id from tplt where tpltdscr ilike '${dd.arprtplt}'"
                     id_tipo = cn.rows(sql.toString())[0]?.tplt__id
 
                     println "borrando arpr del dispositivo: ${dspt}"
-                    cn.execute("delete from arpr_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    //*********** incluir dispositivo en tabla_t y borrar solo los del dispositivo a cargar.
+                    cn.execute("delete from arpr_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and arprdspt = '${dspt}'")
 
                     println "existe finca: $existe_fnca, Existe arpr: ${existe}"
                     if (!existe) {
                         sql = """insert into arpr_t(arpr__id, fnca__id, tplt__id, arprrefe,
-                            arprarea, arprusag, arpruspc, arprpndt)
+                            arprarea, arprusag, arpruspc, arprpndt, arprdspt)
                             values (${dd.arpr__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.arprrefe}',
-                            ${dd.arprarea}, ${dd.arprusag}, ${dd.arpruspc}, ${dd.arprpndt})"""
+                            ${dd.arprarea}, ${dd.arprusag}, ${dd.arpruspc}, ${dd.arprpndt}, '${dspt}')"""
 
                         println "inserta registro en arpr_t: $sql"
                         cn.execute(sql.toString())
 
                         sql = """insert into arpr(arpridds, fnca__id, tplt__id, arprrefe,
-                            arprarea, arprusag, arpruspc, arprpndt) select arpr__id, ${id_fnca}, tplt__id, arprrefe,
-                            arprarea, arprusag, arpruspc, arprpndt from arpr_t where arpr__id = ${dd.arpr__id}"""
+                            arprarea, arprusag, arpruspc, arprpndt, arprdspt) select arpr__id, ${id_fnca}, tplt__id, arprrefe,
+                            arprarea, arprusag, arpruspc, arprpndt, arprdspt from arpr_t where arpr__id = ${dd.arpr__id}"""
                         println "inserta registro en arpr: $sql"
 
                         cn.execute(sql.toString())
                     } else {
 
                         /* para cada arpridds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select arpr__id from arpr where fnca__id = ${id_fnca} and arpridds = ${dd.arpr__id}"
+                        sql = "select arpr__id from arpr where fnca__id = ${id_fnca} and arpridds = ${dd.arpr__id} and " +
+                                "arprdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.arpr__id
                         println "id de arpr: $id"
                         if (id > 0) {
