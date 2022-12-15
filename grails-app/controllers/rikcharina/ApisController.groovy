@@ -192,19 +192,20 @@ class ApisController {
                 println "existe finca: $existe_fnca"
 
                 if (existe_fnca) {
+                    println "borrando arpr del dispositivo: ${dspt}"
+                    cn.execute("delete from arpr_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and arprdspt = '${dspt}'")
+
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
-
-                    sql = "select count(*) cnta from arpr where arpridds = ${dd.arpr__id} and arprdspt = '${dspt}' and " +
-                            "fnca__id = '${id_fnca}'"
-                    existe = cn.rows(sql.toString())[0]?.cnta
+//                    println "..1"
                     sql = "select tplt__id from tplt where tpltdscr ilike '${dd.arprtplt}'"
                     id_tipo = cn.rows(sql.toString())[0]?.tplt__id
 
-                    println "borrando arpr del dispositivo: ${dspt}"
-                    //*********** incluir dispositivo en tabla_t y borrar solo los del dispositivo a cargar.
-                    cn.execute("delete from arpr_t where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}') and arprdspt = '${dspt}'")
+                    sql = "select count(*) cnta from arpr where arpridds = ${dd.arpr__id} and arprdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
+                    println "sql: $sql"
+                    existe = cn.rows(sql.toString())[0]?.cnta
 
                     println "existe finca: $existe_fnca, Existe arpr: ${existe}"
                     if (!existe) {
@@ -272,38 +273,40 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando trfm del dispositivo: ${dspt}"
-                    cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and trfmdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
-
                     sql = "select faml__id from faml where famldscr ilike '${dd.trfmfaml}'"
                     id_tipo = cn.rows(sql.toString())[0]?.faml__id
 
-                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from trfm where trfmidds = ${dd.trfm__id} and trfmdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe trfm: ${existe}"
                     
                     if (!existe) {
                         sql = """insert into trfm_t(trfm__id, fnca__id, faml__id, trfmactv,
-                            trfmnmro, trfmtipo)
+                            trfmnmro, trfmtipo, trfmdspt)
                             values (${dd.trfm__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.trfmactv}',
-                            ${dd.trfmnmro}, '${dd.trfmtipo}')"""
+                            ${dd.trfmnmro}, '${dd.trfmtipo}', '${dspt}')"""
 
                         println "inserta registro en trfm_t: $sql"
                         cn.execute(sql.toString())
 
                         sql = """insert into trfm(trfmidds, fnca__id, faml__id, trfmactv,
-                            trfmnmro, trfmtipo) select trfm__id, ${id_fnca}, faml__id, trfmactv,
-                            trfmnmro, trfmtipo from trfm_t where trfm__id = ${dd.trfm__id}"""
+                            trfmnmro, trfmtipo, trfmdspt) select trfm__id, ${id_fnca}, faml__id, trfmactv,
+                            trfmnmro, trfmtipo, trfmdspt from trfm_t where trfm__id = ${dd.trfm__id}"""
                         println "inserta registro en trfm: $sql"
 
                         cn.execute(sql.toString())
                     } else {
 
                         /* para cada trfmidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select trfm__id from trfm where fnca__id = ${id_fnca} and trfmidds = ${dd.trfm__id}"
+                        sql = "select trfm__id from trfm where fnca__id = ${id_fnca} and trfmidds = ${dd.trfm__id} and " +
+                                "trfmdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.trfm__id
                         println "id de trfm: $id"
                         if (id > 0) {
@@ -347,7 +350,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando obfn del dispositivo: ${dspt}"
-                    cn.execute("delete from obfn_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from obfn_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and obfndspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -356,19 +360,20 @@ class ApisController {
                     sql = "select tpob__id from tpob where tpobdscr ilike '${dd.obfntipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.tpob__id
 
-                    sql = "select count(*) cnta from obfn where obfnidds = ${dd.obfn__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from obfn where obfnidds = ${dd.obfn__id} and obfndspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe obfn: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into obfn_t(obfn__id, fnca__id, tpob__id, obfnetdo)
-                            values (${dd.obfn__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.obfnetdo}')"""
+                        sql = """insert into obfn_t(obfn__id, fnca__id, tpob__id, obfnetdo, obfndspt)
+                            values (${dd.obfn__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.obfnetdo}', '${dspt}')"""
 
                         println "inserta registro en obfn_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into obfn(obfnidds, fnca__id, tpob__id, obfnetdo) 
-                            select obfn__id, ${id_fnca}, tpob__id, obfnetdo
+                        sql = """insert into obfn(obfnidds, fnca__id, tpob__id, obfnetdo, obfndspt) 
+                            select obfn__id, ${id_fnca}, tpob__id, obfnetdo, obfndspt
                             from obfn_t where obfn__id = ${dd.obfn__id}"""
                         println "inserta registro en obfn: $sql"
 
@@ -376,7 +381,8 @@ class ApisController {
                     } else {
 
                         /* para cada obfnidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select obfn__id from obfn where fnca__id = ${id_fnca} and obfnidds = ${dd.obfn__id}"
+                        sql = "select obfn__id from obfn where fnca__id = ${id_fnca} and obfnidds = ${dd.obfn__id} and " +
+                                "obfndspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.obfn__id
                         println "id de obfn: $id"
                         if (id > 0) {
@@ -418,7 +424,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando cltv del dispositivo: ${dspt}"
-                    cn.execute("delete from cltv_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from cltv_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and cltvdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -427,19 +434,20 @@ class ApisController {
                     sql = "select plnt__id from plnt where plntdscr ilike '${dd.cltvplnt}'"
                     id_tipo = cn.rows(sql.toString())[0]?.plnt__id
 
-                    sql = "select count(*) cnta from cltv where cltvidds = ${dd.cltv__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from cltv where cltvidds = ${dd.cltv__id} and cltvdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe cltv: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into cltv_t(cltv__id, fnca__id, plnt__id, cltvarea)
-                            values (${dd.cltv__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.cltvarea}')"""
+                        sql = """insert into cltv_t(cltv__id, fnca__id, plnt__id, cltvarea, cltvdspt)
+                            values (${dd.cltv__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.cltvarea}', '${dspt}')"""
 
                         println "inserta registro en cltv_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into cltv(cltvidds, fnca__id, plnt__id, cltvarea) 
-                            select cltv__id, ${id_fnca}, plnt__id, cltvarea
+                        sql = """insert into cltv(cltvidds, fnca__id, plnt__id, cltvarea, cltvdspt) 
+                            select cltv__id, ${id_fnca}, plnt__id, cltvarea, cltvdspt
                             from cltv_t where cltv__id = ${dd.cltv__id}"""
                         println "inserta registro en cltv: $sql"
 
@@ -447,7 +455,8 @@ class ApisController {
                     } else {
 
                         /* para cada cltvidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select cltv__id from cltv where fnca__id = ${id_fnca} and cltvidds = ${dd.cltv__id}"
+                        sql = "select cltv__id from cltv where fnca__id = ${id_fnca} and cltvidds = ${dd.cltv__id} and " +
+                                "cltvdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.cltv__id
                         println "id de cltv: $id"
                         if (id > 0) {
@@ -489,7 +498,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando mjen del dispositivo: ${dspt}"
-                    cn.execute("delete from mjen_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from mjen_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjendspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -498,19 +508,20 @@ class ApisController {
                     sql = "select enfr__id from enfr where enfrdscr ilike '${dd.mjentipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.enfr__id
 
-                    sql = "select count(*) cnta from mjen where mjenidds = ${dd.mjen__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from mjen where mjenidds = ${dd.mjen__id} and mjendspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe mjen: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into mjen_t(mjen__id, fnca__id, enfr__id)
-                            values (${dd.mjen__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into mjen_t(mjen__id, fnca__id, enfr__id, mjendspt)
+                            values (${dd.mjen__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en mjen_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into mjen(mjenidds, fnca__id, enfr__id) 
-                            select mjen__id, ${id_fnca}, enfr__id
+                        sql = """insert into mjen(mjenidds, fnca__id, enfr__id, mjendspt) 
+                            select mjen__id, ${id_fnca}, enfr__id, mjendspt
                             from mjen_t where mjen__id = ${dd.mjen__id}"""
                         println "inserta registro en mjen: $sql"
 
@@ -518,7 +529,8 @@ class ApisController {
                     } else {
 
                         /* para cada mjenidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select mjen__id from mjen where fnca__id = ${id_fnca} and mjenidds = ${dd.mjen__id}"
+                        sql = "select mjen__id from mjen where fnca__id = ${id_fnca} and mjenidds = ${dd.mjen__id} and " +
+                                "mjendspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.mjen__id
                         println "id de mjen: $id"
                         if (id > 0) {
@@ -548,7 +560,7 @@ class ApisController {
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
 
-        println "....Inicia copia, dispositivo: $dspt, token: $token"
+        println "....Inicia copia, dispositivo: $dspt, token: $token, data: $data"
 
         if (data.size() > 0) {
             data.each { dd ->
@@ -559,7 +571,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando mjpg del dispositivo: ${dspt}"
-                    cn.execute("delete from mjpg_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from mjpg_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjpgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -568,19 +581,21 @@ class ApisController {
                     sql = "select plga__id from plga where plgadscr ilike '${dd.mjpgtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.plga__id
 
-                    sql = "select count(*) cnta from mjpg where mjpgidds = ${dd.mjpg__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from mjpg where mjpgidds = ${dd.mjpg__id} and mjpgdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
+                    println "sql mjpg: $sql"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe mjpg: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into mjpg_t(mjpg__id, fnca__id, plga__id)
-                            values (${dd.mjpg__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into mjpg_t(mjpg__id, fnca__id, plga__id, mjpgdspt)
+                            values (${dd.mjpg__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en mjpg_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into mjpg(mjpgidds, fnca__id, plga__id) 
-                            select mjpg__id, ${id_fnca}, plga__id
+                        sql = """insert into mjpg(mjpgidds, fnca__id, plga__id, mjpgdspt) 
+                            select mjpg__id, ${id_fnca}, plga__id, mjpgdspt
                             from mjpg_t where mjpg__id = ${dd.mjpg__id}"""
                         println "inserta registro en mjpg: $sql"
 
@@ -588,7 +603,8 @@ class ApisController {
                     } else {
 
                         /* para cada mjpgidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select mjpg__id from mjpg where fnca__id = ${id_fnca} and mjpgidds = ${dd.mjpg__id}"
+                        sql = "select mjpg__id from mjpg where fnca__id = ${id_fnca} and mjpgidds = ${dd.mjpg__id} and " +
+                                "mjpgdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.mjpg__id
                         println "id de mjpg: $id"
                         if (id > 0) {
@@ -629,7 +645,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando frst del dispositivo: ${dspt}"
-                    cn.execute("delete from frst_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from frst_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and frstdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -638,19 +655,20 @@ class ApisController {
                     sql = "select smbr__id from smbr where smbrdscr ilike '${dd.frsttipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.smbr__id
 
-                    sql = "select count(*) cnta from frst where frstidds = ${dd.frst__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from frst where frstidds = ${dd.frst__id} and frstdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe frst: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into frst_t(frst__id, fnca__id, smbr__id)
-                            values (${dd.frst__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into frst_t(frst__id, fnca__id, smbr__id, frstdspt)
+                            values (${dd.frst__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en frst_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into frst(frstidds, fnca__id, smbr__id) 
-                            select frst__id, ${id_fnca}, smbr__id
+                        sql = """insert into frst(frstidds, fnca__id, smbr__id, frstdspt) 
+                            select frst__id, ${id_fnca}, smbr__id, frstdspt
                             from frst_t where frst__id = ${dd.frst__id}"""
                         println "inserta registro en frst: $sql"
 
@@ -658,7 +676,8 @@ class ApisController {
                     } else {
 
                         /* para cada frstidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select frst__id from frst where fnca__id = ${id_fnca} and frstidds = ${dd.frst__id}"
+                        sql = "select frst__id from frst where fnca__id = ${id_fnca} and frstidds = ${dd.frst__id} and " +
+                                "frstdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.frst__id
                         println "id de frst: $id"
                         if (id > 0) {
@@ -699,7 +718,8 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando mjan del dispositivo: ${dspt}"
-                    cn.execute("delete from mjan_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from mjan_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjandspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -708,19 +728,20 @@ class ApisController {
                     sql = "select anml__id from anml where anmldscr ilike '${dd.mjantipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.anml__id
 
-                    sql = "select count(*) cnta from mjan where mjanidds = ${dd.mjan__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from mjan where mjanidds = ${dd.mjan__id} and mjandspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe mjan: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into mjan_t(mjan__id, fnca__id, anml__id, mjannmro)
-                            values (${dd.mjan__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.mjannmro}')"""
+                        sql = """insert into mjan_t(mjan__id, fnca__id, anml__id, mjannmro, mjandspt)
+                            values (${dd.mjan__id}, ${dd.fnca__id}, ${id_tipo}, '${dd.mjannmro}', '${dspt}')"""
 
                         println "inserta registro en mjan_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into mjan(mjanidds, fnca__id, anml__id, mjannmro) 
-                            select mjan__id, ${id_fnca}, anml__id, mjannmro
+                        sql = """insert into mjan(mjanidds, fnca__id, anml__id, mjannmro, mjandspt) 
+                            select mjan__id, ${id_fnca}, anml__id, mjannmro, mjandspt
                             from mjan_t where mjan__id = ${dd.mjan__id}"""
                         println "inserta registro en mjan: $sql"
 
@@ -728,7 +749,8 @@ class ApisController {
                     } else {
 
                         /* para cada mjanidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select mjan__id from mjan where fnca__id = ${id_fnca} and mjanidds = ${dd.mjan__id}"
+                        sql = "select mjan__id from mjan where fnca__id = ${id_fnca} and mjanidds = ${dd.mjan__id} and " +
+                                "mjandspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.mjan__id
                         println "id de mjan: $id"
                         if (id > 0) {
@@ -770,7 +792,8 @@ def mjeq() {
 
                 if (existe_fnca) {
                     println "borrando mjeq del dispositivo: ${dspt}"
-                    cn.execute("delete from mjeq_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from mjeq_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjeqdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -779,19 +802,20 @@ def mjeq() {
                     sql = "select eqpo__id from eqpo where eqpodscr ilike '${dd.mjeqtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.eqpo__id
 
-                    sql = "select count(*) cnta from mjeq where mjeqidds = ${dd.mjeq__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from mjeq where mjeqidds = ${dd.mjeq__id} and mjeqdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe mjeq: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into mjeq_t(mjeq__id, fnca__id, eqpo__id)
-                            values (${dd.mjeq__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into mjeq_t(mjeq__id, fnca__id, eqpo__id, mjeqdspt)
+                            values (${dd.mjeq__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en mjeq_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into mjeq(mjeqidds, fnca__id, eqpo__id) 
-                            select mjeq__id, ${id_fnca}, eqpo__id
+                        sql = """insert into mjeq(mjeqidds, fnca__id, eqpo__id, mjeqdspt) 
+                            select mjeq__id, ${id_fnca}, eqpo__id, mjeqdspt
                             from mjeq_t where mjeq__id = ${dd.mjeq__id}"""
                         println "inserta registro en mjeq: $sql"
 
@@ -799,7 +823,8 @@ def mjeq() {
                     } else {
 
                         /* para cada mjeqidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select mjeq__id from mjeq where fnca__id = ${id_fnca} and mjeqidds = ${dd.mjeq__id}"
+                        sql = "select mjeq__id from mjeq where fnca__id = ${id_fnca} and mjeqidds = ${dd.mjeq__id} and " +
+                                "mjeqdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.mjeq__id
                         println "id de mjeq: $id"
                         if (id > 0) {
@@ -840,7 +865,8 @@ def fncp() {
 
                 if (existe_fnca) {
                     println "borrando fncp del dispositivo: ${dspt}"
-                    cn.execute("delete from fncp_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from fncp_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and fncpdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -849,19 +875,20 @@ def fncp() {
                     sql = "select capc__id from capc where capcdscr ilike '${dd.fncptipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.capc__id
 
-                    sql = "select count(*) cnta from fncp where fncpidds = ${dd.fncp__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from fncp where fncpidds = ${dd.fncp__id} and fncpdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe fncp: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into fncp_t(fncp__id, fnca__id, capc__id)
-                            values (${dd.fncp__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into fncp_t(fncp__id, fnca__id, capc__id, fncpdspt)
+                            values (${dd.fncp__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en fncp_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into fncp(fncpidds, fnca__id, capc__id) 
-                            select fncp__id, ${id_fnca}, capc__id
+                        sql = """insert into fncp(fncpidds, fnca__id, capc__id, fncpdspt) 
+                            select fncp__id, ${id_fnca}, capc__id, fncpdspt
                             from fncp_t where fncp__id = ${dd.fncp__id}"""
                         println "inserta registro en fncp: $sql"
 
@@ -869,7 +896,8 @@ def fncp() {
                     } else {
 
                         /* para cada fncpidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select fncp__id from fncp where fnca__id = ${id_fnca} and fncpidds = ${dd.fncp__id}"
+                        sql = "select fncp__id from fncp where fnca__id = ${id_fnca} and fncpidds = ${dd.fncp__id} and " +
+                                "fncpdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.fncp__id
                         println "id de fncp: $id"
                         if (id > 0) {
@@ -910,7 +938,8 @@ def fncg() {
 
                 if (existe_fnca) {
                     println "borrando fncg del dispositivo: ${dspt}"
-                    cn.execute("delete from fncg_t where fnca__id in (select fnca__id from fnca where fncadspt = '${dspt}')")
+                    cn.execute("delete from fncg_t where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and fncgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -919,19 +948,20 @@ def fncg() {
                     sql = "select crgo__id from crgo where crgodscr ilike '${dd.fncgtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.crgo__id
 
-                    sql = "select count(*) cnta from fncg where fncgidds = ${dd.fncg__id} and fnca__id = '${id_fnca}'"
+                    sql = "select count(*) cnta from fncg where fncgidds = ${dd.fncg__id} and fncgdspt = '${dspt}' and " +
+                            "fnca__id = '${id_fnca}'"
                     existe = cn.rows(sql.toString())[0]?.cnta
                     println "existe finca: $existe_fnca, Existe fncg: ${existe}"
 
                     if (!existe) {
-                        sql = """insert into fncg_t(fncg__id, fnca__id, crgo__id)
-                            values (${dd.fncg__id}, ${dd.fnca__id}, ${id_tipo})"""
+                        sql = """insert into fncg_t(fncg__id, fnca__id, crgo__id, fncgdspt)
+                            values (${dd.fncg__id}, ${dd.fnca__id}, ${id_tipo}, '${dspt}')"""
 
                         println "inserta registro en fncg_t: $sql"
                         cn.execute(sql.toString())
 
-                        sql = """insert into fncg(fncgidds, fnca__id, crgo__id) 
-                            select fncg__id, ${id_fnca}, crgo__id
+                        sql = """insert into fncg(fncgidds, fnca__id, crgo__id, fncgdspt) 
+                            select fncg__id, ${id_fnca}, crgo__id, fncgdspt
                             from fncg_t where fncg__id = ${dd.fncg__id}"""
                         println "inserta registro en fncg: $sql"
 
@@ -939,7 +969,8 @@ def fncg() {
                     } else {
 
                         /* para cada fncgidds se lo actualiza en caso de existir o se lo inserta */
-                        sql = "select fncg__id from fncg where fnca__id = ${id_fnca} and fncgidds = ${dd.fncg__id}"
+                        sql = "select fncg__id from fncg where fnca__id = ${id_fnca} and fncgidds = ${dd.fncg__id} and " +
+                                "fncgdspt = '${dspt}'"
                         id = cn.rows(sql.toString())[0]?.fncg__id
                         println "id de fncg: $id"
                         if (id > 0) {
