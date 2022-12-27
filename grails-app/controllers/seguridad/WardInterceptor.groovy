@@ -6,6 +6,7 @@ class WardInterceptor {
 //        matchAll().excludes(controller: 'login')
         matchAll().excludes(controller:'apis')
                 .excludes(controller:'login')
+                .excludes(controller:'descargas')
                 .excludes(controller:'shield')
                 .excludes(controller:'prfl')
     }

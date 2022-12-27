@@ -45,6 +45,10 @@
             <a href="${createLink(controller: 'descargas', action: 'manual')}">
                 <asset:image src="apli/pdf_pq.png" style="padding: 10px;"/> manual del usuario</a>
 
+            <a href="${createLink(controller: 'descargas', action: 'aplicacion')}"
+               style="color: #547925">
+                <asset:image src="apli/logo.png" style="padding: 10px; width: 60px"/> Aplicación Móvil</a>
+
             %{--<a href="#" id="ingresar" class="btn btn-primary btn-sm" style="width: 160px; margin-left: 200px;">--}%
                 %{--Administrador <i class="fas fa-user-check"></i></a>--}%
         </div>

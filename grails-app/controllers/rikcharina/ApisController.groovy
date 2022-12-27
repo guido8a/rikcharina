@@ -15,10 +15,93 @@ class ApisController {
         render mensaje as JSON
     }
 
-    /** nuevo 2022 servicio factura */
+    def foto() {
+        def mensaje = [mensaje: "Foto subida correctamente", ok: true]
+        println "foto params: $params --hd: ${request.getHeader('token')}"
+        println "data --> ${request.JSON}"
+        if(request.method != "POST") {
+            println "no es POST"
+            mensaje = [mensaje: "Debe usar POST", ok: false]
+            render mensaje as JSON
+        }
+        def pesoMax = 200
+        def peso = Math.round(request.getContentLength()/1024)
+
+        println "tamaño del archivo: --> ${peso} kB"
+
+        if(peso < pesoMax){
+            def path = "/var/bitacora/fotos"   //web-app/archivos
+            new File(path).mkdirs()
+
+            def f = request.getFile('foto')  //archivo = name del input type file
+
+            if (!f && path) {
+                mensaje = [mensaje: "No existe el documento", ok: true]
+                println("no existe documento")
+            } else {
+
+                //        println("---> " + f?.getOriginalFilename())
+                if (f && !f.empty && f.getOriginalFilename() != '') {
+                    def fileName = f.getOriginalFilename() //nombre original del archivo
+
+                    def accepted = ["jpeg","jpg", 'png', "pdf"]
+                    def ext = ''
+                    def parts = fileName.split("\\.")
+                    fileName = ""
+                    parts.eachWithIndex { obj, i ->
+                        if (i < parts.size() - 1) {
+                            fileName += obj
+                        } else {
+                            ext = obj
+                        }
+                    }
+
+                    if (!accepted.contains(ext)) {
+                        flash.message = "El archivo tiene que ser de tipo jpg, png o pdf"
+                        flash.clase = "alert-error"
+                        render("formato no aceptado")
+                        return
+                    }
+
+                    fileName = fileName.tr(/áéíóúñÑÜüÁÉÍÓÚàèìòùÀÈÌÒÙÇç .!¡¿?&#°"'/, "aeiounNUuAEIOUaeiouAEIOUCc_")
+                    def archivo = fileName
+                    fileName = fileName + "." + ext
+
+                    def i = 0
+                    def pathFile = path + File.separatorChar + fileName
+                    def src = new File(pathFile)
+
+                    //Se puede reemplazar el mismo archivo o sacar un backup del anterior
+
+//                while (src.exists()) { // verifica si existe un archivo con el mismo nombre
+//                    fileName = archivo + "_" + i + "." + ext
+//                    pathFile = path + File.separatorChar + fileName
+//                    src = new File(pathFile)
+//                    i++
+//                }
+
+                    f.transferTo(new File(pathFile)) // guarda el archivo subido al nuevo path
+
+//                    flash.clase = "alert-success"
+//                    flash.message = "Guardado correctamente"
+                    mensaje = [mensaje: "Foto subida correctamente, ${peso} kB", ok: true]
+                } else {
+//                    flash.clase = "alert-error"
+//                    flash.message = "Error al guardar el documento. No se ha cargado ningún archivo!"
+                    mensaje = [mensaje: "Problemas al subir la foto", ok: false]
+                }
+            }
+
+        } else {
+            mensaje = [mensaje: "Sólo se pueden cargar archivos de hasta ${pesoMax/1000} MB", ok: false]
+        }
+        render mensaje as JSON
+    }
+
+    /** nuevo 2022 servicio finca */
     def finca() {
         def cn = dbConnectionService.getConnection()
-        println "fctrServicio params: $params --hd: ${request.getHeader('token')}"
+        println "finca params: $params --hd: ${request.getHeader('token')}"
         println "data --> ${request.JSON}"
         def token = request.getHeader('token')
         def data = request.JSON
