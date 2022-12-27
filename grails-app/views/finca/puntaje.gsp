@@ -49,5 +49,9 @@
         });
     }
 
+    $("#btnReporte").click(function () {
+        location.href="${createLink(controller: 'reportes', action: 'reportePuntajesExcel')}?id=${finca?.id}"
+    })
+
 </script>
 </html>

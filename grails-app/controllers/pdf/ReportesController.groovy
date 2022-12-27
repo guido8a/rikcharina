@@ -43,6 +43,8 @@ import rikcharina.TrabajoFamiliar;
 
 class ReportesController {
 
+    def dbConnectionService
+
     def reportes(){
 
     }
@@ -606,6 +608,74 @@ class ReportesController {
         workbook.close();
         def output = response.getOutputStream()
         def header = "attachment; filename=" + "reporteFincaExcel_" + new Date().format("dd-MM-yyyy") + ".xls";
+        response.setContentType("application/octet-stream")
+        response.setHeader("Content-Disposition", header);
+        output.write(file.getBytes());
+    }
+
+    def reportePuntajesExcel(){
+
+        def finca = Finca.get(params.id)
+
+        def cn = dbConnectionService.getConnection()
+        def sql = "select * from puntaje(${finca.id})"
+        def res = cn.rows(sql.toString())
+
+        //excel
+        WorkbookSettings workbookSettings = new WorkbookSettings()
+        workbookSettings.locale = Locale.default
+
+        def file = File.createTempFile('myExcelDocument', '.xls')
+        file.deleteOnExit()
+
+        WritableWorkbook workbook = jxl.Workbook.createWorkbook(file, workbookSettings)
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 12)
+        WritableCellFormat formatXls = new WritableCellFormat(font)
+
+        def row = 0
+        WritableSheet sheet = workbook.createSheet('puntajes', 0)
+
+         //DATOS FINCA
+
+        // fija el ancho de la columna
+        sheet.setColumnView(0,30)
+        sheet.setColumnView(1,30)
+        sheet.setColumnView(2,30)
+
+        WritableFont times16font = new WritableFont(WritableFont.TIMES, 11, WritableFont.BOLD, false);
+        WritableFont times16fontNormal = new WritableFont(WritableFont.TIMES, 11, WritableFont.NO_BOLD, false);
+        WritableCellFormat times16format = new WritableCellFormat(times16font);
+        WritableCellFormat times16Normal = new WritableCellFormat(times16fontNormal);
+
+//        autoSizeColumns(sheet, 10)
+
+        def label
+        def number
+        def fila = 5;
+        def total = 0
+
+        label = new Label(0, 1, "PUNTAJES", times16format); sheet.addCell(label);
+        label = new Label(0, 2, "FINCA: ", times16format); sheet.addCell(label);
+        label = new Label(0, 3, " ", times16format); sheet.addCell(label);
+        label = new Label(0, 4, "CONCEPTO", times16format); sheet.addCell(label);
+        label = new Label(1, 4, "VALOR", times16format); sheet.addCell(label);
+        label = new Label(2, 4, "PUNTAJE", times16format); sheet.addCell(label);
+
+        res.each { p ->
+            label = new Label(0, fila, (p?.pntodscr ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(1, fila, (p?.pntovlor ?: ''), times16Normal); sheet.addCell(label);
+            number = new jxl.write.Number(2, fila, p?.pntopnto ?: 0); sheet.addCell(number);
+            total += (p?.pntopnto ?: 0)
+            fila++
+        }
+
+        label = new Label(1, fila, "TOTAL", times16format); sheet.addCell(label);
+        number = new jxl.write.Number(2, fila,total); sheet.addCell(number);
+
+        workbook.write();
+        workbook.close();
+        def output = response.getOutputStream()
+        def header = "attachment; filename=" + "reportePuntajesExcel_" + new Date().format("dd-MM-yyyy") + ".xls";
         response.setContentType("application/octet-stream")
         response.setHeader("Content-Disposition", header);
         output.write(file.getBytes());

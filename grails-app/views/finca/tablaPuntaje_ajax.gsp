@@ -1,7 +1,7 @@
 <table class="table table-condensed table-hover table-striped table-bordered">
     <thead>
     <tr>
-        <th style="width: 50%">Descripción</th>
+        <th style="width: 50%">Concepto</th>
         <th style="width: 35%">Valor</th>
         <th style="width: 15%">Puntaje</th>
     </tr>
