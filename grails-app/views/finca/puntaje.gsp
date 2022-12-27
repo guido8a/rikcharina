@@ -15,6 +15,7 @@
 </div>
 
 <div class="panel panel-primary col-md-12" style="margin-top: 10px; text-align: center">
+    <h3>Finca: ${finca?.nombre}</h3>
     <h3>Puntajes</h3>
     <div class="panel-info" style="padding: 3px; margin-top: 2px">
         <div class="btn-toolbar toolbar">

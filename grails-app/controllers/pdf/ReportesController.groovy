@@ -654,8 +654,9 @@ class ReportesController {
         def fila = 5;
         def total = 0
 
+        label = new Label(0, 0, "SISTEMA DE LA MATA A LA OLLA", times16format); sheet.addCell(label);
         label = new Label(0, 1, "PUNTAJES", times16format); sheet.addCell(label);
-        label = new Label(0, 2, "FINCA: ", times16format); sheet.addCell(label);
+        label = new Label(0, 2, "FINCA: ${finca?.nombre}", times16format); sheet.addCell(label);
         label = new Label(0, 3, " ", times16format); sheet.addCell(label);
         label = new Label(0, 4, "CONCEPTO", times16format); sheet.addCell(label);
         label = new Label(1, 4, "VALOR", times16format); sheet.addCell(label);
@@ -664,7 +665,7 @@ class ReportesController {
         res.each { p ->
             label = new Label(0, fila, (p?.pntodscr ?: ''), times16Normal); sheet.addCell(label);
             label = new Label(1, fila, (p?.pntovlor ?: ''), times16Normal); sheet.addCell(label);
-            number = new jxl.write.Number(2, fila, p?.pntopnto ?: 0); sheet.addCell(number);
+            number = new jxl.write.Number(2, fila, p?.pntopnto ?: 0      ); sheet.addCell(number);
             total += (p?.pntopnto ?: 0)
             fila++
         }

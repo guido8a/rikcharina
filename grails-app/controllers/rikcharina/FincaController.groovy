@@ -122,8 +122,6 @@ class FincaController {
             total += it?.pntopnto?.toInteger() ?: 0
         }
 
-        println("-->" + res)
-
         return [puntajes: res, total: total]
     }
 
