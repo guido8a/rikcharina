@@ -104,4 +104,27 @@ class FincaController {
         return [fincas: res]
     }
 
+    def puntaje () {
+
+        def finca = Finca.get(params.id)
+        return[finca: finca]
+    }
+
+    def tablaPuntaje_ajax () {
+        def finca = Finca.get(params.id)
+        def total = 0
+
+        def cn = dbConnectionService.getConnection()
+        def sql = "select * from puntaje(${finca.id})"
+        def res = cn.rows(sql.toString())
+
+        res.each {
+            total += it?.pntopnto?.toInteger() ?: 0
+        }
+
+        println("-->" + res)
+
+        return [puntajes: res, total: total]
+    }
+
 }

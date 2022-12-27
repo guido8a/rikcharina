@@ -71,6 +71,10 @@
             <a href="#" id="btnCapacitacion" class="btn btn-sm btn-info" title="Capacitación">
                 <i class="fas fa-calendar"></i> Capacitación
             </a>
+
+            <a href="#" id="btnPuntaje" class="btn btn-sm btn-warning" title="Puntaje">
+                <i class="fas fa-check"></i> Puntaje
+            </a>
         </div>
     </div>
 </g:if>
@@ -649,6 +653,11 @@
 </div>
 
 <script type="text/javascript">
+
+
+    $("#btnPuntaje").click(function () {
+        location.href="${createLink(controller: 'finca', action: 'puntaje')}?id=${finca?.id}"
+    });
 
     var bp;
 
