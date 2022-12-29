@@ -15,7 +15,7 @@
             <tr style="text-align: left">
                 <td style="width: 50%">${puntaje.pntodscr}</td>
                 <td style="width: 35%">${puntaje.pntovlor}</td>
-                <td style="width: 15%">${puntaje.pntopnto}</td>
+                <td style="width: 15%; text-align: center">${puntaje.pntopnto}</td>
             </tr>
         </g:each>
         </tbody>
@@ -27,7 +27,17 @@
     <tr>
         <th style="width: 50%"></th>
         <th style="width: 35%">Total</th>
-        <th style="width: 15%">${total}</th>
+        <th style="width: 15%">${total} puntos</th>
+    </tr>
+    </thead>
+</table>
+
+<table class="table table-condensed table-hover table-striped table-bordered">
+    <thead>
+    <tr>
+        <th style="width: 50%">Porcentaje respecto del máximo: ${Math.round(total/87*100*100)/100} %</th>
+        <th style="width: 35%">Puntaje máximo posible</th>
+        <th style="width: 15%">87 puntos</th>
     </tr>
     </thead>
 </table>
