@@ -153,7 +153,7 @@
                     <g:select name="institucion" from="${rikcharina.Institucion.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${finca?.institucion?.id}"/>
                 </span>
             </span>
-            <span class="grupo ">
+            <span class="grupo">
                 <label class="col-md-1 control-label text-info">
                     Fecha
                 </label>
@@ -164,11 +164,14 @@
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
-            <span class="grupo ">
+            <span class="col-md-1">
+
+            </span>
+            <span class="grupo">
                 <label for="dispositivo" class="col-md-1 control-label text-info">
                     Dispositivo
                 </label>
-                <span class="col-md-2">
+                <span class="col-md-3">
                     <g:textField name="dispositivo" readonly="" class="form-control valid input-sm" value="${finca?.dispositivo}"/>
                 </span>
             </span>
