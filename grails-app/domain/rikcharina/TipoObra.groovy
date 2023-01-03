@@ -19,7 +19,7 @@ class TipoObra {
 
 
     static constraints = {
-        descripcion(blank: false, size: 0..50)
+        descripcion(blank: false, size: 0..125)
     }
 
     String toString() {
