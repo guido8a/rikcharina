@@ -146,10 +146,10 @@
 
         <div class="form-group ${hasErrors(bean: finca, field: 'fecha', 'error')} ${hasErrors(bean: finca, field: 'institucion', 'error')}">
             <span class="grupo">
-                <label for="institucion" class="col-md-2 control-label text-info">
+                <label for="institucion" class="col-md-1 control-label text-info">
                     Institución de apoyo
                 </label>
-                <span class="col-md-4">
+                <span class="col-md-3">
                     <g:select name="institucion" from="${rikcharina.Institucion.list().sort{it.nombre}}" class="form-control" optionKey="id" optionValue="nombre" value="${finca?.institucion?.id}"/>
                 </span>
             </span>
@@ -162,6 +162,14 @@
                     <input aria-label="" name="fecha" id='datetimepicker1' type='text' class="form-control required"
                            value="${finca?.fecha?.format("dd-MM-yyyy")}"/>
                     <p class="help-block ui-helper-hidden"></p>
+                </span>
+            </span>
+            <span class="grupo ">
+                <label for="dispositivo" class="col-md-1 control-label text-info">
+                    Dispositivo
+                </label>
+                <span class="col-md-2">
+                    <g:textField name="dispositivo" readonly="" class="form-control valid input-sm" value="${finca?.dispositivo}"/>
                 </span>
             </span>
         </div>
@@ -253,7 +261,7 @@
                     Plan de manejo
                 </label>
                 <span class="col-md-2">
-                    <g:select name="plan" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.plan}"/>
+                    <g:select name="plan" from="${['N': 'No' ,'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.plan}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -363,7 +371,7 @@
                     Hace asociación de cultivos
                 </label>
                 <span class="col-md-1">
-                    <g:select name="asociacionCultivos" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.asociacionCultivos}"/>
+                    <g:select name="asociacionCultivos" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.asociacionCultivos}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -372,7 +380,7 @@
                     Hace rotación de cultivos
                 </label>
                 <span class="col-md-1">
-                    <g:select name="rotacionCultivos" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.rotacionCultivos}"/>
+                    <g:select name="rotacionCultivos" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.rotacionCultivos}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -381,7 +389,7 @@
                     Hace selección de semillas
                 </label>
                 <span class="col-md-1">
-                    <g:select name="seleccionSemillas" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.seleccionSemillas}"/>
+                    <g:select name="seleccionSemillas" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.seleccionSemillas}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -390,7 +398,7 @@
                     Usa semillas propias
                 </label>
                 <span class="col-md-1">
-                    <g:select name="semillaPropia" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaPropia}"/>
+                    <g:select name="semillaPropia" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaPropia}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -402,7 +410,7 @@
                     Usa semillas compradas
                 </label>
                 <span class="col-md-1">
-                    <g:select name="semillaComprada" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaComprada}"/>
+                    <g:select name="semillaComprada" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaComprada}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -411,7 +419,7 @@
                     Usa semillas de intercambio
                 </label>
                 <span class="col-md-1">
-                    <g:select name="semillaIntercambio" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaIntercambio}"/>
+                    <g:select name="semillaIntercambio" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.semillaIntercambio}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -420,7 +428,7 @@
                     Realiza calendarización de cultivos
                 </label>
                 <span class="col-md-1">
-                    <g:select name="calendarizacion" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.calendarizacion}"/>
+                    <g:select name="calendarizacion" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.calendarizacion}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -445,7 +453,7 @@
                     Tiene agua de riego
                 </label>
                 <span class="col-md-1">
-                    <g:select name="aguaRiego" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.aguaRiego}"/>
+                    <g:select name="aguaRiego" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.aguaRiego}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -454,7 +462,7 @@
                     Pertenece a una junta de riego
                 </label>
                 <span class="col-md-1">
-                    <g:select name="juntaAgua" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.juntaAgua}"/>
+                    <g:select name="juntaAgua" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.juntaAgua}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -488,7 +496,7 @@
                     Tiene especies forestales
                 </label>
                 <span class="col-md-1">
-                    <g:select name="forestal" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.forestal}"/>
+                    <g:select name="forestal" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.forestal}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -497,7 +505,7 @@
                     Tiene páramo o monte
                 </label>
                 <span class="col-md-1">
-                    <g:select name="monte" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.monte}"/>
+                    <g:select name="monte" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.monte}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -513,7 +521,7 @@
                     Tiene la finca pasto
                 </label>
                 <span class="col-md-1">
-                    <g:select name="pasto" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.pasto}"/>
+                    <g:select name="pasto" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.pasto}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -543,7 +551,7 @@
                     La finca dispone de adecuaciones
                 </label>
                 <span class="col-md-1">
-                    <g:select name="instalaciones" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.instalaciones}"/>
+                    <g:select name="instalaciones" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.instalaciones}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -552,7 +560,7 @@
                     Realiza desparasitación de sus animales con produtos naturales (manejo sanitario)
                 </label>
                 <span class="col-md-1">
-                    <g:select name="sanitario" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.sanitario}"/>
+                    <g:select name="sanitario" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.sanitario}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -561,7 +569,7 @@
                     Usa prácticas ancestrales para curar, prevenir enfermedades de animales (manejo sanitario)
                 </label>
                 <span class="col-md-1">
-                    <g:select name="ancestrales" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.ancestrales}"/>
+                    <g:select name="ancestrales" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.ancestrales}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -632,7 +640,7 @@
                     Es miembro activo de una organización
                 </label>
                 <span class="col-md-1">
-                    <g:select name="estaoOrganizacion" from="${['S': 'Si', 'N': 'No']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.estaoOrganizacion}"/>
+                    <g:select name="estaoOrganizacion" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.estaoOrganizacion}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>

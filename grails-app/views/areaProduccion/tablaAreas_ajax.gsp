@@ -3,7 +3,7 @@
     <tr style="width: 100%">
         <th style="width: 15%">Tipo de Lote</th>
         <th style="width: 19%">Referencia</th>
-        <th style="width: 13%">Área (%)</th>
+        <th style="width: 13%">Área (m2)</th>
         <th style="width: 15%">Uso agrícola (%)</th>
         <th style="width: 15%">Uso pecuario (%)</th>
         <th style="width: 13%">Pendiente (%)</th>
