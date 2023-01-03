@@ -293,23 +293,7 @@ class PersonaController {
 
     def personal() {
         def usuario = Persona.get(session.usuario.id)
-        def dep = usuario.unidadEjecutora
-
-        def personas = Persona.findAllByUnidadEjecutoraAndActivo(dep, 1, [sort: 'apellido', order: 'apellido'])
-        def personasFiltradas = []
-
-        personas.each {
-            if (it?.estaActivo) {
-                personasFiltradas += it
-            }
-
-        }
-
-        personasFiltradas.remove(usuario)
-
-        println("usuario " + usuario?.id)
-
-        return [usuario: usuario, params: params, personas: personasFiltradas]
+        return [usuario: usuario]
     }
 
     def personalAdm() {
@@ -400,9 +384,7 @@ class PersonaController {
 
 
     def savePass_ajax() {
-        println "savePass_ajax  $params"
         def persona = Persona.get(params.id)
-//        params.input2 = params.input2.trim()
 
         if(params.nuevoPass.trim() == params.passConfirm.trim()){
 
@@ -410,16 +392,14 @@ class PersonaController {
             persona.fecha = new Date() + 90
             if(!persona.save(flush: true)){
                 println("error al guardar el nuevo password " + persona.errors)
-                render "error*Error al guardar el password"
+                render "no_Error al guardar el password"
             }else{
-                render "SUCCESS*La contraseña ha sido modificada exitosamente"
+                render "ok_La contraseña ha sido modificada exitosamente"
             }
         }else{
-            render "error*El password ingresado y su confirmación no coinciden"
+            render "no_El password ingresado y su confirmación no coinciden"
         }
     }
-
-
 
     def saveTelf() {
         def usuario = Persona.get(session.usuario.id)
