@@ -26,10 +26,10 @@ class DescargasController {
         response.getOutputStream().write(b)
     }
 
-    def manual_admin() {
-        println "manual_admin: $params"
-        def nombre = 'manual_monitor.pdf'
-        def path = '/var/rkch/manual_monitor.pdf'
+    def manual_movil() {
+        println "manual_movil: $params"
+        def nombre = 'manual_movil.pdf'
+        def path = '/var/rkch/manual móvil.pdf'
         def file = new File(path)
         def b = file.getBytes()
         response.setContentType('pdf')
