@@ -235,7 +235,8 @@ class ApisController {
                     "fncafrst, fncamnte, fncapsto, fncapsab, fncamjps," +
                     "fncainfr, fncasant, fncaancs, fncabsra, fncaauto," +
                     "fncavnta, fncalgvn, fncafrec, fncaoged, fncacalf," +
-                    "fncaplan from fnca_t where fnca__id = ${data.fnca__id} returning fnca__id"
+                    "fncaplan from fnca_t where fnca__id = ${data.fnca__id} and " +
+                    "fncadspt = ${data.fncadspt} returning fnca__id"
             println "Insertando datos en fnca: ${data.fnca__id}"
             id = cn.rows(sql.toString())[0]?.fnca__id
         }
@@ -305,7 +306,8 @@ class ApisController {
 
                         sql = """insert into arpr(arpridds, fnca__id, tplt__id, arprrefe,
                             arprarea, arprusag, arpruspc, arprpndt, arprdspt) select arpr__id, ${id_fnca}, tplt__id, arprrefe,
-                            arprarea, arprusag, arpruspc, arprpndt, arprdspt from arpr_t where arpr__id = ${dd.arpr__id}"""
+                            arprarea, arprusag, arpruspc, arprpndt, arprdspt from arpr_t 
+                            where arpr__id = ${dd.arpr__id} and arprdspt = ${dspt}"""
                         println "inserta registro en arpr: $sql"
 
                         cn.execute(sql.toString())
