@@ -284,7 +284,7 @@ class ApisController {
                     cn.execute("delete from arpr_t where arprdspt = '${dspt}'")
 //                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
 //                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
-                    regs[dd.fnca__id] = regs[dd.fnca__id] + " ${dd.arpr__id}"
+                    regs[id_fnca] = regs[id_fnca]? ", ${dd.arpr__id}" : "${dd.arpr__id}"
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -336,7 +336,11 @@ class ApisController {
                     println "Error ********* no hay la finca"
                 }
             }
-            println "==> $regs"
+        }
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            cn.execute("delete from arpr where fnca__id = ${it.key} and arpridds not in (${it.value})")
         }
 
 //        def retorna =  [Token: token, ok: true, data: data]
