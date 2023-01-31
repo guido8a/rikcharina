@@ -363,6 +363,8 @@ class ApisController {
                     println "borrando trfm del dispositivo: ${dspt}"
                     cn.execute("delete from trfm_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and trfmdspt = '${dspt}'")
+                    cn.execute("delete from trfm where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and trfmdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -386,7 +388,7 @@ class ApisController {
 
                         sql = """insert into trfm(trfmidds, fnca__id, faml__id, trfmactv,
                             trfmnmro, trfmtipo, trfmdspt) select trfm__id, ${id_fnca}, faml__id, trfmactv,
-                            trfmnmro, trfmtipo, trfmdspt from trfm_t where trfm__id = ${dd.trfm__id}"""
+                            trfmnmro, trfmtipo, trfmdspt from trfm_t where trfm__id = ${dd.trfm__id} and trfmdspt = ${dspt}"""
                         println "inserta registro en trfm: $sql"
 
                         cn.execute(sql.toString())
@@ -440,6 +442,8 @@ class ApisController {
                     println "borrando obfn del dispositivo: ${dspt}"
                     cn.execute("delete from obfn_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and obfndspt = '${dspt}'")
+                    cn.execute("delete from obfn where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and obfndspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -462,7 +466,7 @@ class ApisController {
 
                         sql = """insert into obfn(obfnidds, fnca__id, tpob__id, obfnetdo, obfndspt) 
                             select obfn__id, ${id_fnca}, tpob__id, obfnetdo, obfndspt
-                            from obfn_t where obfn__id = ${dd.obfn__id}"""
+                            from obfn_t where obfn__id = ${dd.obfn__id} and obfndspt = ${dspt}"""
                         println "inserta registro en obfn: $sql"
 
                         cn.execute(sql.toString())
@@ -514,6 +518,8 @@ class ApisController {
                     println "borrando cltv del dispositivo: ${dspt}"
                     cn.execute("delete from cltv_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and cltvdspt = '${dspt}'")
+                    cn.execute("delete from cltv where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and cltvdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -536,7 +542,7 @@ class ApisController {
 
                         sql = """insert into cltv(cltvidds, fnca__id, plnt__id, cltvarea, cltvdspt) 
                             select cltv__id, ${id_fnca}, plnt__id, cltvarea, cltvdspt
-                            from cltv_t where cltv__id = ${dd.cltv__id}"""
+                            from cltv_t where cltv__id = ${dd.cltv__id} and cltvdspt = ${dspt}"""
                         println "inserta registro en cltv: $sql"
 
                         cn.execute(sql.toString())
@@ -588,6 +594,8 @@ class ApisController {
                     println "borrando mjen del dispositivo: ${dspt}"
                     cn.execute("delete from mjen_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and mjendspt = '${dspt}'")
+                    cn.execute("delete from mjen where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjendspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -610,7 +618,7 @@ class ApisController {
 
                         sql = """insert into mjen(mjenidds, fnca__id, enfr__id, mjendspt) 
                             select mjen__id, ${id_fnca}, enfr__id, mjendspt
-                            from mjen_t where mjen__id = ${dd.mjen__id}"""
+                            from mjen_t where mjen__id = ${dd.mjen__id} and mjendspt = ${dspt}"""
                         println "inserta registro en mjen: $sql"
 
                         cn.execute(sql.toString())
@@ -661,6 +669,8 @@ class ApisController {
                     println "borrando mjpg del dispositivo: ${dspt}"
                     cn.execute("delete from mjpg_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and mjpgdspt = '${dspt}'")
+                    cn.execute("delete from mjpg where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjpgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -684,7 +694,7 @@ class ApisController {
 
                         sql = """insert into mjpg(mjpgidds, fnca__id, plga__id, mjpgdspt) 
                             select mjpg__id, ${id_fnca}, plga__id, mjpgdspt
-                            from mjpg_t where mjpg__id = ${dd.mjpg__id}"""
+                            from mjpg_t where mjpg__id = ${dd.mjpg__id} and mjpgdspt = ${dspt}"""
                         println "inserta registro en mjpg: $sql"
 
                         cn.execute(sql.toString())
@@ -735,6 +745,8 @@ class ApisController {
                     println "borrando frst del dispositivo: ${dspt}"
                     cn.execute("delete from frst_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and frstdspt = '${dspt}'")
+                    cn.execute("delete from frst where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and frstdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -757,7 +769,7 @@ class ApisController {
 
                         sql = """insert into frst(frstidds, fnca__id, smbr__id, frstdspt) 
                             select frst__id, ${id_fnca}, smbr__id, frstdspt
-                            from frst_t where frst__id = ${dd.frst__id}"""
+                            from frst_t where frst__id = ${dd.frst__id} and frstdspt = ${dspt}"""
                         println "inserta registro en frst: $sql"
 
                         cn.execute(sql.toString())
@@ -808,6 +820,8 @@ class ApisController {
                     println "borrando mjan del dispositivo: ${dspt}"
                     cn.execute("delete from mjan_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and mjandspt = '${dspt}'")
+                    cn.execute("delete from mjan where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjandspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -830,7 +844,7 @@ class ApisController {
 
                         sql = """insert into mjan(mjanidds, fnca__id, anml__id, mjannmro, mjandspt) 
                             select mjan__id, ${id_fnca}, anml__id, mjannmro, mjandspt
-                            from mjan_t where mjan__id = ${dd.mjan__id}"""
+                            from mjan_t where mjan__id = ${dd.mjan__id} and mjandspt = ${dspt}"""
                         println "inserta registro en mjan: $sql"
 
                         cn.execute(sql.toString())
@@ -882,6 +896,8 @@ def mjeq() {
                     println "borrando mjeq del dispositivo: ${dspt}"
                     cn.execute("delete from mjeq_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and mjeqdspt = '${dspt}'")
+                    cn.execute("delete from mjeq where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and mjeqdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -904,7 +920,7 @@ def mjeq() {
 
                         sql = """insert into mjeq(mjeqidds, fnca__id, eqpo__id, mjeqdspt) 
                             select mjeq__id, ${id_fnca}, eqpo__id, mjeqdspt
-                            from mjeq_t where mjeq__id = ${dd.mjeq__id}"""
+                            from mjeq_t where mjeq__id = ${dd.mjeq__id} and mjeqdspt = ${dspt}"""
                         println "inserta registro en mjeq: $sql"
 
                         cn.execute(sql.toString())
@@ -955,6 +971,8 @@ def fncp() {
                     println "borrando fncp del dispositivo: ${dspt}"
                     cn.execute("delete from fncp_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and fncpdspt = '${dspt}'")
+                    cn.execute("delete from fncp where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and fncpdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -977,7 +995,7 @@ def fncp() {
 
                         sql = """insert into fncp(fncpidds, fnca__id, capc__id, fncpdspt) 
                             select fncp__id, ${id_fnca}, capc__id, fncpdspt
-                            from fncp_t where fncp__id = ${dd.fncp__id}"""
+                            from fncp_t where fncp__id = ${dd.fncp__id} and fncpdspt = ${dspt}"""
                         println "inserta registro en fncp: $sql"
 
                         cn.execute(sql.toString())
@@ -1028,6 +1046,8 @@ def fncg() {
                     println "borrando fncg del dispositivo: ${dspt}"
                     cn.execute("delete from fncg_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and fncgdspt = '${dspt}'")
+                    cn.execute("delete from fncg where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and fncgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -1050,7 +1070,7 @@ def fncg() {
 
                         sql = """insert into fncg(fncgidds, fnca__id, crgo__id, fncgdspt) 
                             select fncg__id, ${id_fnca}, crgo__id, fncgdspt
-                            from fncg_t where fncg__id = ${dd.fncg__id}"""
+                            from fncg_t where fncg__id = ${dd.fncg__id} and fncgdspt = ${dspt}"""
                         println "inserta registro en fncg: $sql"
 
                         cn.execute(sql.toString())
