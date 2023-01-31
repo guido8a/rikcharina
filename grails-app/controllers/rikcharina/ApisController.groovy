@@ -265,8 +265,11 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
+//        cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
+//                "where fncadspt = '${dspt}' and fncaidds = '${data.fnca__id}') and arprdspt = '${dspt}'")
 
         if (data.size() > 0) {
             data.each { dd ->
@@ -279,8 +282,9 @@ class ApisController {
                     println "borrando arpr del dispositivo: ${dspt}"
                     /* todo: borrar de arpr y arpr_t */
                     cn.execute("delete from arpr_t where arprdspt = '${dspt}'")
-                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
+//                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
+                    regs[dd.fnca__id] = regs[dd.fnca__id] + " ${dd.arpr__id}"
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -332,6 +336,7 @@ class ApisController {
                     println "Error ********* no hay la finca"
                 }
             }
+            println "==> $rgst"
         }
 
 //        def retorna =  [Token: token, ok: true, data: data]
