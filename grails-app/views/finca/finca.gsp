@@ -588,7 +588,8 @@
                     Que hace con los plásticos, vidrios, cauchos y latas
                 </label>
                 <span class="col-md-2">
-                    <g:select name="basura" from="${['Recicla': 'Recicla', 'Quema': 'Quema', 'Envia en la basura' : 'Envía en la basura' ]}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.basura}"/>
+                    <g:select name="basura" from="${['Recicla': 'Recicla', 'Quema': 'Quema', 'Envía en la basura' : 'Envía en la basura' ]}"
+                              class="form-control" optionKey="key"  optionValue="value" value="${finca?.basura}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -627,7 +628,9 @@
                     Cada que tiempo vende
                 </label>
                 <span class="col-md-2">
-                    <g:select name="fecuencia" from="${['Semanal': 'Semanal', 'Quincenal': 'Quincenal', 'Mensual': 'Mensual', 'Temporal' : 'Temporal', 'Diario' :  'Diario' ]}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.fecuencia}"/>
+                    <g:select name="fecuencia" from="${['Semanal': 'Semanal', 'Quincenal': 'Quincenal', 'Mensual':
+                            'Mensual', 'Temporal' : 'Temporal', 'Diario' :  'Diario' ]}" class="form-control"
+                              optionKey="key"  optionValue="value" value="${finca?.fecuencia}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -643,7 +646,8 @@
                     Es miembro activo de una organización
                 </label>
                 <span class="col-md-1">
-                    <g:select name="estaoOrganizacion" from="${['N': 'No', 'S': 'Si']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.estaoOrganizacion}"/>
+                    <g:select name="estaoOrganizacion" from="${['N': 'No', 'S': 'Si']}" class="form-control"
+                              optionKey="key"  optionValue="value" value="${finca?.estaoOrganizacion}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>
@@ -652,7 +656,9 @@
                     La finca se considera
                 </label>
                 <span class="col-md-2">
-                    <g:select name="calificacion" from="${['A' : 'Agroecológica', 'P': 'En Proceso', 'I': 'Inicio' , 'T' : 'En transición']}" class="form-control" optionKey="key"  optionValue="value" value="${finca?.calificacion}"/>
+                    <g:select name="calificacion" from="${['A' : 'Agroecológica', 'P': 'En Proceso', 'I': 'Inicio' ,
+                         'T' : 'En transición']}" class="form-control" optionKey="key"  optionValue="value"
+                         value="${finca?.calificacion}"/>
                     <p class="help-block ui-helper-hidden"></p>
                 </span>
             </span>

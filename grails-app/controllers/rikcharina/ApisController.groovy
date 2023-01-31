@@ -276,6 +276,9 @@ class ApisController {
 
                 if (existe_fnca) {
                     println "borrando arpr del dispositivo: ${dspt}"
+                    /* todo: borrar de arpr y arpr_t */
+                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
+                            "where fncadspt = '${dspt}') and arprdspt = '${dspt}'")
                     cn.execute("delete from arpr_t where fnca__id in (select fnca__id from fnca " +
                             "where fncadspt = '${dspt}') and arprdspt = '${dspt}'")
 

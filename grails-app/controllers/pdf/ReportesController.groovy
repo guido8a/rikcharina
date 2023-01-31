@@ -222,31 +222,37 @@ class ReportesController {
         label = new Label(30, 3, "USA SEMILLAS DE INTERCAMBIO", times16format); sheet.addCell(label);
         label = new Label(31, 3, "REALIZA CALENDARIZACIÓN DE CULTIVOS", times16format); sheet.addCell(label);
         label = new Label(32, 3, "ÁREA DE INVERNADERO (M2)", times16format); sheet.addCell(label);
+
         label = new Label(33, 2, "MANEJO DEL AGUA", times16format); sheet.addCell(label);
-        label = new Label(34, 3, "TIENE AGUA DE  RIEGO", times16format); sheet.addCell(label);
-        label = new Label(35, 3, "PERTENECE A JUNTA RIEGO", times16format); sheet.addCell(label);
-        label = new Label(36, 3, "FUENTE DE AGUA", times16format); sheet.addCell(label);
-        label = new Label(37, 3, "INFR. DE RIEGO", times16format); sheet.addCell(label);
-        label = new Label(38, 2, "MANEJO FORESTAL", times16format); sheet.addCell(label);
-        label = new Label(38, 3, "ESPECIES FORESTALES", times16format); sheet.addCell(label);
-        label = new Label(39, 3, "PÁRAMO O MONTE", times16format); sheet.addCell(label);
-        label = new Label(40, 2, "MANEJO DE ANIMALES", times16format); sheet.addCell(label);
-        label = new Label(40, 3, "FINCA PASTO", times16format); sheet.addCell(label);
-        label = new Label(41, 3, "ABONA PASTOS CON", times16format); sheet.addCell(label);
-        label = new Label(42, 3, "MANEJO DE PASTOS", times16format); sheet.addCell(label);
-        label = new Label(43, 3, "INSALACIONES", times16format); sheet.addCell(label);
-        label = new Label(44, 3, "SANITARIO", times16format); sheet.addCell(label);
-        label = new Label(45, 3, "USA PRÁCTICAS ANCESTRALES", times16format); sheet.addCell(label);
-        label = new Label(46, 2, "MANEJO DE BASURA", times16format); sheet.addCell(label);
-//        label = new Label(46, 3, "QUE HACE CON LOS PLASTICOS, VIDRIOS, CAUCHOS Y LATAS", times16format); sheet.addCell(label);
-        label = new Label(47, 3, "AUTOCONSUMO %", times16format); sheet.addCell(label);
-        label = new Label(48, 3, "VENTA %", times16format); sheet.addCell(label);
-        label = new Label(49, 3, "DONDE VENDE", times16format); sheet.addCell(label);
-        label = new Label(50, 3, "CADA QUE TIEMPO VENDE", times16format); sheet.addCell(label);
-        label = new Label(51, 2, "PARTICIPACIÓN", times16format); sheet.addCell(label);
-        label = new Label(52, 3, "MIEMBRO ACTIVO DE ORGANIZACIÓN", times16format); sheet.addCell(label);
-        label = new Label(53, 2, "CRITERIO DEL PROMOTOR", times16format); sheet.addCell(label);
-        label = new Label(54, 3, "LA FINCA SE CONSIDERA", times16format); sheet.addCell(label);
+
+        label = new Label(33, 3, "TIENE AGUA DE  RIEGO", times16format); sheet.addCell(label);
+        label = new Label(34, 3, "PERTENECE A JUNTA RIEGO", times16format); sheet.addCell(label);
+        label = new Label(35, 3, "FUENTE DE AGUA", times16format); sheet.addCell(label);
+        label = new Label(36, 3, "INFR. DE RIEGO", times16format); sheet.addCell(label);
+
+        label = new Label(37, 2, "MANEJO FORESTAL", times16format); sheet.addCell(label);
+        label = new Label(37, 3, "ESPECIES FORESTALES", times16format); sheet.addCell(label);
+        label = new Label(38, 3, "PÁRAMO O MONTE", times16format); sheet.addCell(label);
+
+        label = new Label(39, 2, "MANEJO DE ANIMALES", times16format); sheet.addCell(label);
+        label = new Label(39, 3, "FINCA PASTO", times16format); sheet.addCell(label);
+        label = new Label(40, 3, "ABONA PASTOS CON", times16format); sheet.addCell(label);
+        label = new Label(41, 3, "MANEJO DE PASTOS", times16format); sheet.addCell(label);
+        label = new Label(42, 3, "INSALACIONES", times16format); sheet.addCell(label);
+        label = new Label(43, 3, "SANITARIO", times16format); sheet.addCell(label);
+        label = new Label(44, 3, "USA PRÁCTICAS ANCESTRALES", times16format); sheet.addCell(label);
+
+        label = new Label(45, 2, "MANEJO DE AMBIENTE Y PRODUCCIÓN", times16format); sheet.addCell(label);
+        label = new Label(45, 3, "BASURA %", times16format); sheet.addCell(label);
+        label = new Label(46, 3, "AUTOCONSUMO %", times16format); sheet.addCell(label);
+        label = new Label(47, 3, "VENTA %", times16format); sheet.addCell(label);
+        label = new Label(48, 3, "DONDE VENDE", times16format); sheet.addCell(label);
+        label = new Label(49, 3, "CADA QUE TIEMPO VENDE", times16format); sheet.addCell(label);
+
+        label = new Label(50, 2, "PARTICIPACIÓN", times16format); sheet.addCell(label);
+        label = new Label(50, 3, "MIEMBRO ACTIVO DE ORGANIZACIÓN", times16format); sheet.addCell(label);
+        label = new Label(51, 2, "CRITERIO DEL PROMOTOR", times16format); sheet.addCell(label);
+        label = new Label(51, 3, "LA FINCA SE CONSIDERA", times16format); sheet.addCell(label);
 
 
         fincas.each { f ->
@@ -283,31 +289,32 @@ class ReportesController {
             label = new Label(29, fila, (f?.semillaComprada ? f?.semillaComprada : ''), times16Normal); sheet.addCell(label);
             label = new Label(30, fila, (f?.semillaIntercambio ? f?.semillaIntercambio : ''), times16Normal); sheet.addCell(label);
             label = new Label(31, fila, (f?.calendarizacion ? f?.calendarizacion : ''), times16Normal); sheet.addCell(label);
-//            label = new Label(32, fila, (f?.invernadero ? f?.invernadero : ''), times16Normal); sheet.addCell(label);
             number = new jxl.write.Number(32, fila, f?.invernadero ? f?.invernadero : 0); sheet.addCell(number);
-            label = new Label(33, fila, (f?.preparacionSuelo ? f?.preparacionSuelo : ''), times16Normal); sheet.addCell(label);
-            label = new Label(34, fila, (f?.fertilizantes ? f?.fertilizantes : ''), times16Normal); sheet.addCell(label);
-            label = new Label(35, fila, (f?.fertilizacionComplementaria ? f?.fertilizacionComplementaria : ''), times16Normal); sheet.addCell(label);
-            label = new Label(36, fila, (f?.manejoRastrojos ? f?.manejoRastrojos : ''), times16Normal); sheet.addCell(label);
-            label = new Label(37, fila, (f?.aguaRiego ? f?.aguaRiego : ''), times16Normal); sheet.addCell(label);
-            label = new Label(38, fila, (f?.juntaAgua ? f?.juntaAgua : ''), times16Normal); sheet.addCell(label);
-            label = new Label(39, fila, (f?.aguaFuente ? f?.aguaFuente : ''), times16Normal); sheet.addCell(label);
-            label = new Label(40, fila, (f?.aguaInfraestructura ? f?.aguaInfraestructura : ''), times16Normal); sheet.addCell(label);
-            label = new Label(41, fila, (f?.forestal ? f?.forestal : ''), times16Normal); sheet.addCell(label);
-            label = new Label(42, fila, (f?.monte ? f?.monte : ''), times16Normal); sheet.addCell(label);
-            label = new Label(43, fila, (f?.pasto ? f?.pasto : ''), times16Normal); sheet.addCell(label);
-            label = new Label(44, fila, (f?.pastoAbono ? f?.pastoAbono : ''), times16Normal); sheet.addCell(label);
-            label = new Label(45, fila, (f?.manejoPasto ? f?.manejoPasto : ''), times16Normal); sheet.addCell(label);
-            label = new Label(45, fila, (f?.instalaciones ? f?.instalaciones : ''), times16Normal); sheet.addCell(label);
-            label = new Label(46, fila, (f?.sanitario ? f?.sanitario : ''), times16Normal); sheet.addCell(label);
-            label = new Label(47, fila, (f?.ancestrales ? f?.ancestrales : ''), times16Normal); sheet.addCell(label);
-            label = new Label(48, fila, (f?.basura ? f?.basura : ''), times16Normal); sheet.addCell(label);
-            number = new jxl.write.Number(49, fila, f?.autoconsumo ? f?.autoconsumo : 0); sheet.addCell(number);
-            number = new jxl.write.Number(50, fila, f?.venta ? f?.venta : 0); sheet.addCell(number);
-            label = new Label(51, fila, (f?.lugarVenta ? f?.lugarVenta : ''), times16Normal); sheet.addCell(label);
-            label = new Label(52, fila, (f?.fecuencia ? f?.fecuencia : ''), times16Normal); sheet.addCell(label);
-            label = new Label(53, fila, (f?.estaoOrganizacion ? f?.estaoOrganizacion : ''), times16Normal); sheet.addCell(label);
-            label = new Label(54, fila, (f?.calificacion ? f?.calificacion : ''), times16Normal); sheet.addCell(label);
+
+            label = new Label(33, fila, (f?.aguaRiego ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(34, fila, (f?.juntaAgua ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(35, fila, (f?.aguaFuente ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(36, fila, (f?.aguaInfraestructura ?: ''), times16Normal); sheet.addCell(label);
+
+            label = new Label(37, fila, (f?.forestal ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(38, fila, (f?.monte ?: ''), times16Normal); sheet.addCell(label);
+
+            label = new Label(39, fila, (f?.pasto ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(40, fila, (f?.pastoAbono ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(41, fila, (f?.manejoPasto ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(42, fila, (f?.instalaciones ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(43, fila, (f?.sanitario ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(44, fila, (f?.ancestrales ?: ''), times16Normal); sheet.addCell(label);
+
+            label = new Label(45, fila, (f?.basura ?: ''), times16Normal); sheet.addCell(label);
+            number = new jxl.write.Number(46, fila, f?.autoconsumo ? f?.autoconsumo : 0); sheet.addCell(number);
+            number = new jxl.write.Number(47, fila, f?.venta ? f?.venta : 0); sheet.addCell(number);
+            label = new Label(48, fila, (f?.lugarVenta ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(49, fila, (f?.fecuencia ?: ''), times16Normal); sheet.addCell(label);
+
+            label = new Label(50, fila, (f?.estaoOrganizacion ?: ''), times16Normal); sheet.addCell(label);
+            label = new Label(51, fila, (f?.calificacion == 'P' ? 'En Proceso': f?.calificacion == 'T' ? 'En Transición' :
+                    f?.calificacion == 'I' ? 'Inicio' : 'A'), times16Normal); sheet.addCell(label);
             fila++
         }
 
