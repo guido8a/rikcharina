@@ -287,7 +287,7 @@ class ApisController {
                     if(regs[id_fnca]){
                         regs[id_fnca] = regs[id_fnca] + ", ${dd.arpr__id}"
                     } else {
-                        regs[id_fnca] = ${dd.arpr__id}
+                        regs[id_fnca] = dd.arpr__id
                     }
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
