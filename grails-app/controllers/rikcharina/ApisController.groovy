@@ -280,7 +280,7 @@ class ApisController {
                     /* todo: borrar de arpr y arpr_t */
                     cn.execute("delete from arpr_t where arprdspt = '${dspt}'")
                     cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and arprdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -362,7 +362,7 @@ class ApisController {
                     println "borrando trfm del dispositivo: ${dspt}"
                     cn.execute("delete from trfm_t where trfmdspt = '${dspt}'")
                     cn.execute("delete from trfm where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and trfmdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and trfmdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -440,7 +440,7 @@ class ApisController {
                     println "borrando obfn del dispositivo: ${dspt}"
                     cn.execute("delete from obfn_t where obfndspt = '${dspt}'")
                     cn.execute("delete from obfn where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and obfndspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and obfndspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -515,7 +515,7 @@ class ApisController {
                     println "borrando cltv del dispositivo: ${dspt}"
                     cn.execute("delete from cltv_t where cltvdspt = '${dspt}'")
                     cn.execute("delete from cltv where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and cltvdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and cltvdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -590,7 +590,7 @@ class ApisController {
                     println "borrando mjen del dispositivo: ${dspt}"
                     cn.execute("delete from mjen_t where mjendspt = '${dspt}'")
                     cn.execute("delete from mjen where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and mjendspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjendspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -664,7 +664,7 @@ class ApisController {
                     println "borrando mjpg del dispositivo: ${dspt}"
                     cn.execute("delete from mjpg_t where mjpgdspt = '${dspt}'")
                     cn.execute("delete from mjpg where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and mjpgdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjpgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -739,7 +739,7 @@ class ApisController {
                     println "borrando frst del dispositivo: ${dspt}"
                     cn.execute("delete from frst_t where frstdspt = '${dspt}'")
                     cn.execute("delete from frst where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and frstdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and frstdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -813,7 +813,7 @@ class ApisController {
                     println "borrando mjan del dispositivo: ${dspt}"
                     cn.execute("delete from mjan_t where mjandspt = '${dspt}'")
                     cn.execute("delete from mjan where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and mjandspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjandspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -888,7 +888,7 @@ def mjeq() {
                     println "borrando mjeq del dispositivo: ${dspt}"
                     cn.execute("delete from mjeq_t where mjeqdspt = '${dspt}'")
                     cn.execute("delete from mjeq where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and mjeqdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjeqdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -962,7 +962,7 @@ def fncp() {
                     println "borrando fncp del dispositivo: ${dspt}"
                     cn.execute("delete from fncp_t where fncpdspt = '${dspt}'")
                     cn.execute("delete from fncp where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and fncpdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncpdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
@@ -1036,7 +1036,7 @@ def fncg() {
                     println "borrando fncg del dispositivo: ${dspt}"
                     cn.execute("delete from fncg_t where fncgdspt = '${dspt}'")
                     cn.execute("delete from fncg where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dspt}') and fncgdspt = '${dspt}'")
+                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
