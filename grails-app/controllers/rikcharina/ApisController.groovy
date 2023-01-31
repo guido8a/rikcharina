@@ -276,7 +276,7 @@ class ApisController {
                 sql = "select count(*) cnta from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                 println "sql: $sql"
                 def existe_fnca = cn.rows(sql.toString())[0]?.cnta
-                println "existe finca: $existe_fnca"
+                println "existe finca: $existe_fnca --> $id_fnca"
 
                 if (existe_fnca) {
                     println "borrando arpr del dispositivo: ${dspt}"
