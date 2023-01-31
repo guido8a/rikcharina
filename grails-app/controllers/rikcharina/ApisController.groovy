@@ -284,7 +284,11 @@ class ApisController {
                     cn.execute("delete from arpr_t where arprdspt = '${dspt}'")
 //                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
 //                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
-                    regs[id_fnca] = regs[id_fnca]? ", ${dd.arpr__id}" : "${dd.arpr__id}"
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.arpr__id}"
+                    } else {
+                        regs[id_fnca] = ${dd.arpr__id}
+                    }
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
