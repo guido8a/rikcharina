@@ -336,7 +336,7 @@ class ApisController {
                     println "Error ********* no hay la finca"
                 }
             }
-            println "==> $rgst"
+            println "==> $regs"
         }
 
 //        def retorna =  [Token: token, ok: true, data: data]
