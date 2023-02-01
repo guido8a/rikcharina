@@ -210,7 +210,7 @@ class ApisController {
                     "'${data.fncavnta}', '${data.fncalgvn}', '${data.fncafrec}', '${data.fncaoged}', '${data.fncacalf}'," +
                     "'${data.fncaplan}' ) returning fnca__id"
 
-            println "Insertando datos en fnca_t: ${data.fncadspt}"
+//            println "Insertando datos en fnca_t: ${sql}"
             id = cn.rows(sql.toString())[0]?.fnca__id
 
             sql = "insert into fnca (fncaidds, parr__id, inst__id, fncacmnd, fncafcha," +
@@ -268,15 +268,13 @@ class ApisController {
         def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
-//        cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
-//                "where fncadspt = '${dspt}' and fncaidds = '${data.fnca__id}') and arprdspt = '${dspt}'")
 
         if (data.size() > 0) {
             data.each { dd ->
                 sql = "select count(*) cnta from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                 println "sql: $sql"
                 def existe_fnca = cn.rows(sql.toString())[0]?.cnta
-                println "existe finca: $existe_fnca --> $id_fnca"
+                println "existe finca: $existe_fnca"
 
                 if (existe_fnca) {
                     println "borrando arpr del dispositivo: ${dspt}"
@@ -284,14 +282,16 @@ class ApisController {
                     cn.execute("delete from arpr_t where arprdspt = '${dspt}'")
 //                    cn.execute("delete from arpr where fnca__id in (select fnca__id from fnca " +
 //                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and arprdspt = '${dspt}'")
+
+                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
+                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
                     if(regs[id_fnca]){
                         regs[id_fnca] = regs[id_fnca] + ", ${dd.arpr__id}"
                     } else {
                         regs[id_fnca] = dd.arpr__id
                     }
 
-                    sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
-                    id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 //                    println "..1"
                     sql = "select tplt__id from tplt where tpltdscr ilike '${dd.arprtplt}'"
                     id_tipo = cn.rows(sql.toString())[0]?.tplt__id
@@ -344,8 +344,11 @@ class ApisController {
         /* borra registros que no existen en dispositivo */
         println "==> $regs"
         regs.each {
-            cn.execute("delete from arpr where fnca__id = ${it.key} and arpridds not in (${it.value})")
+            sql = "delete from arpr where fnca__id = ${it.key} and arpridds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
         }
+        println "finaliza borrado"
 
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
@@ -361,6 +364,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -374,11 +378,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando trfm del dispositivo: ${dspt}"
                     cn.execute("delete from trfm_t where trfmdspt = '${dspt}'")
-                    cn.execute("delete from trfm where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and trfmdspt = '${dspt}'")
+//                    cn.execute("delete from trfm where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and trfmdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
+
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.trfm__id}"
+                    } else {
+                        regs[id_fnca] = dd.trfm__id
+                    }
 
                     sql = "select faml__id from faml where famldscr ilike '${dd.trfmfaml}'"
                     id_tipo = cn.rows(sql.toString())[0]?.faml__id
@@ -424,7 +434,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from trfm where fnca__id = ${it.key} and trfmidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado obfn"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -439,6 +456,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -452,12 +470,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando obfn del dispositivo: ${dspt}"
                     cn.execute("delete from obfn_t where obfndspt = '${dspt}'")
-                    cn.execute("delete from obfn where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and obfndspt = '${dspt}'")
+//                    cn.execute("delete from obfn where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and obfndspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.obfn__id}"
+                    } else {
+                        regs[id_fnca] = dd.obfn__id
+                    }
 
                     sql = "select tpob__id from tpob where tpobdscr ilike '${dd.obfntipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.tpob__id
@@ -499,7 +522,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from obfn where fnca__id = ${it.key} and obfnidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado obfn"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -514,6 +544,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -527,12 +558,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando cltv del dispositivo: ${dspt}"
                     cn.execute("delete from cltv_t where cltvdspt = '${dspt}'")
-                    cn.execute("delete from cltv where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and cltvdspt = '${dspt}'")
+//                    cn.execute("delete from cltv where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and cltvdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.cltv__id}"
+                    } else {
+                        regs[id_fnca] = dd.cltv__id
+                    }
 
                     sql = "select plnt__id from plnt where plntdscr ilike '${dd.cltvplnt}'"
                     id_tipo = cn.rows(sql.toString())[0]?.plnt__id
@@ -574,7 +610,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from cltv where fnca__id = ${it.key} and cltvidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado cltv"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -589,6 +632,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -602,12 +646,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando mjen del dispositivo: ${dspt}"
                     cn.execute("delete from mjen_t where mjendspt = '${dspt}'")
-                    cn.execute("delete from mjen where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjendspt = '${dspt}'")
+//                    cn.execute("delete from mjen where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjendspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.mjen__id}"
+                    } else {
+                        regs[id_fnca] = dd.mjen__id
+                    }
 
                     sql = "select enfr__id from enfr where enfrdscr ilike '${dd.mjentipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.enfr__id
@@ -648,7 +697,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from mjen where fnca__id = ${it.key} and mjenidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado mjen"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -663,6 +719,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token, data: $data"
 
@@ -676,12 +733,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando mjpg del dispositivo: ${dspt}"
                     cn.execute("delete from mjpg_t where mjpgdspt = '${dspt}'")
-                    cn.execute("delete from mjpg where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjpgdspt = '${dspt}'")
+//                    cn.execute("delete from mjpg where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjpgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.mjpg__id}"
+                    } else {
+                        regs[id_fnca] = dd.mjpg__id
+                    }
 
                     sql = "select plga__id from plga where plgadscr ilike '${dd.mjpgtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.plga__id
@@ -723,7 +785,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from mjpg where fnca__id = ${it.key} and mjpgidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado mjpg"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -738,6 +807,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -751,12 +821,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando frst del dispositivo: ${dspt}"
                     cn.execute("delete from frst_t where frstdspt = '${dspt}'")
-                    cn.execute("delete from frst where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and frstdspt = '${dspt}'")
+//                    cn.execute("delete from frst where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and frstdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.frst__id}"
+                    } else {
+                        regs[id_fnca] = dd.frst__id
+                    }
 
                     sql = "select smbr__id from smbr where smbrdscr ilike '${dd.frsttipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.smbr__id
@@ -797,7 +872,14 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from frst where fnca__id = ${it.key} and frstidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado frst"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
@@ -812,6 +894,7 @@ class ApisController {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -825,12 +908,17 @@ class ApisController {
                 if (existe_fnca) {
                     println "borrando mjan del dispositivo: ${dspt}"
                     cn.execute("delete from mjan_t where mjandspt = '${dspt}'")
-                    cn.execute("delete from mjan where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjandspt = '${dspt}'")
+//                    cn.execute("delete from mjan where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjandspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.mjan__id}"
+                    } else {
+                        regs[id_fnca] = dd.mjan__id
+                    }
 
                     sql = "select anml__id from anml where anmldscr ilike '${dd.mjantipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.anml__id
@@ -872,13 +960,20 @@ class ApisController {
                 }
             }
         }
-
+        /* borra registros que no existen en dispositivo */
+        println "==> $regs"
+        regs.each {
+            sql = "delete from mjan where fnca__id = ${it.key} and mjanidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado mjan"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
     }
 
-def mjeq() {
+    def mjeq() {
         def cn = dbConnectionService.getConnection()
         println "++mjeq params: $params --hd: ${request.getHeader('token')}"
         println "data --> ${request.JSON}"
@@ -887,6 +982,7 @@ def mjeq() {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -900,12 +996,17 @@ def mjeq() {
                 if (existe_fnca) {
                     println "borrando mjeq del dispositivo: ${dspt}"
                     cn.execute("delete from mjeq_t where mjeqdspt = '${dspt}'")
-                    cn.execute("delete from mjeq where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjeqdspt = '${dspt}'")
+//                    cn.execute("delete from mjeq where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and mjeqdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.mjeq__id}"
+                    } else {
+                        regs[id_fnca] = dd.mjeq__id
+                    }
 
                     sql = "select eqpo__id from eqpo where eqpodscr ilike '${dd.mjeqtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.eqpo__id
@@ -946,13 +1047,19 @@ def mjeq() {
                 }
             }
         }
-
+        println "==> $regs"
+        regs.each {
+            sql = "delete from mjeq where fnca__id = ${it.key} and mjeqidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado mjeq"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
     }
 
-def fncp() {
+    def fncp() {
         def cn = dbConnectionService.getConnection()
         println "++fncp params: $params --hd: ${request.getHeader('token')}"
         println "data --> ${request.JSON}"
@@ -961,6 +1068,7 @@ def fncp() {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -974,12 +1082,17 @@ def fncp() {
                 if (existe_fnca) {
                     println "borrando fncp del dispositivo: ${dspt}"
                     cn.execute("delete from fncp_t where fncpdspt = '${dspt}'")
-                    cn.execute("delete from fncp where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncpdspt = '${dspt}'")
+//                    cn.execute("delete from fncp where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncpdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.fncp__id}"
+                    } else {
+                        regs[id_fnca] = dd.fncp__id
+                    }
 
                     sql = "select capc__id from capc where capcdscr ilike '${dd.fncptipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.capc__id
@@ -1020,13 +1133,19 @@ def fncp() {
                 }
             }
         }
-
+        println "==> $regs"
+        regs.each {
+            sql = "delete from fncp where fnca__id = ${it.key} and fncpidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado fncp"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
     }
 
-def fncg() {
+    def fncg() {
         def cn = dbConnectionService.getConnection()
         println "++fncg params: $params --hd: ${request.getHeader('token')}"
         println "data --> ${request.JSON}"
@@ -1035,6 +1154,7 @@ def fncg() {
         def data = request.JSON
         def sql = ""
         def id_fnca = 0, id = 0, existe = 0, id_tipo = 0
+        def regs = [:]
 
         println "....Inicia copia, dispositivo: $dspt, token: $token"
 
@@ -1048,12 +1168,17 @@ def fncg() {
                 if (existe_fnca) {
                     println "borrando fncg del dispositivo: ${dspt}"
                     cn.execute("delete from fncg_t where fncgdspt = '${dspt}'")
-                    cn.execute("delete from fncg where fnca__id in (select fnca__id from fnca " +
-                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncgdspt = '${dspt}'")
+//                    cn.execute("delete from fncg where fnca__id in (select fnca__id from fnca " +
+//                            "where fncadspt = '${dspt}' and fncaidds = '${dd.fnca__id}') and fncgdspt = '${dspt}'")
 
                     sql = "select fnca__id from fnca where fncaidds = ${dd.fnca__id} and fncadspt = '${dspt}'"
                     id_fnca = cn.rows(sql.toString())[0]?.fnca__id
 
+                    if(regs[id_fnca]){
+                        regs[id_fnca] = regs[id_fnca] + ", ${dd.fncg__id}"
+                    } else {
+                        regs[id_fnca] = dd.fncg__id
+                    }
 
                     sql = "select crgo__id from crgo where crgodscr ilike '${dd.fncgtipo}'"
                     id_tipo = cn.rows(sql.toString())[0]?.crgo__id
@@ -1094,7 +1219,13 @@ def fncg() {
                 }
             }
         }
-
+        println "==> $regs"
+        regs.each {
+            sql = "delete from fncg where fnca__id = ${it.key} and fncgidds not in (${it.value})"
+            println "borrar --> $sql"
+            cn.execute(sql.toString())
+        }
+        println "finaliza borrado fncg"
 //        def retorna =  [Token: token, ok: true, data: data]
         def retorna = [Token: token, ok: true, id: id]
         render retorna as JSON
